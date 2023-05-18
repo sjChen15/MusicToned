@@ -4,9 +4,7 @@
 
 Name: Dalton Bown
 
-Email: <dbown@uwaterloo.ca>
-
-ID: 20824786
+University Email: <dbown@uwaterloo.ca>
 
 ## Time Log
 
