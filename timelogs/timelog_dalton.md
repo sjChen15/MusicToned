@@ -17,4 +17,4 @@ University Email: <dbown@uwaterloo.ca>
 | Finished script, finished presentation, divided up proposal | May 27, 2023  | 1:00pm     | 2:30pm | 1.5 | 5.75               |
 | Finished my portion of the project proposal                 | May 27, 2023  | 2:30pm     | 4:00pm | 1.5 | 7.25               |
 | Project proposal meeting                                    | June 1, 2023  | 3:30pm     | 5:00pm | 1.5 | 8.75               |
-| Learn Android app dev & setup project skeleton              | June 10, 2023 | 2:30pm     |        |     |                   |
+| Learn Android app dev & setup project skeleton              | June 10, 2023 | 2:30pm     | 7:00pm | 4.5 |   13.25           |
