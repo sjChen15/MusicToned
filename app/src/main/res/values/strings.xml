@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_tagline">Better workouts with MusicToned</string>
+    <string name="sign_in_create_account">Sign in or create an account</string>
+    <string name="user_continue">Continue</string>
+    <string name="app_name">MusicToned</string>
+    <string name="back">Back</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="show_password">Show password</string>
+    <string name="hide_password">Hide password</string>
+</resources>
