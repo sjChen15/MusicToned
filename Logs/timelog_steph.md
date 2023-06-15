@@ -17,3 +17,5 @@ University Email: <sdepol@uwaterloo.ca>
 | Body progress feature mockups                  | June 2, 2023  | 11:00am    | 12:30pm     | 1.5   | 7.5                |
 | Edited deliverable 1                           | June 2, 2023  | 3:00pm     | 4:30pm      | 1.5   | 9.0                |
 | Worked on branding and logo for app            | June 12, 2023 | 8:30am     | 10:00am     | 1.5   | 10.5               |
+| Brainstormed harms for deliverable 2           | June 15, 2023 | 11:30am    | 12:00pm     | 0.5   | 11.0               |
+| Worked on deliverable 2 with group             | June 15, 2023 | 3:30pm     | 4:--pm      | -.-   | --.-               |
