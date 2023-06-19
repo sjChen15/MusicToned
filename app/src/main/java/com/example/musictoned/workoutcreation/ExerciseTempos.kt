@@ -1,23 +1,20 @@
 package com.example.musictoned.workoutcreation
 
+import android.content.res.AssetManager
+import org.json.JSONObject
 import java.io.File
+import java.io.IOException
+import java.io.InputStream
+
 
 //singleton
-object exerciseTempoMapping{
+object ExerciseTempos{
     private const val filename = "exercise-tempos.txt"
-    private val exerciseToTemposMap = mutableMapOf<String,Int>()
-
-    //get mapping on init and always use this object
-    init{
-        File(filename).forEachLine {
-            val splitString = it.split(", ")
-            val exercise = splitString[0]
-            val tempo = splitString[1].toInt()
-            if (splitString.isNotEmpty()){
-                exerciseToTemposMap[exercise] = tempo
-            }
-        }
-    }
+    private val exerciseToTemposMap = mapOf<String,Int>(
+        "push-up" to 80,
+        "sit-up" to 100,
+        "jumping-jack" to 120
+    )
 
     //returns tempo of exercise
     fun getTempo(exercise:String): Int {
