@@ -1,3 +1,0 @@
-push-up: 90
-sit-up:  100
-jumping-jack: 120

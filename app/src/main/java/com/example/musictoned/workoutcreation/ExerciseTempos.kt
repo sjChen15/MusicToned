@@ -9,8 +9,7 @@ import java.io.InputStream
 
 //singleton
 object ExerciseTempos{
-    private const val filename = "exercise-tempos.txt"
-    private val exerciseToTemposMap = mapOf<String,Int>(
+    private val exerciseToTemposMap = mapOf(
         "push-up" to 80,
         "sit-up" to 100,
         "jumping-jack" to 120
