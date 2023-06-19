@@ -1,5 +1,7 @@
 package com.example.musictoned.workoutcreation
 
-class Workout {
+class Workout (){
+    val exercises: List<WorkoutExercise> = listOf()
+
 
 }
