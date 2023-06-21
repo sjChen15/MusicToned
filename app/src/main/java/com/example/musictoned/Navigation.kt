@@ -5,11 +5,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.musictoned.Destinations.HOME_ROUTE
-import com.example.musictoned.Destinations.SIGN_IN_ROUTE
-import com.example.musictoned.Destinations.SIGN_UP_ROUTE
+import com.example.musictoned.Destinations.ROUTINES_ROUTE
+import com.example.musictoned.Destinations.ROUTINE_ROUTE
 import com.example.musictoned.Destinations.WELCOME_ROUTE
-import com.example.musictoned.signinsignup.WelcomeRoute
+import com.example.musictoned.routine.RoutineRoute
+import com.example.musictoned.routines.RoutinesRoute
+import com.example.musictoned.welcome.WelcomeRoute
 
 /**
  * Influenced by composable UI example provided by Android
@@ -21,9 +22,8 @@ import com.example.musictoned.signinsignup.WelcomeRoute
  */
 object Destinations {
     const val WELCOME_ROUTE = "welcome"
-    const val SIGN_UP_ROUTE = "signup/{email}"
-    const val SIGN_IN_ROUTE = "signin/{email}"
-    const val HOME_ROUTE = "home"
+    const val ROUTINES_ROUTE = "routines"
+    const val ROUTINE_ROUTE = "routine"
 }
 
 @Composable
@@ -34,40 +34,26 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
     ) {
         composable(WELCOME_ROUTE) {
             WelcomeRoute(
-                onNavigateToSignIn = {
-                    navController.navigate("signin/$it")
-                },
-                onNavigateToSignUp = {
-                    navController.navigate("signup/$it")
+                onNavigateToRoutines = {
+                    navController.navigate(ROUTINES_ROUTE)
                 }
             )
         }
 
-        /**
-         * TODO - Add other routes
-         */
-        /*
-        composable(SIGN_IN_ROUTE) {
-            val startingEmail = it.arguments?.getString("email")
-            SignInRoute(
-                email = startingEmail,
-                onSignInSubmitted = {
-                    navController.navigate(HOME_ROUTE)
-                },
-                onNavUp = navController::navigateUp
+        composable(ROUTINES_ROUTE) {
+            RoutinesRoute(
+                onNavigateToRoutine = {
+                    navController.navigate(ROUTINE_ROUTE)
+                }
             )
         }
 
-        composable(SIGN_UP_ROUTE) {
-            val startingEmail = it.arguments?.getString("email")
-            SignUpRoute(
-                email = startingEmail,
-                onSignUpSubmitted = {
-                    navController.navigate(HOME_ROUTE)
-                },
-                onNavUp = navController::navigateUp
+        composable(ROUTINE_ROUTE) {
+            RoutineRoute(
+                onNavigateToRoutines = {
+                    navController.navigate(ROUTINES_ROUTE)
+                }
             )
         }
-        */
     }
 }

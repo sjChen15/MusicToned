@@ -1,4 +1,4 @@
-package com.example.musictoned.signinsignup
+package com.example.musictoned.welcome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -8,26 +8,14 @@ import androidx.lifecycle.ViewModelProvider
  * Ref: https://github.com/android/compose-samples/blob/main/Jetsurvey/app/src/main/java/com/example/compose/jetsurvey/signinsignup/WelcomeViewModel.kt
  */
 
-class WelcomeViewModel(private val userRepository: UserRepository) : ViewModel() {
-
-    fun handleContinue(
-        email: String,
-        onNavigateToSignIn: (email: String) -> Unit,
-        onNavigateToSignUp: (email: String) -> Unit,
-    ) {
-        if (userRepository.isKnownUserEmail(email)) {
-            onNavigateToSignIn(email)
-        } else {
-            onNavigateToSignUp(email)
-        }
-    }
+class WelcomeViewModel() : ViewModel() {
 }
 
 class WelcomeViewModelFactory : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WelcomeViewModel::class.java)) {
-            return WelcomeViewModel(UserRepository) as T
+            return WelcomeViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
