@@ -27,14 +27,14 @@ import com.example.musictoned.util.supportWideScreen
 
 @Composable
 fun WelcomeScreen(
-    onNavigateToRoutines: () -> Unit
+    onNavigateToSpotifyAuthorization: () -> Unit
 ) {
     Surface(modifier = Modifier.supportWideScreen()) {
         Column(
             modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
         ) {
             Placeholder(
-                onNavigateToRoutines = onNavigateToRoutines
+                onNavigateToSpotifyAuthorization = onNavigateToSpotifyAuthorization
             )
         }
     }
@@ -43,7 +43,7 @@ fun WelcomeScreen(
 // TODO - Replace this placeholder with the components that you need
 @Composable
 private fun Placeholder(
-    onNavigateToRoutines: () -> Unit,
+    onNavigateToSpotifyAuthorization: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -59,13 +59,13 @@ private fun Placeholder(
         )
     }
     Button(
-        onClick = onNavigateToRoutines,
+        onClick = onNavigateToSpotifyAuthorization,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 28.dp, bottom = 3.dp)
     ) {
         Text(
-            text = "Navigate to routines",
+            text = "Navigate to Spotify authorization",
             style = MaterialTheme.typography.titleSmall
         )
     }
@@ -77,7 +77,7 @@ private fun Placeholder(
 fun RoutinesScreenPreview() {
     MusicTonedTheme {
         WelcomeScreen(
-            onNavigateToRoutines = {}
+            onNavigateToSpotifyAuthorization = {}
         )
     }
 }

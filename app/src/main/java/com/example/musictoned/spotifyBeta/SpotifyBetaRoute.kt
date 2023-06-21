@@ -1,4 +1,4 @@
-package com.example.musictoned.welcome
+package com.example.musictoned.spotifyAuthorization
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -9,12 +9,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
  */
 
 @Composable
-fun WelcomeRoute(
-    onNavigateToSpotifyAuthorization: () -> Unit
+fun SpotifyBetaRoute(
+    onNavigateToRoutines: () -> Unit
 ) {
-    val welcomeViewModel: WelcomeViewModel = viewModel(factory = WelcomeViewModelFactory())
+    val spotifyBetaViewModel: SpotifyBetaViewModel = viewModel(factory = SpotifyBetaViewModelFactory())
 
-    WelcomeScreen(
-        onNavigateToSpotifyAuthorization = onNavigateToSpotifyAuthorization
+    SpotifyBetaScreen(
+        onNavigateToRoutines = onNavigateToRoutines
     )
 }

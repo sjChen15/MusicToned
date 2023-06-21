@@ -1,4 +1,4 @@
-package com.example.musictoned.routines
+package com.example.musictoned.spotifyAuthorization
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
@@ -15,11 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.musictoned.R
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
 
@@ -29,17 +27,17 @@ import com.example.musictoned.util.supportWideScreen
  */
 
 @Composable
-fun RoutinesScreen(
-    onNavigateToRoutine: () -> Unit,
-    onNavigateToSpotifyBeta: () -> Unit
+fun SpotifyAuthorizationScreen(
+    onNavigateToRoutines: () -> Unit
 ) {
     Surface(modifier = Modifier.supportWideScreen()) {
         Column(
-            modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
         ) {
             Placeholder(
-                onNavigateToRoutine = onNavigateToRoutine,
-                onNavigateToSpotifyBeta = onNavigateToSpotifyBeta
+                onNavigateToRoutines = onNavigateToRoutines
             )
         }
     }
@@ -48,15 +46,14 @@ fun RoutinesScreen(
 // TODO - Replace this placeholder with the components that you need
 @Composable
 private fun Placeholder(
-    onNavigateToRoutine: () -> Unit,
-    onNavigateToSpotifyBeta: () -> Unit,
+    onNavigateToRoutines: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.wrapContentHeight(align = Alignment.CenterVertically)
     ) {
         Text(
-            text = "Placeholder for routines screen. Here we will see a collection of our routines. There should be a button to create a new routine which will route to RoutineRoute in newRoutine mode. If we click on an existing routine, we should also route to RoutineRoute but pass the routine we're loading from the store.",
+            text = "Placeholder for Spotify integration screen",
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
             modifier = Modifier
@@ -64,40 +61,40 @@ private fun Placeholder(
                 .fillMaxWidth()
         )
     }
+    // TODO - Needs to follow Spotify's design guidelines
     Button(
-        onClick = onNavigateToRoutine,
+        // TODO - @harsh Need to add actual onClick handler
+        onClick = {  },
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 28.dp, bottom = 3.dp)
     ) {
         Text(
-            text = "Navigate to routine",
+            text = "Authorize Spotify",
             style = MaterialTheme.typography.titleSmall
         )
     }
     Spacer(modifier = modifier)
-    // TODO - Remove this, it's just for Harsh's testing
     Button(
-        onClick = onNavigateToSpotifyBeta,
+        onClick = onNavigateToRoutines,
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 28.dp, bottom = 3.dp)
     ) {
         Text(
-            text = "Navigate to Spotify beta",
+            text = "Navigate to routines",
             style = MaterialTheme.typography.titleSmall
         )
     }
 }
 
-@Preview(name = "Routines light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(name = "Routines dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(name = "Spotify authorization light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(name = "Welcome authorization dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun RoutinesScreenPreview() {
+fun SpotifyAuthorizationScreenPreview() {
     MusicTonedTheme {
-        RoutinesScreen(
-            onNavigateToRoutine = {},
-            onNavigateToSpotifyBeta = {}
+        SpotifyAuthorizationScreen(
+            onNavigateToRoutines = {}
         )
     }
 }
