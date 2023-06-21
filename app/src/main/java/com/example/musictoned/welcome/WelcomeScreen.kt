@@ -1,9 +1,14 @@
 package com.example.musictoned.welcome
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,9 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
 
@@ -47,27 +54,29 @@ private fun Placeholder(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.wrapContentHeight(align = Alignment.CenterVertically)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Spacer(modifier = Modifier.height(32.dp))
+
         Text(
             text = "Welcome to MusicToned",
-            style = MaterialTheme.typography.titleMedium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .padding(top = 24.dp)
-                .fillMaxWidth()
+            style = MaterialTheme.typography.titleSmall,
+            textAlign = TextAlign.Center
         )
-    }
-    Button(
-        onClick = onNavigateToSpotifyAuthorization,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 28.dp, bottom = 3.dp)
-    ) {
-        Text(
-            text = "Navigate to Spotify authorization",
-            style = MaterialTheme.typography.titleSmall
-        )
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        Button(
+            onClick = onNavigateToSpotifyAuthorization,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text("Get Started")
+        }
     }
 }
 
