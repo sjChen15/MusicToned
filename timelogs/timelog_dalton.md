@@ -20,4 +20,4 @@ University Email: <dbown@uwaterloo.ca>
 | Learn Android app dev & setup project skeleton              | June 10, 2023 | 2:30pm     | 7:00pm      | 4.5   | 13.25              |
 | Plan demo work, submit D2                                   | June 15, 2023 | 3:30pm     | 6:00pm      | 2.5   | 15.75              |
 | Setup pages, navigation, and placeholders for demo          | June 21, 2023 | 12:00pm    | 9:00pm      | 9     | 24.75              |
-| Setup pages, navigation, and placeholders for demo          | June 21, 2023 | 12:00pm    | 9:00pm      | 9     | 24.75              |
+| Create prototype demo document, meet with team about demo   | June 22, 2023 | 2:30pm     | 4:30pm      | 2     | 27.25              |
