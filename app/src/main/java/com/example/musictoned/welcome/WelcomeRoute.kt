@@ -1,4 +1,4 @@
-package com.example.musictoned.signinsignup
+package com.example.musictoned.welcome
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -10,18 +10,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun WelcomeRoute(
-    onNavigateToSignIn: (email: String) -> Unit,
-    onNavigateToSignUp: (email: String) -> Unit
+    onNavigateToSpotifyAuthorization: () -> Unit
 ) {
     val welcomeViewModel: WelcomeViewModel = viewModel(factory = WelcomeViewModelFactory())
 
     WelcomeScreen(
-        onSignInSignUp = { email: String ->
-            welcomeViewModel.handleContinue(
-                email = email,
-                onNavigateToSignIn = onNavigateToSignIn,
-                onNavigateToSignUp = onNavigateToSignUp,
-            )
-        }
+        onNavigateToSpotifyAuthorization = onNavigateToSpotifyAuthorization
     )
 }
