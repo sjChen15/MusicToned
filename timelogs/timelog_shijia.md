@@ -19,3 +19,7 @@ University Email: <s655chen@uwaterloo.ca>
 | Create Tickets           | June 14, 2023 | 4:30pm     |  5:30pm     | 1     | 10.5               |
 | Work on Ticket 7         | June 16, 2023 | 7:00pm     |  9:30pm     | 2.5   | 13                 |
 | Work on Ticket 7&8       | June 19, 2023 | 5:00pm     |  3:00pm     | 2     | 15                 |
+| Project discussion       | June 21, 2023 | 2:00pm     |  4:00pm     | 2     | 17                 |
+| Persistence research     | June 22, 2023 | 1:00pm     |  2:30pm     | 1.5   | 18.5               |
+| Dubugging and setup      | June 22, 2023 | 2:30pm     |  4:00pm     | 1.5   | 20                 |
+
