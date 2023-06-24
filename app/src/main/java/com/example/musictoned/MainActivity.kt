@@ -48,7 +48,6 @@ class MainActivity : ComponentActivity() {
                 connected()
             }
 
-
             override fun onFailure(throwable: Throwable) {
                 Log.e("MainActivity", throwable.message, throwable)
                 // Something went wrong when attempting to connect! Handle errors here
