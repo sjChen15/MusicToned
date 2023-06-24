@@ -22,3 +22,4 @@ University Email: <dbown@uwaterloo.ca>
 | Setup pages, navigation, and placeholders for demo          | June 21, 2023 | 12:00pm    | 9:00pm      | 9     | 24.75              |
 | Create prototype demo document, meet with team about demo   | June 22, 2023 | 2:30pm     | 4:30pm      | 2     | 27.25              |
 | Continued work on the welcome flow                          | June 23, 2023 | 10:30pm    | 12:00am     | 1.5   | 28.75              |
+| Finish welcome flow and user questionnaire                  | June 24, 2023 | 1:30pm     | 8:00pm      | 6.5   | 35.25              |
