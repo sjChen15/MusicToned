@@ -155,7 +155,11 @@ private fun Questionnaire(
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = viewModel.isWeightUnitMenuExpanded)
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors(unfocusedContainerColor = Color.White)
+                colors = ExposedDropdownMenuDefaults.textFieldColors(
+                    unfocusedContainerColor = Color.Transparent,
+                    focusedContainerColor = Color.Transparent
+                ),
+                modifier = Modifier.menuAnchor()
             )
             ExposedDropdownMenu(
                 expanded = viewModel.isWeightUnitMenuExpanded,
@@ -205,7 +209,11 @@ private fun Questionnaire(
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = viewModel.isHeightUnitMenuExpanded)
                 },
-                colors = ExposedDropdownMenuDefaults.textFieldColors(unfocusedContainerColor = Color.White)
+                colors = ExposedDropdownMenuDefaults.textFieldColors(
+                    unfocusedContainerColor = Color.Transparent,
+                    focusedContainerColor = Color.Transparent
+                ),
+                modifier = Modifier.menuAnchor()
             )
             ExposedDropdownMenu(
                 expanded = viewModel.isHeightUnitMenuExpanded,
