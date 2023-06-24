@@ -22,3 +22,5 @@ University Email: <sdepol@uwaterloo.ca>
 | Worked on mocks and got feedback from group    | June 22, 2023 | 3:00pm     | 5:00pm      | 2     | 15.25              |
 | Wprked on mocks                                | June 23, 2023 | 4:30pm     | 6:15pm      | 1.75  | 17.0               |
 | Finalized welcome screen mocks                 | June 24, 2023 | 12:00am    | 1:00am      | 1     | 18.0               |
+| Worked on routine preview mocks                | June 24, 2023 | 1:45am     | 2:45am      | 1     | 19.0               |
+| Worked on routine edit mocks                   | June 24, 2023 | 5:00pm     | 7:00pm      | 2     | 21.0               |
