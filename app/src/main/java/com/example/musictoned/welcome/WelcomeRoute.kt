@@ -1,7 +1,6 @@
 package com.example.musictoned.welcome
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 /**
  * Influenced by composable UI example provided by Android
@@ -10,11 +9,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun WelcomeRoute(
-    onNavigateToSpotifyAuthorization: () -> Unit
+    onClickCreateAnAccount: () -> Unit
 ) {
-    val welcomeViewModel: WelcomeViewModel = viewModel(factory = WelcomeViewModelFactory())
-
     WelcomeScreen(
-        onNavigateToSpotifyAuthorization = onNavigateToSpotifyAuthorization
+        onClickCreateAnAccount = onClickCreateAnAccount
     )
 }
