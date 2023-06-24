@@ -11,12 +11,14 @@ import com.example.musictoned.Destinations.ROUTINE_ROUTE
 import com.example.musictoned.Destinations.SPOTIFY_AUTHORIZATION_ROUTE
 import com.example.musictoned.Destinations.SPOTIFY_BETA_ROUTE
 import com.example.musictoned.Destinations.WELCOME_ROUTE
+import com.example.musictoned.Destinations.YOUR_GOALS_ROUTE
 import com.example.musictoned.aboutYou.AboutYouRoute
 import com.example.musictoned.routine.RoutineRoute
 import com.example.musictoned.routines.RoutinesRoute
 import com.example.musictoned.spotifyAuthorization.SpotifyAuthorizationRoute
 import com.example.musictoned.spotifyAuthorization.SpotifyBetaRoute
 import com.example.musictoned.welcome.WelcomeRoute
+import com.example.musictoned.yourGoals.YourGoalsRoute
 
 /**
  * Influenced by composable UI example provided by Android
@@ -29,6 +31,7 @@ import com.example.musictoned.welcome.WelcomeRoute
 object Destinations {
     const val WELCOME_ROUTE = "welcome"
     const val ABOUT_YOU_ROUTE = "aboutYou"
+    const val YOUR_GOALS_ROUTE = "yourGoals"
     const val SPOTIFY_AUTHORIZATION_ROUTE = "spotifyAuthorization"
     const val SPOTIFY_BETA_ROUTE = "spotifyBeta" // TODO - Remove, just for Harsh's testing
     const val ROUTINES_ROUTE = "routines"
@@ -52,6 +55,14 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
         composable(ABOUT_YOU_ROUTE) {
             AboutYouRoute(
                 onClickContinue = {
+                    navController.navigate(YOUR_GOALS_ROUTE)
+                }
+            )
+        }
+
+        composable(YOUR_GOALS_ROUTE) {
+            YourGoalsRoute(
+                onClickFinish = {
                     navController.navigate(SPOTIFY_AUTHORIZATION_ROUTE)
                 }
             )
