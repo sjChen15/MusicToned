@@ -1,4 +1,4 @@
-package com.example.musictoned.routine
+package com.example.musictoned.addExercise
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -9,12 +9,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
  */
 
 @Composable
-fun RoutineRoute(
+fun AddExerciseRoute(
     onNavigateToEditRoutine: () -> Unit
 ) {
-    val routineViewModel: RoutineViewModel = viewModel(factory = RoutineViewModelFactory())
+    val addExerciseViewModel: AddExerciseViewModel = viewModel(factory = AddExerciseViewModelFactory())
 
-    RoutineScreen(
+    addExerciseScreen(
         onNavigateToEditRoutine = onNavigateToEditRoutine
     )
 }
