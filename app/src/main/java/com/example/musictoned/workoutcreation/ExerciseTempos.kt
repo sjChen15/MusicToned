@@ -1,23 +1,37 @@
 package com.example.musictoned.workoutcreation
 
-import android.content.res.AssetManager
-import org.json.JSONObject
-import java.io.File
+import com.example.musictoned.MainActivity
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.io.IOException
-import java.io.InputStream
-
 
 //singleton
 object ExerciseTempos{
-    private val exerciseToTemposMap = mapOf(
-        "push-up" to 80,
-        "sit-up" to 100,
-        "jumping-jack" to 120
-    )
+    private lateinit var app: MainActivity
+    fun setApplication(mainActivity: MainActivity){
+        app = mainActivity
+    }
+    private const val exerciseTemposFilename = "ExerciseTempos/armExercises.json"
+    private var armExercises: Map<String,Exercise>
+    /**
+     * Ref: https://www.bezkoder.com/kotlin-android-read-json-file-assets-gson/
+     */
 
-    //returns tempo of exercise
-    fun getTempo(exercise:String): Int {
-        return exerciseToTemposMap.getValue(exercise)
+    init{
+
+        var jsonString = ""
+        try{
+            jsonString = app.applicationContext.assets.open(exerciseTemposFilename).bufferedReader().use{it.readText()}
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+        }
+        val exerciseMapType = object : TypeToken<Map<String,Exercise>>() {}.type
+        //convert to list
+        armExercises = Gson().fromJson(jsonString, exerciseMapType)
     }
 
+    //returns exercise object
+    fun getArmExercise(exercise:String): Exercise {
+        return armExercises.getValue(exercise)
+    }
 }
