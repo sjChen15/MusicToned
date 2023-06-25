@@ -24,3 +24,4 @@ University Email: <s655chen@uwaterloo.ca>
 | Dubugging and setup      | June 22, 2023 | 2:30pm     | 4:00pm      | 1.5   | 20                 |
 | Implementing persistence | June 24, 2023 | 12:00pm    | 4:30pm      | 4.5   | 24.5               |
 | Sync-up                  | June 24, 2023 | 7:00pm     | 8:00pm      | 1     | 25.5               |
+| PR #25                   | June 25, 2023 | 12:00pm    | 1:30pm      | 1.5   | 27                 |
