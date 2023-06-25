@@ -2,10 +2,7 @@ package com.example.musictoned.workoutcreation
 
 import com.example.musictoned.util.LocalStorage
 object AllWorkouts {
-    private lateinit var allWorkouts: ArrayList<Workout>
-    init {
-        var allWorkouts = LocalStorage.getWorkouts()
-    }
+    private var allWorkouts: ArrayList<Workout> = LocalStorage.getWorkouts()
 
     fun getAllWorkouts(): ArrayList<Workout> = allWorkouts
 

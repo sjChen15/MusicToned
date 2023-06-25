@@ -1,0 +1,14 @@
+{
+  "triceps-extension": {"name": "triceps-extension",
+    "target": ["triceps"],
+    "bpm": 80
+  },
+  "barbell-bicep-curl": {"name": "barbell-bicep-curl",
+    "target": ["biceps"],
+    "bpm": 80
+  },
+  "hammer-curl": {"name": "hammer-curl",
+    "target": ["biceps","forarm"],
+    "bpm": 80
+  }
+}

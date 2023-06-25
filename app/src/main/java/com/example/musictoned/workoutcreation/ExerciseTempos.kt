@@ -11,28 +11,27 @@ object ExerciseTempos{
     fun setApplication(mainActivity: MainActivity){
         app = mainActivity
     }
-    private const val exerciseTemposFilename = "exerciseTempos.json"
-    private var exerciseToTempoMap :Map<String,Int>
+    private const val exerciseTemposFilename = "ExerciseTempos/armExercises.json"
+    private var armExercises: Map<String,Exercise>
     /**
      * Ref: https://www.bezkoder.com/kotlin-android-read-json-file-assets-gson/
      */
 
     init{
-        var jsonString : String = ""
+
+        var jsonString = ""
         try{
             jsonString = app.applicationContext.assets.open(exerciseTemposFilename).bufferedReader().use{it.readText()}
         } catch (ioException: IOException) {
             ioException.printStackTrace()
         }
-
-        //convert to map
-        val exerciseTemposMapType = object : TypeToken<Map<String,Int>>() {}.type
-        exerciseToTempoMap = Gson().fromJson(jsonString, exerciseTemposMapType)
+        val exerciseMapType = object : TypeToken<Map<String,Exercise>>() {}.type
+        //convert to list
+        armExercises = Gson().fromJson(jsonString, exerciseMapType)
     }
 
-    //returns tempo of exercise
-    fun getTempo(exercise:String): Int {
-        return exerciseToTempoMap.getValue(exercise)
+    //returns exercise object
+    fun getArmExercise(exercise:String): Exercise {
+        return armExercises.getValue(exercise)
     }
-
 }
