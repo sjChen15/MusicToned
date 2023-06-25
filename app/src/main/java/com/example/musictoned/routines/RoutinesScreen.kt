@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -41,6 +42,7 @@ import androidx.compose.material.icons.filled.HideImage
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -60,6 +62,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -85,20 +88,33 @@ fun RoutinesScreen(
     onNavigateToSpotifyBeta: () -> Unit
 ) {
 
-    Box(modifier = Modifier
-        .background(color = Color.White)
-        .fillMaxSize()
-    ){
-        Column() {
-            TopBar()
-            RoutinesContent(
-                onNavigateToRoutine = onNavigateToRoutine,
-                onNavigateToSpotifyBeta = onNavigateToSpotifyBeta
-            )
-            BottomBar()
-
-        }
-
+    Surface(modifier = Modifier
+        .supportWideScreen()
+    ) {
+        Scaffold(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFFFFFFFF))
+                .navigationBarsPadding(),
+            backgroundColor = Color(0x00000000),
+            topBar = {
+                TopBar()
+            },
+            bottomBar = {
+                BottomBar(
+                    //modifier = Modifier.padding(top = 5.dp),
+                    //start = onNavigateToEditRoutine
+                )
+            },
+            content = { innerPadding ->
+                Box ( modifier = Modifier.padding(innerPadding)){
+                    RoutinesContent(
+                        onNavigateToRoutine = onNavigateToRoutine,
+                        onNavigateToSpotifyBeta = onNavigateToSpotifyBeta
+                    )
+                }
+            }
+        )
     }
 //    Surface(modifier = Modifier.supportWideScreen()) {
 //        Column(
@@ -271,20 +287,68 @@ private fun RoutineBox(){
 @Composable
 private fun BottomBar(){
 
-    Row(
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp)
-    ) {
-        Text(text = "TEST")
+    val paddingOffset = 15.dp
+
+    Column(modifier = Modifier.background(color = Color.Transparent)) {
+        Image(
+            painter = painterResource(id = R.drawable.routines_waves),
+            contentDescription = "Routines Waves",
+            alignment = Alignment.BottomCenter,
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(x = 0.dp, y = 1.dp)
+                .background(color = Color.Transparent),
+            contentScale = ContentScale.FillWidth,
+        )
+        Row(
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(116, 0, 184, 255))
+                .height(40.dp)
+        ) {
+            ClickableText(
+                text = AnnotatedString("Routines"),
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                ),
+                modifier = Modifier
+                    .padding(bottom = paddingOffset),
+                onClick = {}
+            )
+            ClickableText(
+                text = AnnotatedString("Analytics"),
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                ),
+                modifier = Modifier
+                    .padding(bottom = paddingOffset),
+                onClick = {}
+            )
+            ClickableText(
+                text = AnnotatedString("Settings"),
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                ),
+                modifier = Modifier
+                    .padding(bottom = paddingOffset),
+                onClick = {})
+
+        }
     }
-//
+
+
 //    Box(
 //        modifier = Modifier
-//            .fillMaxWidth()
-//    ){
+//            .fillMaxWidth().background(color = Color.Transparent)
+//    ) {
 //        Image(
 //            painter = painterResource(id = R.drawable.routines_waves),
 //            contentDescription = "Routines Waves",
@@ -292,7 +356,7 @@ private fun BottomBar(){
 //            modifier = Modifier
 //                .fillMaxWidth()
 //                .align(Alignment.BottomCenter),
-//            contentScale = ContentScale.FillWidth
+//            contentScale = ContentScale.FillWidth,
 //        )
 //        Row(
 //            horizontalArrangement = Arrangement.SpaceAround,
@@ -307,6 +371,7 @@ private fun BottomBar(){
 //                Text(text = "BUTTON 1")
 //            }
 //        }
+//    }
 
 }
 
