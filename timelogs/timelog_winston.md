@@ -23,3 +23,4 @@ University Email: <w5so@uwaterloo.ca>
 | Worked on routine page                                        | June 24, 2023| 4:00pm	    | 7:00pm	    | 1     |	16                 |
 | Met up to discuss drag and drop implementations               | June 25, 2023| 7:00pm	    | 8:00pm	    | 1     |	17                 |
 | Worked on edit page                                           | June 25, 2023| 8:00pm	    | 12:00am	    | 4     |	21                 |
+| Worked on add exercise                                        | June 26, 2023| 12:00am	  | 1:30am	    | 1.5   |	22.5                 |
