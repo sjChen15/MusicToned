@@ -19,8 +19,11 @@ University Email: <w5so@uwaterloo.ca>
 | Came up with harms for buddy proposal                         | June 12, 2023| 1:15pm	    | 1:45pm	    | 0.5   |	9.25               |
 | Set up Android Studio and looked into Android Development     | June 12, 2023| 1:45pm	    | 2:45pm	    | 1     |	10.25              |
 | Buddy Proposal	                                              | June 14, 2023| 3:30pm	    | 4:30pm	    | 1     |	11.25              |
-| Looked more into Android Development                          | June 15, 2023| 4:15pm	    | 5:00pm	    | 1     |	12                 |
-| Worked on routine page                                        | June 24, 2023| 4:00pm	    | 7:00pm	    | 1     |	16                 |
-| Met up to discuss drag and drop implementations               | June 25, 2023| 7:00pm	    | 8:00pm	    | 1     |	17                 |
-| Worked on edit page                                           | June 25, 2023| 8:00pm	    | 12:00am	    | 4     |	21                 |
-| Worked on add exercise                                        | June 26, 2023| 12:00am	  | 1:30am	    | 1.5   |	22.5                 |
+| Looked more into Android Development                          | June 15, 2023| 4:15pm	    | 5:00pm	    | 0.75  |	12                 |
+| Worked on routine page                                        | June 23, 2023| 4:00pm	    | 7:00pm	    | 3     |	15                 |
+| Met up to discuss drag and drop implementations               | June 24, 2023| 7:00pm	    | 8:00pm	    | 1     |	16                 |
+| Worked on edit page                                           | June 24, 2023| 8:00pm	    | 12:00am	    | 4     |	20                 |
+| Worked on add exercise                                        | June 25, 2023| 12:00am	  | 1:30am	    | 1.5   |	21.5               |
+| Worked on add exercise more and polished previous pages       | June 25, 2023| 12:00pm	  | 3:00pm	    | 3     |	24.5               |
+| Added navigations                                             | June 25, 2023| 3:00pm     | 4:30pm      | 1.5   | 26                 |
+| Tried to look into passing variables between pages and made pages responsive to data | June 26, 2023| 9:00pm     | 12:00am      | 3   | 29                 |
