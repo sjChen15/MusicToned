@@ -26,3 +26,4 @@ University Email: <w5so@uwaterloo.ca>
 | Worked on add exercise                                        | June 25, 2023| 12:00am	  | 1:30am	    | 1.5   |	21.5               |
 | Worked on add exercise more and polished previous pages       | June 25, 2023| 12:00pm	  | 3:00pm	    | 3     |	24.5               |
 | Added navigations                                             | June 25, 2023| 3:00pm     | 4:30pm      | 1.5   | 26                 |
+| Tried to look into passing variables between pages and made pages responsive to data | June 26, 2023| 9:00pm     | 12:00am      | 3   | 29                 |
