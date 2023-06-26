@@ -60,7 +60,8 @@ import java.util.LinkedList
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RoutineScreen(
-    onNavigateToEditRoutine: () -> Unit
+    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToRoutines: () -> Unit
 ) {
 
     var workout = Workout( "New Workout")
@@ -81,6 +82,7 @@ fun RoutineScreen(
             topBar = {
                 TopBar(
                     onNavigateToEditRoutine = onNavigateToEditRoutine,
+                    onNavigateToRoutines = onNavigateToRoutines,
                     workout = workout
                 )
             },
@@ -105,6 +107,7 @@ fun RoutineScreen(
 @Composable
 private fun TopBar(
     onNavigateToEditRoutine: () -> Unit,
+    onNavigateToRoutines: () -> Unit,
     modifier: Modifier = Modifier,
     workout: Workout,
 ) {
@@ -118,15 +121,29 @@ private fun TopBar(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "< " + workout.name,
-                color = Color(0xFF5E60CE),
-                fontSize = 30.sp,
-                letterSpacing = 2.sp,
-                fontStyle = FontStyle.Italic,
-                fontFamily = FontName,
-                fontWeight = FontWeight.W700,
-            )
+            Row{
+                Text(
+                    modifier = modifier
+                        .clickable {
+                            onNavigateToRoutines()
+                        },
+                    text = "< ",
+                    color = Color(0xFF5E60CE),
+                    fontSize = 30.sp,
+                    letterSpacing = 2.sp,
+                    fontFamily = FontName,
+                    fontWeight = FontWeight.W700,
+                )
+                Text(
+                    text = workout.name,
+                    color = Color(0xFF5E60CE),
+                    fontSize = 30.sp,
+                    letterSpacing = 2.sp,
+                    fontStyle = FontStyle.Italic,
+                    fontFamily = FontName,
+                    fontWeight = FontWeight.W700,
+                )
+            }
             Image(
                 modifier = modifier
                     .size(25.dp)
@@ -307,7 +324,8 @@ private fun BottomBar(
 fun RoutineScreenPreview() {
     MusicTonedTheme {
         RoutineScreen(
-            onNavigateToEditRoutine = {}
+            onNavigateToEditRoutine = {},
+            onNavigateToRoutines = {},
         )
     }
 }

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -141,15 +142,28 @@ private fun TopBar(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(
-                text = "< " + workout.name,
-                color = Color(0xFF5E60CE),
-                fontSize = 30.sp,
-                letterSpacing = 2.sp,
-                fontStyle = FontStyle.Italic,
-                fontFamily = FontName,
-                fontWeight = FontWeight.W700,
-            )
+            Row{
+                Text(
+                    modifier = modifier
+                        .clickable {
+                            onNavigateToRoutine()
+                        },
+                    text = "< ",
+                    color = Color(0xFF5E60CE),
+                    fontSize = 30.sp,
+                    letterSpacing = 2.sp,
+                    fontFamily = FontName,
+                    fontWeight = FontWeight.W700,
+                )
+                Text(
+                    text = workout.name,
+                    color = Color(0xFF5E60CE),
+                    fontSize = 30.sp,
+                    letterSpacing = 2.sp,
+                    fontFamily = FontName,
+                    fontWeight = FontWeight.W700,
+                )
+            }
             Button(
                 modifier = modifier
                     .shadow(

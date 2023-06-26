@@ -106,7 +106,10 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
             RoutineRoute(
                 onNavigateToEditRoutine = {
                     navController.navigate(EDIT_ROUTINE_ROUTE)
-                }
+                },
+                onNavigateToRoutines = {
+                    navController.navigate(ROUTINES_ROUTE)
+                },
             )
         }
 
