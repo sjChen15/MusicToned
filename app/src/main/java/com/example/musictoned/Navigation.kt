@@ -11,6 +11,10 @@ import com.example.musictoned.Destinations.ROUTINE_ROUTE
 import com.example.musictoned.Destinations.SPOTIFY_AUTHORIZATION_ROUTE
 import com.example.musictoned.Destinations.SPOTIFY_BETA_ROUTE
 import com.example.musictoned.Destinations.WELCOME_ROUTE
+import com.example.musictoned.Destinations.EDIT_ROUTINE_ROUTE
+import com.example.musictoned.Destinations.ADD_EXERCISE_ROUTE
+import com.example.musictoned.addExercise.AddExerciseRoute
+import com.example.musictoned.editRoutine.EditRoutineRoute
 import com.example.musictoned.Destinations.YOUR_GOALS_ROUTE
 import com.example.musictoned.aboutYou.AboutYouRoute
 import com.example.musictoned.routine.RoutineRoute
@@ -18,6 +22,7 @@ import com.example.musictoned.routines.RoutinesRoute
 import com.example.musictoned.spotifyAuthorization.SpotifyAuthorizationRoute
 import com.example.musictoned.spotifyAuthorization.SpotifyBetaRoute
 import com.example.musictoned.welcome.WelcomeRoute
+import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.yourGoals.YourGoalsRoute
 
 /**
@@ -36,6 +41,8 @@ object Destinations {
     const val SPOTIFY_BETA_ROUTE = "spotifyBeta" // TODO - Remove, just for Harsh's testing
     const val ROUTINES_ROUTE = "routines"
     const val ROUTINE_ROUTE = "routine"
+    const val EDIT_ROUTINE_ROUTE = "editRoutine"
+    const val ADD_EXERCISE_ROUTE = "addExercise"
 }
 
 @Composable
@@ -97,8 +104,27 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
 
         composable(ROUTINE_ROUTE) {
             RoutineRoute(
-                onNavigateToRoutines = {
-                    navController.navigate(ROUTINES_ROUTE)
+                onNavigateToEditRoutine = {
+                    navController.navigate(EDIT_ROUTINE_ROUTE)
+                }
+            )
+        }
+
+        composable(EDIT_ROUTINE_ROUTE) {
+            EditRoutineRoute(
+                onNavigateToRoutine = {
+                    navController.navigate(ROUTINE_ROUTE)
+                },
+                onNavigateToAddExercise = {
+                    navController.navigate(ADD_EXERCISE_ROUTE)
+                }
+            )
+        }
+
+        composable(ADD_EXERCISE_ROUTE) {
+            AddExerciseRoute(
+                onNavigateToEditRoutine = {
+                    navController.navigate(EDIT_ROUTINE_ROUTE)
                 }
             )
         }
