@@ -47,19 +47,22 @@ import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.Exercise
+import com.example.musictoned.workoutcreation.ExerciseTempos
 
 /**
  * Influenced by composable UI example provided by Android
  * Ref: https://github.com/android/compose-samples/blob/main/Jetsurvey/app/src/main/java/com/example/compose/jetsurvey/signinsignup/WelcomeScreen.kt
  */
 
-var exercises = listOf<Exercise>(
-    Exercise( name = "Chest Press", bpm = 80, target = listOf("Tricep", "Chest") ),
-    Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") ),
-    Exercise( name = "Barbell Bicep Curl", bpm = 80, target = listOf("Biceps") ),
-    Exercise( name = "Hammer Curl", bpm = 80, target = listOf("Biceps") ),
-    Exercise( name = "Skullcrusher", bpm = 80, target = listOf("Tricep") ),
-)
+//var exercises = listOf<Exercise>(
+//    Exercise( name = "Chest Press", bpm = 80, target = listOf("Tricep", "Chest") ),
+//    Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") ),
+//    Exercise( name = "Barbell Bicep Curl", bpm = 80, target = listOf("Biceps") ),
+//    Exercise( name = "Hammer Curl", bpm = 80, target = listOf("Biceps") ),
+//    Exercise( name = "Skullcrusher", bpm = 80, target = listOf("Tricep") ),
+//)
+//only arm exercises for the demo
+var exercises = ExerciseTempos.getAllArmExercises()
 
 @Composable
 fun addExerciseScreen(
