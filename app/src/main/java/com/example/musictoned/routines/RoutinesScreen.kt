@@ -3,9 +3,12 @@ package com.example.musictoned.routines
 import android.content.res.Configuration
 import android.graphics.BlurMaskFilter
 import android.graphics.Typeface.NORMAL
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -25,8 +28,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
@@ -35,7 +40,12 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MenuDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.HideImage
@@ -43,22 +53,39 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -69,8 +96,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.PopupProperties
 import com.example.musictoned.R
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
@@ -88,7 +117,8 @@ fun RoutinesScreen(
     onNavigateToSpotifyBeta: () -> Unit
 ) {
 
-    Surface(modifier = Modifier
+    Surface(
+        modifier = Modifier
         .supportWideScreen()
     ) {
         Scaffold(
@@ -96,7 +126,8 @@ fun RoutinesScreen(
                 .fillMaxWidth()
                 .background(Color(0xFFFFFFFF))
                 .navigationBarsPadding(),
-            backgroundColor = Color(0x00000000),
+            backgroundColor = Color.Transparent,
+            contentColor = Color.Transparent,
             topBar = {
                 TopBar()
             },
@@ -116,28 +147,13 @@ fun RoutinesScreen(
             }
         )
     }
-//    Surface(modifier = Modifier.supportWideScreen()) {
+
 //        Column(
 //            modifier = Modifier
 //                .fillMaxSize()
 //                .verticalScroll(rememberScrollState()),
 //            verticalArrangement = Arrangement.Top
-//        ) {
-//            TopBar()
-//            RoutinesContent(
-//                onNavigateToRoutine = onNavigateToRoutine,
-//                onNavigateToSpotifyBeta = onNavigateToSpotifyBeta
-//            )
-//        }
-//        Column (
-//            modifier = Modifier
-//            .fillMaxSize()
-//            .verticalScroll(rememberScrollState()),
-//            verticalArrangement = Arrangement.Bottom
-//        ){
-//            BottomBar()
-//        }
-
+//        )
 
 
 }
@@ -164,8 +180,7 @@ private fun TopBar(){
             color = Color(94,96,206,255),
             thickness = 1.dp,
             modifier = Modifier
-                .padding(start = 24.dp)
-                .padding(end = 24.dp)
+                .padding(start = 24.dp, end = 24.dp, bottom = 4.dp)
         )
 
     }
@@ -186,8 +201,11 @@ private fun RoutinesContent(
 
     ) {
             //routines.size + 1 (+1 for the add new button)
-        items(10){
+        items(20){
             RoutineBox()
+        }
+        items (1){
+            AddNewRoutineBox()
         }
 
     }
@@ -234,8 +252,10 @@ private fun RoutineBox(){
     {
 
         Column {
+
             Text(
                 text = "Workout Title",
+                color = Color.Black,
                 style = MaterialTheme.typography.bodyLarge
 
             )
@@ -258,31 +278,89 @@ private fun RoutineBox(){
 
         ) {
             //button or clickable text
-            Text(
-                text = "START",
-                color = Color.White,
+            ClickableText(
+                text = AnnotatedString("START"),
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                ),
                 modifier = Modifier
-                    .weight(1.5f),
-                textAlign = TextAlign.Center
+                    .padding(start = 15.dp, end = 15.dp),
+                onClick = {}
             )
+
             Divider(
-                color = Color(81,83,181,255),
+                color = Color(81, 83, 181, 255),
                 modifier = Modifier
                     .fillMaxHeight()
                     .width(1.5.dp)
             )
-            Text(
-                text = "^",
-                color = Color.White,
+
+            ClickableText(
+                text = AnnotatedString("^"),
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                ),
                 modifier = Modifier
-                    .weight(1f),
-                textAlign = TextAlign.Center
+                    .padding(start = 15.dp, end = 15.dp),
+                onClick = {}
             )
-            //button or clickabletext
+                //button or clickabletext
         }
     }
-
 }
+
+
+@Composable
+private fun AddNewRoutineBox(){
+    val stroke = Stroke(
+        width = 6f,
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 12f), 0f)
+    )
+    Column(
+        modifier = Modifier
+            .padding(10.dp)
+            .offset(x = 0.dp, y = 20.dp)
+            .drawBehind {
+                drawRoundRect(
+                    color = Color(107, 109, 209, 255),
+                    style = stroke,
+                    cornerRadius = CornerRadius(10.dp.toPx())
+                )
+            }
+            .background(
+                color = Color.Transparent,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .padding(horizontal = 5.dp, vertical = 5.dp)
+            .fillMaxWidth()
+            .aspectRatio(1f),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+
+        Icon(
+            modifier = Modifier
+                .size(size = 50.dp)
+                .background(color = Color.Transparent),
+            imageVector = Icons.Default.Add,
+            contentDescription = "Person Icon",
+            tint = Color(94,96,206,255)
+        )
+
+        Text(
+            text = "Create New Routine",
+            color = Color(107,109,209,255),
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center,
+            fontFamily = FontFamily(Font(R.font.roboto_regular)),
+            )
+    }
+}
+
 
 @Composable
 private fun BottomBar(){
@@ -344,37 +422,7 @@ private fun BottomBar(){
         }
     }
 
-
-//    Box(
-//        modifier = Modifier
-//            .fillMaxWidth().background(color = Color.Transparent)
-//    ) {
-//        Image(
-//            painter = painterResource(id = R.drawable.routines_waves),
-//            contentDescription = "Routines Waves",
-//            alignment = Alignment.BottomCenter,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .align(Alignment.BottomCenter),
-//            contentScale = ContentScale.FillWidth,
-//        )
-//        Row(
-//            horizontalArrangement = Arrangement.SpaceAround,
-//            verticalAlignment = Alignment.CenterVertically,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(15.dp)
-//        ) {
-//            Button(
-//                onClick = { /*TODO*/ }
-//            ) {
-//                Text(text = "BUTTON 1")
-//            }
-//        }
-//    }
-
 }
-
 
 
 @Preview(name = "Routines light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
