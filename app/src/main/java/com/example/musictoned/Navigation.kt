@@ -22,6 +22,7 @@ import com.example.musictoned.routines.RoutinesRoute
 import com.example.musictoned.spotifyAuthorization.SpotifyAuthorizationRoute
 import com.example.musictoned.spotifyAuthorization.SpotifyBetaRoute
 import com.example.musictoned.welcome.WelcomeRoute
+import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.yourGoals.YourGoalsRoute
 
 /**

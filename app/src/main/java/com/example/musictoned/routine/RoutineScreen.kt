@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.rememberScrollState
@@ -33,11 +32,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -49,7 +46,10 @@ import com.example.musictoned.R
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
+import com.example.musictoned.workoutcreation.Exercise
+import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
+import java.util.LinkedList
 
 
 /**
@@ -57,34 +57,31 @@ import com.example.musictoned.workoutcreation.WorkoutExercise
  * Ref: https://github.com/android/compose-samples/blob/main/Jetsurvey/app/src/main/java/com/example/compose/jetsurvey/signinsignup/WelcomeScreen.kt
  */
 
-val workouts = listOf(
-    WorkoutExercise("Side-to-side reaches"),
-    WorkoutExercise("Lateral leg swings"),
-    WorkoutExercise("Downward dog alternating heel raises"),
-    WorkoutExercise("Forward leg swings"),
-    WorkoutExercise("Jog"),
-    WorkoutExercise("Jog"),
-    WorkoutExercise("Walk"),
-    WorkoutExercise("Walk"),
-)
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RoutineScreen(
     onNavigateToEditRoutine: () -> Unit
 ) {
+
+    var workout = Workout( "New Workout")
+
+    var exercise = Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") )
+    var workoutExercise = WorkoutExercise( exercise, song = "I'm so excited - The Pointer Sisters" )
+    workout.addExercise( workoutExercise )
+
     Surface(modifier = Modifier
         .supportWideScreen()
     ) {
         Scaffold(
             modifier = Modifier
                 .fillMaxWidth()
-                .background( Color(0xFFFFFFFF) )
+                .background(Color(0xFFFFFFFF))
                 .navigationBarsPadding(),
             backgroundColor = Color(0x00000000),
             topBar = {
                 TopBar(
-                    onNavigateToEditRoutine = onNavigateToEditRoutine
+                    onNavigateToEditRoutine = onNavigateToEditRoutine,
+                    workout = workout
                 )
             },
             bottomBar = {
@@ -96,7 +93,7 @@ fun RoutineScreen(
                 Box ( modifier = Modifier.padding(innerPadding)){
                     Workouts(
                         modifier = Modifier.padding(start = 25.dp, end = 25.dp),
-                        workouts = workouts,
+                        workout = workout,
                         contentPadding = innerPadding,
                     )
                 }
@@ -108,7 +105,8 @@ fun RoutineScreen(
 @Composable
 private fun TopBar(
     onNavigateToEditRoutine: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    workout: Workout,
 ) {
     Column(
         modifier = modifier.padding(start = 25.dp, end = 25.dp, top = 20.dp, bottom = 10.dp)
@@ -121,7 +119,7 @@ private fun TopBar(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "< " + "Routine Name",
+                text = "< " + workout.name,
                 color = Color(0xFF5E60CE),
                 fontSize = 30.sp,
                 letterSpacing = 2.sp,
@@ -146,14 +144,14 @@ private fun TopBar(
 @Composable
 private fun Workouts(
     modifier: Modifier = Modifier,
-    workouts: List<WorkoutExercise>,
+    workout: Workout,
     contentPadding: PaddingValues,
 ) {
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
     ){
-        workouts.forEach {exercise ->
+        workout.exercises.forEach {exercise ->
             Exercise( exercise = exercise )
         }
     }
@@ -208,7 +206,7 @@ private fun Exercise(
                     verticalArrangement = Arrangement.Center,
                 ) {
                     Text(
-                        text = exercise.getWorkout(),
+                        text = exercise.getExercise().name,
                         color = Color(0xFF000000),
                         fontSize = 17.sp,
                         fontFamily = FontName,
@@ -217,7 +215,7 @@ private fun Exercise(
                     )
                     Row (
                         modifier = modifier
-                            .padding( top = 2.dp )
+                            .padding(top = 2.dp)
                             .height(IntrinsicSize.Min),
                         verticalAlignment = Alignment.CenterVertically,
                     ){
@@ -232,7 +230,7 @@ private fun Exercise(
                                 fontWeight = FontWeight.W600,
                             )
                             Text(
-                                text = "I'm so excited - The Pointer Sisters",//exercise.getSong(),
+                                text = exercise.getSong(),
                                 color = Color(0xFF000000),
                                 fontFamily = FontName,
                                 fontSize = 14.sp,
@@ -247,7 +245,9 @@ private fun Exercise(
                         ){
                             Image(
                                 painter = painterResource(id = R.drawable.shuffle),
-                                modifier = modifier.padding(end = 10.dp).fillMaxHeight(),
+                                modifier = modifier
+                                    .padding(end = 10.dp)
+                                    .fillMaxHeight(),
                                 contentDescription = "Shuffle button",
                                 contentScale = ContentScale.FillHeight,
                             )

@@ -9,19 +9,14 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.rememberScrollState
@@ -35,41 +30,34 @@ import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material.Scaffold
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.*
-import androidx.compose.material3.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -79,28 +67,30 @@ import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
+import java.util.Locale
+
 
 /**
  * Influenced by composable UI example provided by Android
  * Ref: https://github.com/android/compose-samples/blob/main/Jetsurvey/app/src/main/java/com/example/compose/jetsurvey/signinsignup/WelcomeScreen.kt
  */
 
-val workouts = listOf(
-    WorkoutExercise("Side-to-side reaches"),
-    WorkoutExercise("Lateral leg swings"),
-    WorkoutExercise("Downward dog alternating heel raises"),
-    WorkoutExercise("Forward leg swings"),
-    WorkoutExercise("Jog"),
-    WorkoutExercise("Jog"),
-    WorkoutExercise("Walk"),
-    WorkoutExercise("Walk"),
-)
-
 @Composable
 fun EditRoutineScreen(
     onNavigateToRoutine: () -> Unit,
-    onNavigateToAddExercise: () -> Unit
+    onNavigateToAddExercise: () -> Unit,
 ) {
+
+    var workout = Workout( "New Workout")
+
+    var exercise = com.example.musictoned.workoutcreation.Exercise(
+        name = "Triceps Extension",
+        bpm = 80,
+        target = listOf("Tricep")
+    )
+    var workoutExercise = WorkoutExercise( exercise )
+    workout.addExercise( workoutExercise )
+
     Surface(modifier = Modifier
         .supportWideScreen()
     ) {
@@ -112,7 +102,8 @@ fun EditRoutineScreen(
             backgroundColor = Color(0x00000000),
             topBar = {
                 TopBar(
-                    onNavigateToRoutine = onNavigateToRoutine
+                    onNavigateToRoutine = onNavigateToRoutine,
+                    workout = workout,
                 )
             },
             bottomBar = {
@@ -125,7 +116,7 @@ fun EditRoutineScreen(
                 Box ( modifier = Modifier.padding(innerPadding)){
                     Exercises(
                         modifier = Modifier.padding(start = 25.dp, end = 25.dp),
-                        workout = workouts,
+                        workout = workout,
                         contentPadding = innerPadding,
                     )
                 }
@@ -137,7 +128,8 @@ fun EditRoutineScreen(
 @Composable
 private fun TopBar(
     onNavigateToRoutine: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    workout: Workout,
 ) {
     Column(
         modifier = modifier.padding(start = 25.dp, end = 25.dp, top = 20.dp, bottom = 10.dp)
@@ -150,7 +142,7 @@ private fun TopBar(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "< " + "Routine Name",
+                text = "< " + workout.name,
                 color = Color(0xFF5E60CE),
                 fontSize = 30.sp,
                 letterSpacing = 2.sp,
@@ -188,14 +180,14 @@ private fun TopBar(
 @Composable
 private fun Exercises(
     modifier: Modifier,
-    workout: List<WorkoutExercise>,
+    workout: Workout,
     contentPadding: PaddingValues,
 ){
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
     ){
-        workout.forEach {exercise ->
+        workout.exercises.forEach {exercise ->
             Exercise( exercise = exercise)
         }
     }
@@ -207,7 +199,7 @@ fun Exercise(
     modifier: Modifier = Modifier,
     exercise: WorkoutExercise,
 ){
-    var text by remember { mutableStateOf("") }
+    var text by remember { mutableStateOf(exercise.getLength().toString()) }
     val interactionSource = remember { MutableInteractionSource() }
 
     Column( modifier = modifier.padding(bottom=15.dp)){
@@ -246,7 +238,7 @@ fun Exercise(
                         .padding(end = 20.dp)
                 ){
                     Text(
-                        text = "Side-to-side reaches",
+                        text = exercise.getExercise().name,
                         color = Color(0xFF000000),
                         fontFamily = FontName,
                         fontSize = 17.sp,
@@ -258,7 +250,7 @@ fun Exercise(
                         verticalAlignment = Alignment.CenterVertically,
                     ){
                         Text(
-                            text = "Duration (min):",
+                            text = "Duration(s):",
                             fontSize = 15.sp,
                         )
                         BasicTextField(
@@ -297,7 +289,9 @@ fun Exercise(
                             text = "BPM Mode:",
                             fontSize = 15.sp,
                         )
-                        DropdownMenu()
+                        DropdownMenu(
+                            exercise = exercise,
+                        )
                     }
                     Text(
                         modifier = modifier
@@ -317,16 +311,22 @@ fun Exercise(
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun DropdownMenu() {
+fun DropdownMenu(
+    exercise: WorkoutExercise
+) {
     val context = LocalContext.current
     val speed = arrayOf("Slow", "Average", "Fast")
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(speed[1]) }
+    var selectedText by remember { mutableStateOf(
+        exercise.getBpmMode()
+            .toString()
+            .lowercase(Locale.getDefault())
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }) }
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 33.dp)
+            .padding(start = 11.dp)
     ) {
         ExposedDropdownMenuBox(
             expanded = expanded,

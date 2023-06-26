@@ -1,7 +1,11 @@
 package com.example.musictoned.editRoutine
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.musictoned.workoutcreation.AllWorkouts
 
 /**
  * Influenced by composable UI example provided by Android
@@ -9,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
  */
 
 class EditRoutineViewModel() : ViewModel() {
+
 }
 
 class EditRoutineViewModelFactory : ViewModelProvider.Factory {

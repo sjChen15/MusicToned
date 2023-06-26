@@ -46,24 +46,19 @@ import com.example.musictoned.R
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
+import com.example.musictoned.workoutcreation.Exercise
 
 /**
  * Influenced by composable UI example provided by Android
  * Ref: https://github.com/android/compose-samples/blob/main/Jetsurvey/app/src/main/java/com/example/compose/jetsurvey/signinsignup/WelcomeScreen.kt
  */
 
-var exercises = listOf<String>("Tricep Extension",
-    "Hammer Curls",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
-    "Barbell Bicep Curl",
+var exercises = listOf<Exercise>(
+    Exercise( name = "Chest Press", bpm = 80, target = listOf("Tricep", "Chest") ),
+    Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") ),
+    Exercise( name = "Barbell Bicep Curl", bpm = 80, target = listOf("Biceps") ),
+    Exercise( name = "Hammer Curl", bpm = 80, target = listOf("Biceps") ),
+    Exercise( name = "Skullcrusher", bpm = 80, target = listOf("Tricep") ),
 )
 
 @Composable
@@ -154,7 +149,7 @@ private fun TopBar(
 
 @Composable
 private fun ExerciseList(
-    exercises: List<String>,
+    exercises: List<Exercise>,
     modifier: Modifier = Modifier,
     onNavigateToEditRoutine: () -> Unit,
 ) {
@@ -183,7 +178,7 @@ private fun ExerciseList(
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = exercises[index],
+                        text = exercises[index].name,
                         fontFamily = FontName,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.W600,
@@ -191,7 +186,7 @@ private fun ExerciseList(
                     Text(
                         modifier = modifier
                             .padding(top = 10.dp, bottom = 10.dp),
-                        text = "Triceps",
+                        text = java.lang.String.join( ", ", exercises[index].target ),
                         fontFamily = FontName,
                         fontSize = 17.sp,
                         fontStyle = FontStyle.Italic,

@@ -2,7 +2,7 @@ package com.example.musictoned.workoutcreation
 
 import java.util.LinkedList
 
-data class Workout (private val id: Int, var name: String, val exercises: LinkedList<WorkoutExercise> = LinkedList() ){
+data class Workout (var name: String, val exercises: LinkedList<WorkoutExercise> = LinkedList() ){
     fun addExercise(exercise: WorkoutExercise){
         exercises.add(exercise)
     }
