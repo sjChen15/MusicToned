@@ -63,7 +63,7 @@ import com.example.musictoned.util.supportWideScreen
 
 @Composable
 fun RoutinesScreen(
-    onNavigateToRoutine: () -> Unit,
+    onNavigateToRoutine: (routineID: Int) -> Unit,
     onNavigateToSpotifyBeta: () -> Unit,
     onNavigateToEditRoutine: () -> Unit
 ) {
@@ -141,7 +141,7 @@ private fun TopBar(){
 // TODO - Replace this placeholder with the components that you need
 @Composable
 private fun RoutinesContent(
-    onNavigateToRoutine: () -> Unit,
+    onNavigateToRoutine: (routineID: Int) -> Unit,
     onNavigateToSpotifyBeta: () -> Unit,
     onNavigateToEditRoutine: () -> Unit,
     //routines: List<Workout>,
@@ -178,7 +178,7 @@ private fun RoutinesContent(
 
 @Composable             //routine: Workout
 private fun RoutineBox(
-    onNavigateToRoutine: () -> Unit
+    onNavigateToRoutine: (routineID: Int) -> Unit
 ){
 
     Column(
@@ -241,7 +241,7 @@ private fun RoutineBox(
                 ),
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp),
-                onClick = {onNavigateToRoutine()}
+                onClick = {onNavigateToRoutine(10101)}
             )
 
             Divider(
@@ -260,7 +260,7 @@ private fun RoutineBox(
                 ),
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp),
-                onClick = { onNavigateToRoutine() }
+                onClick = { onNavigateToRoutine(627) }
             )
                 //button or clickabletext
         }

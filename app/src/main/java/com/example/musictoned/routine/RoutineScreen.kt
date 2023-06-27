@@ -62,7 +62,8 @@ import java.util.LinkedList
 @Composable
 fun RoutineScreen(
     onNavigateToEditRoutine: () -> Unit,
-    onNavigateToRoutines: () -> Unit
+    onNavigateToRoutines: () -> Unit,
+    routineID: Int?
 ) {
     var workout = Workout( "New Workout")
 
@@ -80,7 +81,7 @@ fun RoutineScreen(
                 .navigationBarsPadding(),
             backgroundColor = Color(0x00000000),
             topBar = {
-                //Text(text = workoutID.toString())
+                Text(text = routineID.toString(), modifier = Modifier.padding(start = 100.dp))
                 TopBar(
                     onNavigateToEditRoutine = onNavigateToEditRoutine,
                     onNavigateToRoutines = onNavigateToRoutines,
@@ -326,7 +327,8 @@ fun RoutineScreenPreview() {
     MusicTonedTheme {
         RoutineScreen(
             onNavigateToEditRoutine = {},
-            onNavigateToRoutines = {}
+            onNavigateToRoutines = {},
+            routineID = 1
         )
     }
 }
