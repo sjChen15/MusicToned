@@ -80,6 +80,7 @@ import java.util.Locale
 fun EditRoutineScreen(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
     onNavigateToAddExercise: () -> Unit,
+    exerciseName: String?
 ) {
 
     var workout = Workout( "New Workout")
@@ -423,7 +424,8 @@ fun EditRoutineScreenPreview() {
     MusicTonedTheme {
         com.example.musictoned.editRoutine.EditRoutineScreen(
             onNavigateToRoutine = {},
-            onNavigateToAddExercise = {}
+            onNavigateToAddExercise = {},
+            exerciseName = null
         )
     }
 }

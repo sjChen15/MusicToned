@@ -16,11 +16,13 @@ import com.example.musictoned.workoutcreation.Workout
 fun EditRoutineRoute(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
     onNavigateToAddExercise: () -> Unit,
+    exerciseName: String?
 ) {
     val editRoutineViewModel: EditRoutineViewModel = viewModel(factory = EditRoutineViewModelFactory())
 
     EditRoutineScreen(
         onNavigateToRoutine = onNavigateToRoutine,
         onNavigateToAddExercise = onNavigateToAddExercise,
+        exerciseName = exerciseName
     )
 }

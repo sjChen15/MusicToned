@@ -126,14 +126,16 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
             )
         }
 
-        composable(EDIT_ROUTINE_ROUTE) {
+        composable("$EDIT_ROUTINE_ROUTE/{exerciseName}") {
+            val exerciseName = it.arguments?.getString("exerciseName")
             EditRoutineRoute(
                 onNavigateToRoutine = {
                     navController.navigate("$ROUTINE_ROUTE/$it")
                 },
                 onNavigateToAddExercise = {
                     navController.navigate(ADD_EXERCISE_ROUTE)
-                }
+                },
+                exerciseName = exerciseName
             )
         }
 

@@ -66,7 +66,7 @@ var exercises = ExerciseTempos.getAllArmExercises()
 
 @Composable
 fun addExerciseScreen(
-    onNavigateToEditRoutine: () -> Unit
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit
 ) {
     Surface(modifier = Modifier
         .supportWideScreen()
@@ -97,7 +97,7 @@ fun addExerciseScreen(
 
 @Composable
 private fun TopBar(
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -127,7 +127,7 @@ private fun TopBar(
                 modifier = modifier
                     .fillMaxHeight()
                     .clickable {
-                        onNavigateToEditRoutine()
+                        onNavigateToEditRoutine("")
                     },
                 painter = painterResource(id = R.drawable.exit),
                 contentDescription = "Close Button",
@@ -154,7 +154,7 @@ private fun TopBar(
 private fun ExerciseList(
     exercises: List<Exercise>,
     modifier: Modifier = Modifier,
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -196,15 +196,22 @@ private fun ExerciseList(
                     )
                     Button(
                         modifier = modifier
-                            .shadow(elevation = 8.dp, spotColor = Color(0x1F000000), ambientColor = Color(0x1F000000))
-                            .background(color = Color(0xFF9C27B0), shape = RoundedCornerShape(size = 4.dp))
+                            .shadow(
+                                elevation = 8.dp,
+                                spotColor = Color(0x1F000000),
+                                ambientColor = Color(0x1F000000)
+                            )
+                            .background(
+                                color = Color(0xFF9C27B0),
+                                shape = RoundedCornerShape(size = 4.dp)
+                            )
                             .padding(start = 10.dp, end = 10.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFF9C27B0),
                             contentColor = Color(0xFFFFFFFF),
                         ),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = onNavigateToEditRoutine,
+                        onClick = { onNavigateToEditRoutine(exercises[index].name) },
                     ){
                         Text(
                             text = "ADD",

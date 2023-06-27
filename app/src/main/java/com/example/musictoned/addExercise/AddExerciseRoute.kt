@@ -10,7 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun AddExerciseRoute(
-    onNavigateToEditRoutine: () -> Unit
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit
 ) {
     val addExerciseViewModel: AddExerciseViewModel = viewModel(factory = AddExerciseViewModelFactory())
 

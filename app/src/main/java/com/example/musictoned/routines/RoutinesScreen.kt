@@ -55,6 +55,8 @@ import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
+import com.example.musictoned.workoutcreation.AllWorkouts
+import com.example.musictoned.workoutcreation.Workout
 
 /**
  * Influenced by composable UI example provided by Android
@@ -138,7 +140,6 @@ private fun TopBar(){
     }
 }
 
-// TODO - Replace this placeholder with the components that you need
 @Composable
 private fun RoutinesContent(
     onNavigateToRoutine: (routineID: Int) -> Unit,
@@ -146,15 +147,17 @@ private fun RoutinesContent(
     onNavigateToEditRoutine: () -> Unit,
     //routines: List<Workout>,
 ) {
+    val routines = AllWorkouts.getAllWorkouts()
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(start = 5.dp, end = 5.dp, bottom = 100.dp),
         modifier = Modifier.fillMaxHeight()
 
     ) {
-            //routines.size + 1 (+1 for the add new button)
-        items(2){
-            RoutineBox(onNavigateToRoutine = onNavigateToRoutine)
+        //routines.size + 1 (+1 for the add new button)
+        items(routines.size){
+            index ->
+                RoutineBox( onNavigateToRoutine = onNavigateToRoutine, workout = routines[index])
         }
         items (1){
             AddNewRoutineBox(onNavigateToEditRoutine = onNavigateToEditRoutine)
@@ -178,7 +181,8 @@ private fun RoutinesContent(
 
 @Composable             //routine: Workout
 private fun RoutineBox(
-    onNavigateToRoutine: (routineID: Int) -> Unit
+    onNavigateToRoutine: (routineID: Int) -> Unit,
+    workout: Workout
 ){
 
     Column(
@@ -208,7 +212,7 @@ private fun RoutineBox(
         Column {
 
             Text(
-                text = "Workout Title",
+                text = workout.name,
                 color = Color.Black,
                 style = MaterialTheme.typography.bodyLarge
 

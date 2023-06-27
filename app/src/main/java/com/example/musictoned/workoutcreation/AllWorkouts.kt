@@ -1,8 +1,14 @@
 package com.example.musictoned.workoutcreation
 
 import com.example.musictoned.util.LocalStorage
+import java.util.LinkedList
+
 object AllWorkouts {
-    private var allWorkouts: ArrayList<Workout> = LocalStorage.getWorkouts()
+    //local storage
+    //private var allWorkouts: ArrayList<Workout> = LocalStorage.getWorkouts()
+
+    //instantiate allWorkouts with one default workout
+    private var allWorkouts: ArrayList<Workout> = arrayListOf(Workout("I love squats"))
 
     fun getAllWorkouts(): ArrayList<Workout> = allWorkouts
 
