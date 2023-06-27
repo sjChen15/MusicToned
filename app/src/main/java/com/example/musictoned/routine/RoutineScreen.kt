@@ -81,7 +81,7 @@ fun RoutineScreen(
                 .navigationBarsPadding(),
             backgroundColor = Color(0x00000000),
             topBar = {
-                Text(text = routineID.toString(), modifier = Modifier.padding(start = 100.dp))
+                //Text(text = routineID.toString(), modifier = Modifier.padding(start = 100.dp))
                 TopBar(
                     onNavigateToEditRoutine = onNavigateToEditRoutine,
                     onNavigateToRoutines = onNavigateToRoutines,

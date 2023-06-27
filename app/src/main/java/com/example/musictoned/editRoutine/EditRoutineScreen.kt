@@ -78,7 +78,7 @@ import java.util.Locale
 
 @Composable
 fun EditRoutineScreen(
-    onNavigateToRoutine: () -> Unit,
+    onNavigateToRoutine: (routineID: Int?) -> Unit,
     onNavigateToAddExercise: () -> Unit,
 ) {
 
@@ -128,7 +128,7 @@ fun EditRoutineScreen(
 
 @Composable
 private fun TopBar(
-    onNavigateToRoutine: () -> Unit,
+    onNavigateToRoutine: (routineID: Int?) -> Unit,
     modifier: Modifier = Modifier,
     workout: Workout,
 ) {
@@ -146,7 +146,7 @@ private fun TopBar(
                 Text(
                     modifier = modifier
                         .clickable {
-                            onNavigateToRoutine()
+                            onNavigateToRoutine(0)
                         },
                     text = "< ",
                     color = Color(0xFF5E60CE),
@@ -177,7 +177,7 @@ private fun TopBar(
                     containerColor = Color(0xFF5E60CE),
                     contentColor = Color(0xFFFFFFFF),
                 ),
-                onClick = onNavigateToRoutine
+                onClick = { onNavigateToRoutine(0) }
             ){
                 Text(
                     text = "Save",

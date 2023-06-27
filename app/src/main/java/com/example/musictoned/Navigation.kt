@@ -125,25 +125,11 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 routineID = routineID?.toInt()
             )
         }
-//        composable(
-//            "$ROUTINE_ROUTE/{routineID}",
-//            arguments = listOf(navArgument("routineID"){type = NavType.IntType})
-//            ) { backStackEntry ->
-//            RoutineRoute(
-//                onNavigateToEditRoutine = {
-//                    navController.navigate(EDIT_ROUTINE_ROUTE)
-//                },
-//                onNavigateToRoutines = {
-//                    navController.navigate(ROUTINES_ROUTE)
-//                },
-//                routineID = backStackEntry.arguments?.getInt("routineID")
-//            )
-//        }
 
         composable(EDIT_ROUTINE_ROUTE) {
             EditRoutineRoute(
                 onNavigateToRoutine = {
-                    navController.navigate(ROUTINE_ROUTE)
+                    navController.navigate("$ROUTINE_ROUTE/$it")
                 },
                 onNavigateToAddExercise = {
                     navController.navigate(ADD_EXERCISE_ROUTE)
