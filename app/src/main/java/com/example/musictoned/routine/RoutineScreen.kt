@@ -1,6 +1,7 @@
 package com.example.musictoned.routine
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.Image
@@ -63,7 +64,6 @@ fun RoutineScreen(
     onNavigateToEditRoutine: () -> Unit,
     onNavigateToRoutines: () -> Unit
 ) {
-
     var workout = Workout( "New Workout")
 
     var exercise = Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") )
@@ -80,6 +80,7 @@ fun RoutineScreen(
                 .navigationBarsPadding(),
             backgroundColor = Color(0x00000000),
             topBar = {
+                //Text(text = workoutID.toString())
                 TopBar(
                     onNavigateToEditRoutine = onNavigateToEditRoutine,
                     onNavigateToRoutines = onNavigateToRoutines,
@@ -325,7 +326,7 @@ fun RoutineScreenPreview() {
     MusicTonedTheme {
         RoutineScreen(
             onNavigateToEditRoutine = {},
-            onNavigateToRoutines = {},
+            onNavigateToRoutines = {}
         )
     }
 }

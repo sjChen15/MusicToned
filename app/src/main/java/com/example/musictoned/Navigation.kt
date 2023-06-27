@@ -1,10 +1,13 @@
 package com.example.musictoned
 
+import android.provider.ContactsContract
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.musictoned.Destinations.ABOUT_YOU_ROUTE
 import com.example.musictoned.Destinations.ROUTINES_ROUTE
 import com.example.musictoned.Destinations.ROUTINE_ROUTE
@@ -90,6 +93,9 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 },
                 onNavigateToSpotifyBeta = {
                     navController.navigate(SPOTIFY_BETA_ROUTE)
+                },
+                onNavigateToEditRoutine = {
+                    navController.navigate(EDIT_ROUTINE_ROUTE)
                 }
             )
         }
@@ -109,7 +115,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 },
                 onNavigateToRoutines = {
                     navController.navigate(ROUTINES_ROUTE)
-                },
+                }
             )
         }
 
