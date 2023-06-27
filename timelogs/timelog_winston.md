@@ -28,3 +28,4 @@ University Email: <w5so@uwaterloo.ca>
 | Added navigations                                             | June 25, 2023| 3:00pm     | 4:30pm      | 1.5   | 26                 |
 | Tried to look into passing variables between pages and made pages responsive to data | June 25, 2023| 9:00pm     | 12:00am      | 3   | 29                 |
 | Looked more into passing variables between pages and gave back buttons functionality | June 26, 2023| 2:00pm     | 3:00pm      | 1   | 30                 |
+| Met up to try to pass variables                               | June 26, 2023| 8:30pm     | 10:00pm     | 1.5   | 31.5                 |
