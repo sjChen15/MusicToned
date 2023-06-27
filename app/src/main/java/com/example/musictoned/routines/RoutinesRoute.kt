@@ -10,13 +10,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun RoutinesRoute(
-    onNavigateToRoutine: () -> Unit,
-    onNavigateToSpotifyBeta: () -> Unit
+    onNavigateToRoutine: (routineID: Int) -> Unit,
+    onNavigateToSpotifyBeta: () -> Unit,
+    onNavigateToEditRoutine: () -> Unit
 ) {
     val routinesViewModel: RoutinesViewModel = viewModel(factory = RoutinesViewModelFactory())
 
     RoutinesScreen(
         onNavigateToRoutine = onNavigateToRoutine,
-        onNavigateToSpotifyBeta = onNavigateToSpotifyBeta
+        onNavigateToSpotifyBeta = onNavigateToSpotifyBeta,
+        onNavigateToEditRoutine = onNavigateToEditRoutine
     )
 }

@@ -1,10 +1,14 @@
 package com.example.musictoned
 
+import android.provider.ContactsContract
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavArgument
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.musictoned.Destinations.ABOUT_YOU_ROUTE
 import com.example.musictoned.Destinations.ROUTINES_ROUTE
 import com.example.musictoned.Destinations.ROUTINE_ROUTE
@@ -49,7 +53,8 @@ object Destinations {
 fun MusicTonedNavHost(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        startDestination = WELCOME_ROUTE
+        startDestination = ROUTINES_ROUTE
+        //startDestination = WELCOME_ROUTE
     ) {
         composable(WELCOME_ROUTE) {
             WelcomeRoute(
@@ -86,10 +91,13 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
         composable(ROUTINES_ROUTE) {
             RoutinesRoute(
                 onNavigateToRoutine = {
-                    navController.navigate(ROUTINE_ROUTE)
+                    navController.navigate("$ROUTINE_ROUTE/$it")
                 },
                 onNavigateToSpotifyBeta = {
                     navController.navigate(SPOTIFY_BETA_ROUTE)
+                },
+                onNavigateToEditRoutine = {
+                    navController.navigate(EDIT_ROUTINE_ROUTE)
                 }
             )
         }
@@ -102,7 +110,11 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
             )
         }
 
-        composable(ROUTINE_ROUTE) {
+        composable(
+            "$ROUTINE_ROUTE/{routineID}"
+        ) {
+            val routineID = it.arguments?.getString("routineID")
+
             RoutineRoute(
                 onNavigateToEditRoutine = {
                     navController.navigate(EDIT_ROUTINE_ROUTE)
@@ -110,13 +122,14 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 onNavigateToRoutines = {
                     navController.navigate(ROUTINES_ROUTE)
                 },
+                routineID = routineID?.toInt()
             )
         }
 
         composable(EDIT_ROUTINE_ROUTE) {
             EditRoutineRoute(
                 onNavigateToRoutine = {
-                    navController.navigate(ROUTINE_ROUTE)
+                    navController.navigate("$ROUTINE_ROUTE/$it")
                 },
                 onNavigateToAddExercise = {
                     navController.navigate(ADD_EXERCISE_ROUTE)

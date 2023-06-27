@@ -14,7 +14,7 @@ import com.example.musictoned.workoutcreation.Workout
 
 @Composable
 fun EditRoutineRoute(
-    onNavigateToRoutine: () -> Unit,
+    onNavigateToRoutine: (routineID: Int?) -> Unit,
     onNavigateToAddExercise: () -> Unit,
 ) {
     val editRoutineViewModel: EditRoutineViewModel = viewModel(factory = EditRoutineViewModelFactory())
