@@ -25,3 +25,4 @@ University Email: <sdepol@uwaterloo.ca>
 | Worked on routine preview mocks                | June 24, 2023 | 1:45am     | 2:45am      | 1     | 19.0               |
 | Worked on routine edit mocks                   | June 24, 2023 | 5:00pm     | 7:00pm      | 2     | 21.0               |
 | Met up with group to review demo material      | June 27, 2023 | 3:10pm     | 3:40pm      | 0.5   | 21.5               |
+| Created workout player mocks                   | June 27, 2023 | 11:00pm    | 12:30am     | 1.5   | 23.0               |
