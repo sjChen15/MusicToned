@@ -9,6 +9,15 @@ object AllWorkouts {
 
     //instantiate allWorkouts with one default workout
     private var allWorkouts: ArrayList<Workout> = arrayListOf(Workout("I love squats"))
+    private var workoutInProgress: Workout = Workout("New Workout")
+
+    fun setWorkoutInProgress(workout: Workout){
+        workoutInProgress = workout
+    }
+
+    fun getWorkoutInProgress(): Workout{
+        return workoutInProgress
+    }
 
     fun getAllWorkouts(): ArrayList<Workout> = allWorkouts
 
@@ -16,5 +25,8 @@ object AllWorkouts {
         allWorkouts.add(workout)
     }
 
+    fun saveInProgress(){
+        allWorkouts.add(workoutInProgress)
+    }
     fun getNumberOfWorkouts(): Int = allWorkouts.size
 }

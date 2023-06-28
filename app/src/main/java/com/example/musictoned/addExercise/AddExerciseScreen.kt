@@ -127,7 +127,7 @@ private fun TopBar(
                 modifier = modifier
                     .fillMaxHeight()
                     .clickable {
-                        onNavigateToEditRoutine("")
+                        onNavigateToEditRoutine(null.toString())
                     },
                 painter = painterResource(id = R.drawable.exit),
                 contentDescription = "Close Button",
@@ -211,7 +211,9 @@ private fun ExerciseList(
                             contentColor = Color(0xFFFFFFFF),
                         ),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { onNavigateToEditRoutine(exercises[index].name) },
+                        onClick = { onNavigateToEditRoutine(exercises[index].name)
+                                    println("Hello?????????????")
+                                  },
                     ){
                         Text(
                             text = "ADD",

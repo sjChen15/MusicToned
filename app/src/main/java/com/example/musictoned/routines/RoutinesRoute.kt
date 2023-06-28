@@ -12,7 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun RoutinesRoute(
     onNavigateToRoutine: (routineID: Int) -> Unit,
     onNavigateToSpotifyBeta: () -> Unit,
-    onNavigateToEditRoutine: () -> Unit
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit
 ) {
     val routinesViewModel: RoutinesViewModel = viewModel(factory = RoutinesViewModelFactory())
 

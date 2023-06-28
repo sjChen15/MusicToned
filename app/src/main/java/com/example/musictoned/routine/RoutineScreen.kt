@@ -47,6 +47,7 @@ import com.example.musictoned.R
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
+import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Exercise
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
@@ -61,15 +62,11 @@ import java.util.LinkedList
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RoutineScreen(
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: () -> Unit,
     routineID: Int?
 ) {
-    var workout = Workout( "New Workout")
-
-    var exercise = Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") )
-    var workoutExercise = WorkoutExercise( exercise, song = "I'm so excited - The Pointer Sisters" )
-    workout.addExercise( workoutExercise )
+    val workout = AllWorkouts.getWorkoutInProgress()
 
     Surface(modifier = Modifier
         .supportWideScreen()
@@ -90,7 +87,7 @@ fun RoutineScreen(
             },
             bottomBar = {
                 BottomBar( modifier = Modifier.padding( top = 5.dp ),
-                    start = onNavigateToEditRoutine
+                    start = onNavigateToRoutines
                 )
             },
             content = { innerPadding ->
@@ -108,7 +105,7 @@ fun RoutineScreen(
 
 @Composable
 private fun TopBar(
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: () -> Unit,
     modifier: Modifier = Modifier,
     workout: Workout,
@@ -150,7 +147,7 @@ private fun TopBar(
                 modifier = modifier
                     .size(25.dp)
                     .clickable {
-                        onNavigateToEditRoutine()
+                        onNavigateToEditRoutine(null.toString())
                     },
                 painter = painterResource(id = R.drawable.edit_button),
                 contentDescription = "Edit Button",

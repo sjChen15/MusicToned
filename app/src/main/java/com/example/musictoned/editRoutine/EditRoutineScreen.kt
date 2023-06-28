@@ -66,6 +66,9 @@ import com.example.musictoned.R
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
+import com.example.musictoned.workoutcreation.AllWorkouts
+import com.example.musictoned.workoutcreation.AllWorkouts.saveInProgress
+import com.example.musictoned.workoutcreation.ExerciseTempos
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
 import java.util.Locale
@@ -83,16 +86,14 @@ fun EditRoutineScreen(
     exerciseName: String?
 ) {
 
-    var workout = Workout( "New Workout")
+    val workout = AllWorkouts.getWorkoutInProgress()
+    //add exercise to current workout
+    if (exerciseName != null.toString()){
+        workout.addExercise(WorkoutExercise(ExerciseTempos.getExercise(exerciseName.toString())))
+        workout.deleteLastExercise()
+    }
 
-    var exercise = com.example.musictoned.workoutcreation.Exercise(
-        name = "Triceps Extension",
-        bpm = 80,
-        target = listOf("Tricep")
-    )
-    var workoutExercise = WorkoutExercise( exercise )
-    workout.addExercise( workoutExercise )
-
+    println(workout)
     Surface(modifier = Modifier
         .supportWideScreen()
     ) {
@@ -178,7 +179,10 @@ private fun TopBar(
                     containerColor = Color(0xFF5E60CE),
                     contentColor = Color(0xFFFFFFFF),
                 ),
-                onClick = { onNavigateToRoutine(0) }
+                onClick = {
+                    onNavigateToRoutine(0)
+                    saveInProgress()
+                }
             ){
                 Text(
                     text = "Save",

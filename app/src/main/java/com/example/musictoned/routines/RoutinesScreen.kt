@@ -67,7 +67,7 @@ import com.example.musictoned.workoutcreation.Workout
 fun RoutinesScreen(
     onNavigateToRoutine: (routineID: Int) -> Unit,
     onNavigateToSpotifyBeta: () -> Unit,
-    onNavigateToEditRoutine: () -> Unit
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit
 ) {
 
     Surface(
@@ -144,7 +144,7 @@ private fun TopBar(){
 private fun RoutinesContent(
     onNavigateToRoutine: (routineID: Int) -> Unit,
     onNavigateToSpotifyBeta: () -> Unit,
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     //routines: List<Workout>,
 ) {
     val routines = AllWorkouts.getAllWorkouts()
@@ -274,7 +274,7 @@ private fun RoutineBox(
 
 @Composable
 private fun AddNewRoutineBox(
-    onNavigateToEditRoutine: () -> Unit
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit
 ){
     val stroke = Stroke(
         width = 6f,
@@ -298,7 +298,7 @@ private fun AddNewRoutineBox(
             .padding(horizontal = 5.dp, vertical = 5.dp)
             .fillMaxWidth()
             .aspectRatio(1f)
-            .clickable{onNavigateToEditRoutine()},
+            .clickable{onNavigateToEditRoutine(null.toString())},
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ){

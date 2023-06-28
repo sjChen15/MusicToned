@@ -10,7 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun RoutineRoute(
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: () -> Unit,
     routineID: Int?
 ) {

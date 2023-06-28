@@ -53,8 +53,8 @@ object Destinations {
 fun MusicTonedNavHost(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        startDestination = ROUTINES_ROUTE
-        //startDestination = WELCOME_ROUTE
+        //startDestination = ROUTINES_ROUTE
+        startDestination = WELCOME_ROUTE
     ) {
         composable(WELCOME_ROUTE) {
             WelcomeRoute(
@@ -97,7 +97,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                     navController.navigate(SPOTIFY_BETA_ROUTE)
                 },
                 onNavigateToEditRoutine = {
-                    navController.navigate(EDIT_ROUTINE_ROUTE)
+                    navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 }
             )
         }
@@ -117,7 +117,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
 
             RoutineRoute(
                 onNavigateToEditRoutine = {
-                    navController.navigate(EDIT_ROUTINE_ROUTE)
+                    navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 },
                 onNavigateToRoutines = {
                     navController.navigate(ROUTINES_ROUTE)
@@ -142,7 +142,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
         composable(ADD_EXERCISE_ROUTE) {
             AddExerciseRoute(
                 onNavigateToEditRoutine = {
-                    navController.navigate(EDIT_ROUTINE_ROUTE)
+                    navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 }
             )
         }
