@@ -1,7 +1,6 @@
 package com.example.musictoned.routine
 
 import android.content.res.Configuration
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.Image
@@ -9,9 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -50,25 +47,23 @@ import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.Exercise
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
-import java.util.LinkedList
-
 
 /**
  * Influenced by composable UI example provided by Android
  * Ref: https://github.com/android/compose-samples/blob/main/Jetsurvey/app/src/main/java/com/example/compose/jetsurvey/signinsignup/WelcomeScreen.kt
  */
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RoutineScreen(
     onNavigateToEditRoutine: () -> Unit,
     onNavigateToRoutines: () -> Unit,
+    onNavigateToPlayer: () -> Unit,
     routineID: Int?
 ) {
-    var workout = Workout( "New Workout")
+    val workout = Workout( "New Workout")
 
-    var exercise = Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") )
-    var workoutExercise = WorkoutExercise( exercise, song = "I'm so excited - The Pointer Sisters" )
+    val exercise = Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") )
+    val workoutExercise = WorkoutExercise( exercise, song = "I'm so excited - The Pointer Sisters" )
     workout.addExercise( workoutExercise )
 
     Surface(modifier = Modifier
@@ -90,15 +85,14 @@ fun RoutineScreen(
             },
             bottomBar = {
                 BottomBar( modifier = Modifier.padding( top = 5.dp ),
-                    start = onNavigateToEditRoutine
+                    start = onNavigateToPlayer
                 )
             },
             content = { innerPadding ->
                 Box ( modifier = Modifier.padding(innerPadding)){
                     Workouts(
                         modifier = Modifier.padding(start = 25.dp, end = 25.dp),
-                        workout = workout,
-                        contentPadding = innerPadding,
+                        workout = workout
                     )
                 }
             }
@@ -163,8 +157,7 @@ private fun TopBar(
 @Composable
 private fun Workouts(
     modifier: Modifier = Modifier,
-    workout: Workout,
-    contentPadding: PaddingValues,
+    workout: Workout
 ) {
     Column(
         modifier = modifier
@@ -328,6 +321,7 @@ fun RoutineScreenPreview() {
         RoutineScreen(
             onNavigateToEditRoutine = {},
             onNavigateToRoutines = {},
+            onNavigateToPlayer = {},
             routineID = 1
         )
     }
