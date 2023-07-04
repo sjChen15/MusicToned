@@ -18,3 +18,4 @@ University Email: <dm2adams@uwaterloo.ca>
 | Completed D2 deliverable and assigned tasks for development   | June 15, 2023 | 3:30pm     | 5:30pm      | 2   | 10                  |
 | Learning Jetpack compose and creating UI for RoutineScreen    | June 25-26, 2023 | 6:00pm  | 12:00am     | 12  | 22                  |
 | Setting up argument passing via navigation between screens    | June 27, 2023 | 7:00pm     | 12:00am      | 5  | 27                  |
+| Discussing plans for post-demo features that need to be added | June 27, 2023 | 9:00pm     | 10:00pm      | 1  | 28                  |
