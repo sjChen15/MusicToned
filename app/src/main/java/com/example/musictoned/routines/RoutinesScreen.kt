@@ -1,7 +1,6 @@
 package com.example.musictoned.routines
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -41,8 +40,6 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -54,6 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
 import com.example.musictoned.ui.theme.MusicTonedTheme
+import com.example.musictoned.util.BottomBar
+import com.example.musictoned.util.BottomNavPages
 import com.example.musictoned.util.supportWideScreen
 
 /**
@@ -64,8 +63,10 @@ import com.example.musictoned.util.supportWideScreen
 @Composable
 fun RoutinesScreen(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToSpotifyBeta: () -> Unit,
-    onNavigateToEditRoutine: () -> Unit
+    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToRoutines: (charOffset: Int) -> Unit,
+    onNavigateToAnalytics: (charOffset: Int) -> Unit,
+    onNavigateToSettings: (charOffset: Int) -> Unit
 ) {
 
     Surface(
@@ -84,15 +85,16 @@ fun RoutinesScreen(
             },
             bottomBar = {
                 BottomBar(
-                    //modifier = Modifier.padding(top = 5.dp),
-                    //start = onNavigateToEditRoutine
+                    onNavigateToRoutines = onNavigateToRoutines,
+                    onNavigateToAnalytics = onNavigateToAnalytics,
+                    onNavigateToSettings = onNavigateToSettings,
+                    currentPage = BottomNavPages.ROUTINES
                 )
             },
             content = { innerPadding ->
                 Box ( modifier = Modifier.padding(innerPadding)){
                     RoutinesContent(
                         onNavigateToRoutine = onNavigateToRoutine,
-                        onNavigateToSpotifyBeta = onNavigateToSpotifyBeta,
                         onNavigateToEditRoutine = onNavigateToEditRoutine
                     )
                 }
@@ -117,7 +119,7 @@ private fun TopBar(){
             .fillMaxWidth()
         ) {
         Text(
-            text = "Routines",
+            text = "ROUTINES",
             textAlign = TextAlign.Center,
             fontSize = 25.sp,
             color = Color(94,96,206,255),
@@ -142,7 +144,6 @@ private fun TopBar(){
 @Composable
 private fun RoutinesContent(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToSpotifyBeta: () -> Unit,
     onNavigateToEditRoutine: () -> Unit,
     //routines: List<Workout>,
 ) {
@@ -318,79 +319,16 @@ private fun AddNewRoutineBox(
     }
 }
 
-
-@Composable
-private fun BottomBar(){
-
-    val paddingOffset = 15.dp
-
-    Column(modifier = Modifier.background(color = Color.Transparent)) {
-        Image(
-            painter = painterResource(id = R.drawable.routines_waves),
-            contentDescription = "Routines Waves",
-            alignment = Alignment.BottomCenter,
-            modifier = Modifier
-                .fillMaxWidth()
-                .offset(x = 0.dp, y = 1.dp)
-                .background(color = Color.Transparent),
-            contentScale = ContentScale.FillWidth,
-        )
-        Row(
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(116, 0, 184, 255))
-                .height(40.dp)
-        ) {
-            ClickableText(
-                text = AnnotatedString("Routines"),
-                style = TextStyle(
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                ),
-                modifier = Modifier
-                    .padding(bottom = paddingOffset),
-                onClick = {}
-            )
-            ClickableText(
-                text = AnnotatedString("Analytics"),
-                style = TextStyle(
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                ),
-                modifier = Modifier
-                    .padding(bottom = paddingOffset),
-                onClick = {}
-            )
-            ClickableText(
-                text = AnnotatedString("Settings"),
-                style = TextStyle(
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                ),
-                modifier = Modifier
-                    .padding(bottom = paddingOffset),
-                onClick = {})
-
-        }
-    }
-
-}
-
-
 @Preview(name = "Routines light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(name = "Routines dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun RoutinesScreenPreview() {
     MusicTonedTheme {
         RoutinesScreen(
             onNavigateToRoutine = {},
-            onNavigateToSpotifyBeta = {},
-            onNavigateToEditRoutine = {}
+            onNavigateToEditRoutine = {},
+            onNavigateToRoutines = {},
+            onNavigateToAnalytics = {},
+            onNavigateToSettings = {}
         )
     }
 }
