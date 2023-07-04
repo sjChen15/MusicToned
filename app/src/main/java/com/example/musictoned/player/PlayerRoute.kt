@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun PlayerRoute(
+    onNavigateToRoutines: () -> Unit
 ) {
-    PlayerScreen()
+    PlayerScreen(
+        onNavigateToRoutines = onNavigateToRoutines
+    )
 }
