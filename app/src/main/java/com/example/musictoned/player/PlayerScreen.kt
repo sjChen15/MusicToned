@@ -17,7 +17,7 @@ fun PlayerScreen(
 
 @Preview(name = "Player light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun AnalyticsScreenPreview() {
+fun PlayerScreenPreview() {
     MusicTonedTheme {
         PlayerScreen(
         )
