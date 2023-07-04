@@ -29,3 +29,4 @@ University Email: <s655chen@uwaterloo.ca>
 | Compose reserach         | June 26, 2023 | 3:00pm     | 5:30pm      | 2.5   | 30.5               |
 | Backend work             | June 27, 2023 | 2:30pm     | 3:00pm      | 0.5   | 31                 |
 | Backend work             | June 27, 2023 | 3:00pm     | 3:30pm      | 0.5   | 31.5               |
+| Discuss demo work        | July 04, 2023 | 9:00pm     | 10:00pm     | 1     | 32.5               |
