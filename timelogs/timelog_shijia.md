@@ -30,3 +30,5 @@ University Email: <s655chen@uwaterloo.ca>
 | Backend work             | June 27, 2023 | 2:30pm     | 3:00pm      | 0.5   | 31                 |
 | Backend work             | June 27, 2023 | 3:00pm     | 3:30pm      | 0.5   | 31.5               |
 | Discuss demo work        | July 04, 2023 | 9:00pm     | 10:00pm     | 1     | 32.5               |
+| Persistence work         | July 05, 2023 | 12:00pm    | 3:00pm      | 3     | 35.5               |
+| PR #36                   | July 05, 2023 | 4:00pm     | 4:30pm      | 0.5   | 36                 |

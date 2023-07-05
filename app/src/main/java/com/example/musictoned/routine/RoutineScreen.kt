@@ -1,9 +1,9 @@
 package com.example.musictoned.routine
 
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,13 +17,13 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
+import androidx.compose.material.Scaffold
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,7 +44,7 @@ import com.example.musictoned.R
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
-import com.example.musictoned.workoutcreation.Exercise
+import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
 
@@ -55,16 +55,18 @@ import com.example.musictoned.workoutcreation.WorkoutExercise
 
 @Composable
 fun RoutineScreen(
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: () -> Unit,
     onNavigateToPlayer: () -> Unit,
     routineID: Int?
 ) {
-    val workout = Workout( "New Workout")
+    val workout: Workout = if(routineID == null){
+        Workout("New Workout")
+    }
+    else{
+        AllWorkouts.getWorkout(routineID)
+    }
 
-    val exercise = Exercise( name = "Triceps Extension", bpm = 80, target = listOf("Tricep") )
-    val workoutExercise = WorkoutExercise( exercise, song = "I'm so excited - The Pointer Sisters" )
-    workout.addExercise( workoutExercise )
 
     Surface(modifier = Modifier
         .supportWideScreen()
@@ -102,7 +104,7 @@ fun RoutineScreen(
 
 @Composable
 private fun TopBar(
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: () -> Unit,
     modifier: Modifier = Modifier,
     workout: Workout,
@@ -144,7 +146,7 @@ private fun TopBar(
                 modifier = modifier
                     .size(25.dp)
                     .clickable {
-                        onNavigateToEditRoutine()
+                        onNavigateToEditRoutine(null.toString())
                     },
                 painter = painterResource(id = R.drawable.edit_button),
                 contentDescription = "Edit Button",
