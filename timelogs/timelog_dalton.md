@@ -28,3 +28,5 @@ University Email: <dbown@uwaterloo.ca>
 | Plan remaining items for end of term                         | July 3, 2023  | 9:00pm     | 10:00pm     | 1     | 39.75              |
 | Created remaining pages and added bottom nav                 | July 4, 2023  | 1:30pm     | 4:30pm      | 3     | 42.75              |
 | Brainstormed remaining tasks and ordered them on priority    | July 4, 2023  | 4:30pm     | 4:45pm      | 0.25  | 43                 |
+| Created workout player pages and added navigation plumbing   | July 4, 2023  | 4:45pm     | 7:00pm      | 2.25  | 45.25              |
+| Merged outstanding PRs & manage conflicts                    | July 5, 2023  | 2:30pm     | 3:00pm      | 0.5   | 45.75              |
