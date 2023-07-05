@@ -63,6 +63,44 @@ fun PlayerScreen(
             color = Color(0xFFFFFFFF),
             letterSpacing = 2.4.sp
         )
+        Text(
+            modifier = Modifier
+                .offset(x = 103.dp, y = 110.dp),
+            text = "EXERCISE 1 OUT OF 4", // TODO - Set this dynamically based on routine data
+            fontSize = 16.sp,
+            fontFamily = FontFamily(Font(R.font.lato_regular)),
+                fontWeight = FontWeight(700),
+                fontStyle = FontStyle.Italic,
+                color = Color(0xBDFFFFFF),
+                letterSpacing = 1.6.sp
+        )
+        Image(
+            modifier = Modifier
+                .offset(x = 48.dp, y = 130.dp)
+                .width(300.dp)
+                .height(300.dp),
+            painter = painterResource(id = R.drawable.side_to_side_reaches), // TODO - Set dynamically
+            contentDescription = "Workout picture",
+            contentScale = ContentScale.Crop
+        )
+        Text(
+            modifier = Modifier
+                .offset(x = 85.dp, y = 145.dp),
+            text = "Side-to-side reaches", // TODO - Set dynamically
+            fontSize = 24.sp,
+            fontFamily = FontFamily(Font(R.font.lato_regular)),
+            fontWeight = FontWeight(600),
+            color = Color(0xFFFFFFFF)
+        )
+        Text(
+            modifier = Modifier
+                .offset(x = 63.dp, y = 150.dp)
+                .height(19.dp),
+            text = " ♫ I’m so excited - The Pointer Sisters", // TODO - Set dynamically
+            fontSize = 16.sp,
+            fontFamily = FontFamily(Font(R.font.lato_regular)),
+            fontWeight = FontWeight(600),
+            color = Color(0xBDFFFFFF))
     }
 }
 
