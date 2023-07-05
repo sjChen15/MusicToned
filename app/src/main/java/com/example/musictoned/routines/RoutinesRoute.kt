@@ -10,21 +10,19 @@ import androidx.compose.runtime.Composable
 @Composable
 fun RoutinesRoute(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-<<<<<<< HEAD
     onNavigateToSpotifyBeta: () -> Unit,
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit
-=======
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: (charOffset: Int) -> Unit,
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
     onNavigateToSettings: (charOffset: Int) -> Unit
->>>>>>> main
+
 ) {
     RoutinesScreen(
         onNavigateToRoutine = onNavigateToRoutine,
         onNavigateToEditRoutine = onNavigateToEditRoutine,
         onNavigateToRoutines = onNavigateToRoutines,
         onNavigateToAnalytics = onNavigateToAnalytics,
-        onNavigateToSettings = onNavigateToSettings
+        onNavigateToSettings = onNavigateToSettings,
+        onNavigateToSpotifyBeta = onNavigateToSpotifyBeta
     )
 }
