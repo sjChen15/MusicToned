@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 @Composable
 fun RoutinesRoute(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToSpotifyBeta: () -> Unit,
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: (charOffset: Int) -> Unit,
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
@@ -23,6 +22,5 @@ fun RoutinesRoute(
         onNavigateToRoutines = onNavigateToRoutines,
         onNavigateToAnalytics = onNavigateToAnalytics,
         onNavigateToSettings = onNavigateToSettings,
-        onNavigateToSpotifyBeta = onNavigateToSpotifyBeta
     )
 }

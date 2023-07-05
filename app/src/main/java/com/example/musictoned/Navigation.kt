@@ -83,7 +83,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                     navController.navigate("$ROUTINE_ROUTE/$it")
                 },
                 onNavigateToEditRoutine = {
-                    navController.navigate(EDIT_ROUTINE_ROUTE)
+                    navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 },
                 onNavigateToRoutines = {
                     /* NOOP since we don't need to route to ourselves */
@@ -94,9 +94,6 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 onNavigateToSettings = {
                     navController.navigate(SETTINGS_ROUTE)
                 },
-                onNavigateToSpotifyBeta = {
-                    navController.navigate(PLAYER_ROUTE)
-                }
             )
         }
 

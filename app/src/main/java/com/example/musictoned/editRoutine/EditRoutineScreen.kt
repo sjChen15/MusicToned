@@ -179,8 +179,8 @@ private fun TopBar(
                     contentColor = Color(0xFFFFFFFF),
                 ),
                 onClick = {
-                    onNavigateToRoutine(0)
                     saveWorkout()
+                    onNavigateToRoutine(workout.hashCode())
                 }
             ){
                 Text(

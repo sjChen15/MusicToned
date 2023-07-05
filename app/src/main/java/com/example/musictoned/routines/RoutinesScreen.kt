@@ -65,7 +65,6 @@ import com.example.musictoned.workoutcreation.Workout
 @Composable
 fun RoutinesScreen(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToSpotifyBeta: () -> Unit,
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: (charOffset: Int) -> Unit,
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
@@ -99,7 +98,6 @@ fun RoutinesScreen(
                     RoutinesContent(
                         onNavigateToRoutine = onNavigateToRoutine,
                         onNavigateToEditRoutine = onNavigateToEditRoutine,
-                        onNavigateToSpotifyBeta = onNavigateToSpotifyBeta
                     )
                 }
             }
@@ -147,10 +145,7 @@ private fun TopBar(){
 @Composable
 private fun RoutinesContent(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToSpotifyBeta: () -> Unit,
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
-
-    //routines: List<Workout>,
 ) {
     val routines = AllWorkouts.getAllWorkouts()
 
@@ -170,22 +165,10 @@ private fun RoutinesContent(
         }
 
     }
-//    Button(
-//        onClick = onNavigateToRoutine,
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(top = 28.dp, bottom = 3.dp)
-//    ) {
-//        Text(
-//            text = "Navigate to routine",
-//            style = MaterialTheme.typography.titleSmall
-//        )
-//    }
-
 }
 
 
-@Composable             //routine: Workout
+@Composable
 private fun RoutineBox(
     onNavigateToRoutine: (routineID: Int) -> Unit,
     workout: Workout
@@ -338,7 +321,6 @@ fun RoutinesScreenPreview() {
             onNavigateToRoutines = {},
             onNavigateToAnalytics = {},
             onNavigateToSettings = {},
-            onNavigateToSpotifyBeta = {},
         )
     }
 }
