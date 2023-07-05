@@ -53,8 +53,8 @@ object Destinations {
 fun MusicTonedNavHost(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        //startDestination = ROUTINES_ROUTE
-        startDestination = WELCOME_ROUTE
+        startDestination = ROUTINES_ROUTE
+        //startDestination = WELCOME_ROUTE
     ) {
         composable(WELCOME_ROUTE) {
             WelcomeRoute(

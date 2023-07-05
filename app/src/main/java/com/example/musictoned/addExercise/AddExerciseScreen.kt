@@ -211,9 +211,7 @@ private fun ExerciseList(
                             contentColor = Color(0xFFFFFFFF),
                         ),
                         contentPadding = PaddingValues(0.dp),
-                        onClick = { onNavigateToEditRoutine(exercises[index].name)
-                                    println("Hello?????????????")
-                                  },
+                        onClick = { onNavigateToEditRoutine(exercises[index].name)},
                     ){
                         Text(
                             text = "ADD",

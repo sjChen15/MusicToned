@@ -67,7 +67,7 @@ import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
-import com.example.musictoned.workoutcreation.AllWorkouts.saveInProgress
+import com.example.musictoned.workoutcreation.AllWorkouts.saveWorkout
 import com.example.musictoned.workoutcreation.ExerciseTempos
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
@@ -93,7 +93,6 @@ fun EditRoutineScreen(
         workout.deleteLastExercise()
     }
 
-    println(workout)
     Surface(modifier = Modifier
         .supportWideScreen()
     ) {
@@ -181,7 +180,7 @@ private fun TopBar(
                 ),
                 onClick = {
                     onNavigateToRoutine(0)
-                    saveInProgress()
+                    saveWorkout()
                 }
             ){
                 Text(

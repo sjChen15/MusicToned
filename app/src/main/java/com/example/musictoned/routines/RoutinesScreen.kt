@@ -148,6 +148,7 @@ private fun RoutinesContent(
     //routines: List<Workout>,
 ) {
     val routines = AllWorkouts.getAllWorkouts()
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(start = 5.dp, end = 5.dp, bottom = 100.dp),
