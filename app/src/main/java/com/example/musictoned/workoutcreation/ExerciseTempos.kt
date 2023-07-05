@@ -4,34 +4,53 @@ import com.example.musictoned.MainActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
+import java.lang.reflect.Type
+import java.util.stream.Collectors
 
 //singleton
 object ExerciseTempos{
-    private lateinit var app: MainActivity
-    fun setApplication(mainActivity: MainActivity){
-        app = mainActivity
-    }
-    private const val exerciseTemposFilename = "ExerciseTempos/armExercises.json"
-    private var armExercises: Map<String,Exercise>
+    private const val exerciseTemposFolder= "ExerciseTempos/"
+    private val filenames = listOf<String>("armExercises","legExercises")
+    /**
+     * Keep lists of exercises organized into categories by filename and also a master list of all exercises
+     */
+
+    //exercise name to exercise object
+    private var allExercises: MutableMap<String,Exercise> = mutableMapOf()
+    //file name ie legExercises to list of leg exercises
+    private var sortedExercises: MutableMap<String,List<Exercise>> = mutableMapOf()
+
     /**
      * Ref: https://www.bezkoder.com/kotlin-android-read-json-file-assets-gson/
      */
 
-    init{
+    private val exerciseMapType: Type = object : TypeToken<List<Exercise>>() {}.type
+    private lateinit var app: MainActivity
+    fun setApplication(mainActivity: MainActivity){
+        app = mainActivity
+        for(name in filenames){
+            var jsonString = ""
+            try{
+                jsonString = app.applicationContext.assets.open("$exerciseTemposFolder$name.json").bufferedReader().use{it.readText()}
+            } catch (ioException: IOException) {
+                ioException.printStackTrace()
+            }
+            val exerciseList: List<Exercise> = Gson().fromJson(jsonString, exerciseMapType)
 
-        var jsonString = ""
-        try{
-            jsonString = app.applicationContext.assets.open(exerciseTemposFilename).bufferedReader().use{it.readText()}
-        } catch (ioException: IOException) {
-            ioException.printStackTrace()
+            allExercises.putAll(exerciseList.associateBy { it.name })
+            sortedExercises[name] = exerciseList
         }
-        val exerciseMapType = object : TypeToken<Map<String,Exercise>>() {}.type
-        //convert to list
-        armExercises = Gson().fromJson(jsonString, exerciseMapType)
     }
 
-    //returns exercise object
-    fun getArmExercise(exercise:String): Exercise {
-        return armExercises.getValue(exercise)
+    //get specific Exercise object
+    fun getExercise(exercise: String): Exercise {
+        return allExercises.getValue(exercise)
+    }
+
+    fun getAllArmExercises(): List<Exercise> {
+        return sortedExercises.getValue("armExercises")
+    }
+    fun getAllLegExercises(): List<Exercise> {
+        return sortedExercises.getValue("legExercises")
     }
 }

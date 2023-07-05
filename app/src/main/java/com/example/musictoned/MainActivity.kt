@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.LocalStorage
 import com.example.musictoned.workoutcreation.AllWorkouts
+import com.example.musictoned.workoutcreation.ExerciseTempos
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
          * Pass context to classes
          */
         LocalStorage.setApplication(this)
+        ExerciseTempos.setApplication(this)
         /**
          * Initialize the navigation host
          */

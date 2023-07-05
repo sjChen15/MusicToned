@@ -54,6 +54,8 @@ import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.BottomBar
 import com.example.musictoned.util.BottomNavPages
 import com.example.musictoned.util.supportWideScreen
+import com.example.musictoned.workoutcreation.AllWorkouts
+import com.example.musictoned.workoutcreation.Workout
 
 /**
  * Influenced by composable UI example provided by Android
@@ -63,7 +65,7 @@ import com.example.musictoned.util.supportWideScreen
 @Composable
 fun RoutinesScreen(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToEditRoutine: () -> Unit,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: (charOffset: Int) -> Unit,
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
     onNavigateToSettings: (charOffset: Int) -> Unit
@@ -95,7 +97,7 @@ fun RoutinesScreen(
                 Box ( modifier = Modifier.padding(innerPadding)){
                     RoutinesContent(
                         onNavigateToRoutine = onNavigateToRoutine,
-                        onNavigateToEditRoutine = onNavigateToEditRoutine
+                        onNavigateToEditRoutine = onNavigateToEditRoutine,
                     )
                 }
             }
@@ -140,46 +142,36 @@ private fun TopBar(){
     }
 }
 
-// TODO - Replace this placeholder with the components that you need
 @Composable
 private fun RoutinesContent(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToEditRoutine: () -> Unit,
-    //routines: List<Workout>,
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
 ) {
+    val routines = AllWorkouts.getAllWorkouts()
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(start = 5.dp, end = 5.dp, bottom = 100.dp),
         modifier = Modifier.fillMaxHeight()
 
     ) {
-            //routines.size + 1 (+1 for the add new button)
-        items(2){
-            RoutineBox(onNavigateToRoutine = onNavigateToRoutine)
+        //routines.size + 1 (+1 for the add new button)
+        items(routines.size){
+            index ->
+                RoutineBox( onNavigateToRoutine = onNavigateToRoutine, workout = routines[index])
         }
         items (1){
             AddNewRoutineBox(onNavigateToEditRoutine = onNavigateToEditRoutine)
         }
 
     }
-//    Button(
-//        onClick = onNavigateToRoutine,
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(top = 28.dp, bottom = 3.dp)
-//    ) {
-//        Text(
-//            text = "Navigate to routine",
-//            style = MaterialTheme.typography.titleSmall
-//        )
-//    }
-
 }
 
 
-@Composable             //routine: Workout
+@Composable
 private fun RoutineBox(
-    onNavigateToRoutine: (routineID: Int) -> Unit
+    onNavigateToRoutine: (routineID: Int) -> Unit,
+    workout: Workout
 ){
 
     Column(
@@ -209,7 +201,7 @@ private fun RoutineBox(
         Column {
 
             Text(
-                text = "Workout Title",
+                text = workout.name,
                 color = Color.Black,
                 style = MaterialTheme.typography.bodyLarge
 
@@ -242,7 +234,7 @@ private fun RoutineBox(
                 ),
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp),
-                onClick = {onNavigateToRoutine(10101)}
+                onClick = {onNavigateToRoutine(workout.hashCode())}
             )
 
             Divider(
@@ -261,7 +253,7 @@ private fun RoutineBox(
                 ),
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp),
-                onClick = { onNavigateToRoutine(627) }
+                onClick = { onNavigateToRoutine(workout.hashCode()) }
             )
                 //button or clickabletext
         }
@@ -271,7 +263,7 @@ private fun RoutineBox(
 
 @Composable
 private fun AddNewRoutineBox(
-    onNavigateToEditRoutine: () -> Unit
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit
 ){
     val stroke = Stroke(
         width = 6f,
@@ -295,7 +287,7 @@ private fun AddNewRoutineBox(
             .padding(horizontal = 5.dp, vertical = 5.dp)
             .fillMaxWidth()
             .aspectRatio(1f)
-            .clickable{onNavigateToEditRoutine()},
+            .clickable{onNavigateToEditRoutine(null.toString())},
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
@@ -328,7 +320,7 @@ fun RoutinesScreenPreview() {
             onNavigateToEditRoutine = {},
             onNavigateToRoutines = {},
             onNavigateToAnalytics = {},
-            onNavigateToSettings = {}
+            onNavigateToSettings = {},
         )
     }
 }

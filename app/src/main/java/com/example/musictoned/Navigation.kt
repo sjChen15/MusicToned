@@ -83,7 +83,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                     navController.navigate("$ROUTINE_ROUTE/$it")
                 },
                 onNavigateToEditRoutine = {
-                    navController.navigate(EDIT_ROUTINE_ROUTE)
+                    navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 },
                 onNavigateToRoutines = {
                     /* NOOP since we don't need to route to ourselves */
@@ -93,7 +93,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 },
                 onNavigateToSettings = {
                     navController.navigate(SETTINGS_ROUTE)
-                }
+                },
             )
         }
 
@@ -130,7 +130,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
 
             RoutineRoute(
                 onNavigateToEditRoutine = {
-                    navController.navigate(EDIT_ROUTINE_ROUTE)
+                    navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 },
                 onNavigateToRoutines = {
                     navController.navigate(ROUTINES_ROUTE)
@@ -150,21 +150,24 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
             )
         }
 
-        composable(EDIT_ROUTINE_ROUTE) {
+        composable("$EDIT_ROUTINE_ROUTE/{exerciseName}") {
+            val exerciseName = it.arguments?.getString("exerciseName")
+
             EditRoutineRoute(
                 onNavigateToRoutine = {
                     navController.navigate("$ROUTINE_ROUTE/$it")
                 },
                 onNavigateToAddExercise = {
                     navController.navigate(ADD_EXERCISE_ROUTE)
-                }
+                },
+                exerciseName = exerciseName
             )
         }
 
         composable(ADD_EXERCISE_ROUTE) {
             AddExerciseRoute(
                 onNavigateToEditRoutine = {
-                    navController.navigate(EDIT_ROUTINE_ROUTE)
+                    navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 }
             )
         }
