@@ -9,7 +9,7 @@ object AllWorkouts {
 
     //instantiate allWorkouts with one default workout
 //    private var allWorkouts: ArrayList<Workout> = arrayListOf(Workout("I love squats"))
-    private var workoutInProgress: Workout = Workout("New Workout")
+    private var workoutInProgress: Workout = allWorkouts[0]
 
     fun setWorkoutInProgress(workout: Workout){
         workoutInProgress = workout

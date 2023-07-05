@@ -61,9 +61,14 @@ import com.example.musictoned.workoutcreation.WorkoutExercise
 fun RoutineScreen(
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: () -> Unit,
-    routineID: Int
+    routineID: Int?
 ) {
-    val workout = AllWorkouts.getWorkout(routineID)
+    val workout: Workout = if(routineID == null){
+        Workout("New Workout")
+    }
+    else{
+        AllWorkouts.getWorkout(routineID)
+    }
 
     Surface(modifier = Modifier
         .supportWideScreen()

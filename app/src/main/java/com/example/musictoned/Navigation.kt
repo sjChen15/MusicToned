@@ -1,14 +1,10 @@
 package com.example.musictoned
 
-import android.provider.ContactsContract
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavArgument
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.example.musictoned.Destinations.ABOUT_YOU_ROUTE
 import com.example.musictoned.Destinations.ROUTINES_ROUTE
 import com.example.musictoned.Destinations.ROUTINE_ROUTE
@@ -26,7 +22,6 @@ import com.example.musictoned.routines.RoutinesRoute
 import com.example.musictoned.spotifyAuthorization.SpotifyAuthorizationRoute
 import com.example.musictoned.spotifyAuthorization.SpotifyBetaRoute
 import com.example.musictoned.welcome.WelcomeRoute
-import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.yourGoals.YourGoalsRoute
 
 /**
@@ -53,8 +48,8 @@ object Destinations {
 fun MusicTonedNavHost(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        startDestination = ROUTINES_ROUTE
-        //startDestination = WELCOME_ROUTE
+        //startDestination = ROUTINES_ROUTE
+        startDestination = WELCOME_ROUTE
     ) {
         composable(WELCOME_ROUTE) {
             WelcomeRoute(

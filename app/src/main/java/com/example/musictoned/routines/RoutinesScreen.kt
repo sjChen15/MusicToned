@@ -246,7 +246,7 @@ private fun RoutineBox(
                 ),
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp),
-                onClick = {onNavigateToRoutine(10101)}
+                onClick = {onNavigateToRoutine(workout.hashCode())}
             )
 
             Divider(
@@ -265,7 +265,7 @@ private fun RoutineBox(
                 ),
                 modifier = Modifier
                     .padding(start = 15.dp, end = 15.dp),
-                onClick = { onNavigateToRoutine(627) }
+                onClick = { onNavigateToRoutine(workout.hashCode()) }
             )
                 //button or clickabletext
         }
