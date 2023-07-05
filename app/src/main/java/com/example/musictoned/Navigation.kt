@@ -8,19 +8,21 @@ import androidx.navigation.compose.rememberNavController
 import com.example.musictoned.Destinations.ABOUT_YOU_ROUTE
 import com.example.musictoned.Destinations.ROUTINES_ROUTE
 import com.example.musictoned.Destinations.ROUTINE_ROUTE
-import com.example.musictoned.Destinations.SPOTIFY_AUTHORIZATION_ROUTE
-import com.example.musictoned.Destinations.SPOTIFY_BETA_ROUTE
 import com.example.musictoned.Destinations.WELCOME_ROUTE
 import com.example.musictoned.Destinations.EDIT_ROUTINE_ROUTE
 import com.example.musictoned.Destinations.ADD_EXERCISE_ROUTE
+import com.example.musictoned.Destinations.ANALYTICS_ROUTE
+import com.example.musictoned.Destinations.PLAYER_ROUTE
+import com.example.musictoned.Destinations.SETTINGS_ROUTE
 import com.example.musictoned.addExercise.AddExerciseRoute
 import com.example.musictoned.editRoutine.EditRoutineRoute
 import com.example.musictoned.Destinations.YOUR_GOALS_ROUTE
 import com.example.musictoned.aboutYou.AboutYouRoute
+import com.example.musictoned.analytics.AnalyticsRoute
+import com.example.musictoned.player.PlayerRoute
 import com.example.musictoned.routine.RoutineRoute
 import com.example.musictoned.routines.RoutinesRoute
-import com.example.musictoned.spotifyAuthorization.SpotifyAuthorizationRoute
-import com.example.musictoned.spotifyAuthorization.SpotifyBetaRoute
+import com.example.musictoned.settings.SettingsRoute
 import com.example.musictoned.welcome.WelcomeRoute
 import com.example.musictoned.yourGoals.YourGoalsRoute
 
@@ -36,19 +38,19 @@ object Destinations {
     const val WELCOME_ROUTE = "welcome"
     const val ABOUT_YOU_ROUTE = "aboutYou"
     const val YOUR_GOALS_ROUTE = "yourGoals"
-    const val SPOTIFY_AUTHORIZATION_ROUTE = "spotifyAuthorization"
-    const val SPOTIFY_BETA_ROUTE = "spotifyBeta" // TODO - Remove, just for Harsh's testing
     const val ROUTINES_ROUTE = "routines"
     const val ROUTINE_ROUTE = "routine"
     const val EDIT_ROUTINE_ROUTE = "editRoutine"
     const val ADD_EXERCISE_ROUTE = "addExercise"
+    const val ANALYTICS_ROUTE = "analytics"
+    const val SETTINGS_ROUTE = "settings"
+    const val PLAYER_ROUTE = "player"
 }
 
 @Composable
 fun MusicTonedNavHost(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        //startDestination = ROUTINES_ROUTE
         startDestination = WELCOME_ROUTE
     ) {
         composable(WELCOME_ROUTE) {
@@ -70,14 +72,6 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
         composable(YOUR_GOALS_ROUTE) {
             YourGoalsRoute(
                 onClickFinish = {
-                    navController.navigate(SPOTIFY_AUTHORIZATION_ROUTE)
-                }
-            )
-        }
-
-        composable(SPOTIFY_AUTHORIZATION_ROUTE) {
-            SpotifyAuthorizationRoute(
-                onNavigateToRoutines = {
                     navController.navigate(ROUTINES_ROUTE)
                 }
             )
@@ -88,26 +82,50 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 onNavigateToRoutine = {
                     navController.navigate("$ROUTINE_ROUTE/$it")
                 },
-                onNavigateToSpotifyBeta = {
-                    navController.navigate(SPOTIFY_BETA_ROUTE)
-                },
                 onNavigateToEditRoutine = {
                     navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
+                },
+                onNavigateToRoutines = {
+                    /* NOOP since we don't need to route to ourselves */
+                },
+                onNavigateToAnalytics = {
+                    navController.navigate(ANALYTICS_ROUTE)
+                },
+                onNavigateToSettings = {
+                    navController.navigate(SETTINGS_ROUTE)
                 }
             )
         }
 
-        composable(SPOTIFY_BETA_ROUTE) {
-            SpotifyBetaRoute(
+        composable(ANALYTICS_ROUTE) {
+            AnalyticsRoute(
                 onNavigateToRoutines = {
                     navController.navigate(ROUTINES_ROUTE)
+                },
+                onNavigateToAnalytics = {
+                    /* NOOP since we don't need to route to ourselves */
+                },
+                onNavigateToSettings = {
+                    navController.navigate(SETTINGS_ROUTE)
                 }
             )
         }
 
-        composable(
-            "$ROUTINE_ROUTE/{routineID}"
-        ) {
+        composable(SETTINGS_ROUTE) {
+            SettingsRoute(
+                onNavigateToRoutines = {
+                    navController.navigate(ROUTINES_ROUTE)
+                },
+                onNavigateToAnalytics = {
+                    navController.navigate(ANALYTICS_ROUTE)
+                },
+                onNavigateToSettings = {
+                    /* NOOP since we don't need to route to ourselves */
+                }
+            )
+        }
+
+        composable("$ROUTINE_ROUTE/{routineID}") {
             val routineID = it.arguments?.getString("routineID")
 
             RoutineRoute(
@@ -117,12 +135,24 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 onNavigateToRoutines = {
                     navController.navigate(ROUTINES_ROUTE)
                 },
+                onNavigateToPlayer = {
+                    navController.navigate("$PLAYER_ROUTE/{routineID}")
+                },
                 routineID = routineID?.toInt()
+            )
+        }
+
+        composable("$PLAYER_ROUTE/{routineID}") {
+            PlayerRoute(
+                onNavigateToRoutines = {
+                    navController.navigate(ROUTINES_ROUTE)
+                }
             )
         }
 
         composable("$EDIT_ROUTINE_ROUTE/{exerciseName}") {
             val exerciseName = it.arguments?.getString("exerciseName")
+
             EditRoutineRoute(
                 onNavigateToRoutine = {
                     navController.navigate("$ROUTINE_ROUTE/$it")

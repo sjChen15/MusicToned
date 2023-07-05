@@ -1,7 +1,6 @@
-package com.example.musictoned.spotifyAuthorization
+package com.example.musictoned.player
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 /**
  * Influenced by composable UI example provided by Android
@@ -9,12 +8,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
  */
 
 @Composable
-fun SpotifyBetaRoute(
+fun PlayerRoute(
     onNavigateToRoutines: () -> Unit
 ) {
-    val spotifyBetaViewModel: SpotifyBetaViewModel = viewModel(factory = SpotifyBetaViewModelFactory())
-
-    SpotifyBetaScreen(
+    PlayerScreen(
         onNavigateToRoutines = onNavigateToRoutines
     )
 }

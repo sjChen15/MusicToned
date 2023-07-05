@@ -1,4 +1,4 @@
-package com.example.musictoned.routines
+package com.example.musictoned.settings
 
 import androidx.compose.runtime.Composable
 
@@ -8,21 +8,12 @@ import androidx.compose.runtime.Composable
  */
 
 @Composable
-fun RoutinesRoute(
-    onNavigateToRoutine: (routineID: Int) -> Unit,
-<<<<<<< HEAD
-    onNavigateToSpotifyBeta: () -> Unit,
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit
-=======
-    onNavigateToEditRoutine: () -> Unit,
+fun SettingsRoute(
     onNavigateToRoutines: (charOffset: Int) -> Unit,
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
     onNavigateToSettings: (charOffset: Int) -> Unit
->>>>>>> main
 ) {
-    RoutinesScreen(
-        onNavigateToRoutine = onNavigateToRoutine,
-        onNavigateToEditRoutine = onNavigateToEditRoutine,
+    SettingsScreen(
         onNavigateToRoutines = onNavigateToRoutines,
         onNavigateToAnalytics = onNavigateToAnalytics,
         onNavigateToSettings = onNavigateToSettings
