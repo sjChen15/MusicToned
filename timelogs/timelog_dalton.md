@@ -30,3 +30,4 @@ University Email: <dbown@uwaterloo.ca>
 | Brainstormed remaining tasks and ordered them on priority    | July 4, 2023  | 4:30pm     | 4:45pm      | 0.25  | 43                 |
 | Created workout player pages and added navigation plumbing   | July 4, 2023  | 4:45pm     | 7:00pm      | 2.25  | 45.25              |
 | Merged outstanding PRs & manage conflicts                    | July 5, 2023  | 2:30pm     | 3:00pm      | 0.5   | 45.75              |
+| Continue working on workout player frontend code             | July 5, 2023  | 3:00pm     | 12:00am     | 9     | 54.75              |
