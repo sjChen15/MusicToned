@@ -1,6 +1,7 @@
 package com.example.musictoned.player
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 /**
  * Influenced by composable UI example provided by Android
@@ -11,7 +12,10 @@ import androidx.compose.runtime.Composable
 fun PlayerRoute(
     onNavigateToRoutines: () -> Unit
 ) {
+    val playerViewModel: PlayerViewModel = viewModel(factory = PlayerViewModelFactory())
+
     PlayerScreen(
+        viewModel = playerViewModel,
         onNavigateToRoutines = onNavigateToRoutines
     )
 }
