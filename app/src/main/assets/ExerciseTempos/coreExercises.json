@@ -1,0 +1,10 @@
+[
+  {"name": "Sit Ups",
+    "target": ["abs"],
+    "bpm": 80
+  },
+  {"name": "Planking",
+    "target": ["abs","obliques"],
+    "bpm": 80
+  }
+]
