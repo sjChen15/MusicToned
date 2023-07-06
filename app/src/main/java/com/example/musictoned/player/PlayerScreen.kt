@@ -36,7 +36,6 @@ import com.example.musictoned.util.TimerUtils.formatTime
 import com.example.musictoned.util.supportWideScreen
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.text.style.TextAlign
-import com.example.musictoned.ui.theme.FontName
 
 /**
  * Influenced by composable UI example provided by Android
@@ -147,6 +146,9 @@ fun PlayerScreen(
             Text(
                 modifier = Modifier
                     .offset(x = 260.dp, y = 150.dp)
+                    .clickable(
+                        onClick = {}
+                    )
                     .height(17.dp),
                 text = "Skip >>",
                 fontSize = 14.sp,
