@@ -5,12 +5,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -126,11 +128,40 @@ fun PlayerScreen(
             Text(
                 textAlign = TextAlign.Center,
                 text = if (viewModel.isPlaying.value == true) "STOP" else "START",
-                fontFamily = FontName,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.W600,
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.lato_regular)),
+                fontWeight = FontWeight(600)
             )
         }
+        Row {
+            Text(
+                modifier = Modifier
+                    .offset(x = 20.dp, y = 150.dp)
+                    .height(19.dp),
+                text = "Up Next",
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.lato_regular)),
+                fontWeight = FontWeight(600),
+                color = Color(0xFFFFFFFF)
+            )
+            Text(
+                modifier = Modifier
+                    .offset(x = 260.dp, y = 150.dp)
+                    .height(17.dp),
+                text = "Skip >>",
+                fontSize = 14.sp,
+                fontFamily = FontFamily(Font(R.font.lato_regular)),
+                fontWeight = FontWeight(600),
+                color = Color(0xBDFFFFFF)
+            )
+        }
+        Divider(
+            modifier = Modifier
+                .offset(x = 20.dp, y = 160.dp)
+                .width(350.dp),
+            color = Color(180, 167, 214),
+            thickness = 0.5.dp
+        )
     }
 }
 
