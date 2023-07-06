@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -28,7 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
 import com.example.musictoned.ui.theme.MusicTonedTheme
+import com.example.musictoned.util.TimerUtils.formatTime
 import com.example.musictoned.util.supportWideScreen
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.text.style.TextAlign
+import com.example.musictoned.ui.theme.FontName
 
 /**
  * Influenced by composable UI example provided by Android
@@ -37,8 +43,12 @@ import com.example.musictoned.util.supportWideScreen
 
 @Composable
 fun PlayerScreen(
+    viewModel: PlayerViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
     onNavigateToRoutines: () -> Unit
 ) {
+    // TODO - Provide actual workout time
+    val time by viewModel.time.observeAsState(60000L.formatTime())
+
     PlayerScreenBackground()
     Column {
         Image(
@@ -100,8 +110,49 @@ fun PlayerScreen(
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.lato_regular)),
             fontWeight = FontWeight(600),
-            color = Color(0xBDFFFFFF))
+            color = Color(0xBDFFFFFF)
+        )
+        Timer(
+            modifier = Modifier
+                .offset(x = 150.dp, y = 165.dp)
+                .height(62.dp),
+            time = time
+        )
+        Button(
+            modifier = Modifier
+                .offset(x = 155.dp, y = 150.dp),
+            onClick = { viewModel.handleCountDownTimer() },
+        ) {
+            Text(
+                textAlign = TextAlign.Center,
+                text = if (viewModel.isPlaying.value == true) "STOP" else "START",
+                fontFamily = FontName,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.W600,
+            )
+        }
     }
+}
+
+/**
+ * Influenced by composable timer example
+ * Ref: https://medium.com/geekculture/exploring-jetpack-compose-build-a-simple-countdown-timer-app-3151f8000529
+ */
+
+@Composable
+fun Timer(
+    modifier: Modifier,
+    time: String
+) {
+    Text(
+        modifier = modifier,
+        text = time,
+        fontSize = 36.sp,
+        fontFamily = FontFamily(Font(R.font.lato_regular)),
+        fontWeight = FontWeight(900),
+        fontStyle = FontStyle.Italic,
+        color = Color(0xFFFFFFFF)
+    )
 }
 
 @Composable
