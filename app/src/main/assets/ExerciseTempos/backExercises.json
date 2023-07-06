@@ -1,0 +1,10 @@
+[
+  {"name": "Pull Ups",
+    "target": ["traps","biceps","rhomboids"],
+    "bpm": 80
+  },
+  {"name": "Deadlifts",
+    "target": ["back","traps","glutes","hamstrings"],
+    "bpm": 80
+  }
+]

@@ -10,14 +10,17 @@ import java.util.stream.Collectors
 //singleton
 object ExerciseTempos{
     private const val exerciseTemposFolder= "ExerciseTempos/"
-    private val filenames = listOf<String>("armExercises","legExercises")
+    private val filenames = listOf<String>("armExercises","legExercises","backExercises","coreExercises","cardioExercises")
     /**
      * Keep lists of exercises organized into categories by filename and also a master list of all exercises
      */
 
     //exercise name to exercise object
     private var allExercises: MutableMap<String,Exercise> = mutableMapOf()
-    //file name ie legExercises to list of leg exercises
+
+    //map of
+    // key: file name ie legExercises to
+    // value: list of leg exercises
     private var sortedExercises: MutableMap<String,List<Exercise>> = mutableMapOf()
 
     /**
@@ -52,5 +55,17 @@ object ExerciseTempos{
     }
     fun getAllLegExercises(): List<Exercise> {
         return sortedExercises.getValue("legExercises")
+    }
+
+    fun getAllBackExercises(): List<Exercise>{
+        return sortedExercises.getValue("backExercises")
+    }
+
+    fun getAllCoreExercises(): List<Exercise>{
+        return sortedExercises.getValue("coreExercises")
+    }
+
+    fun getAllCardioExercises(): List<Exercise>{
+        return sortedExercises.getValue("cardioExercises")
     }
 }
