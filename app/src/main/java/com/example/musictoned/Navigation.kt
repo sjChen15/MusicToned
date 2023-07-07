@@ -143,10 +143,13 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
         }
 
         composable("$PLAYER_ROUTE/{routineID}") {
+            val routineID = it.arguments?.getString("routineID")
+
             PlayerRoute(
                 onNavigateToRoutines = {
                     navController.navigate(ROUTINES_ROUTE)
-                }
+                },
+                routineID = routineID?.toInt()!!
             )
         }
 
