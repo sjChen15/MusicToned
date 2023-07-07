@@ -6,14 +6,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,9 +32,11 @@ import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.TimerUtils.formatTime
-import com.example.musictoned.util.supportWideScreen
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.text.style.TextAlign
+import com.example.musictoned.workoutcreation.Exercise
+import com.example.musictoned.workoutcreation.Workout
+import com.example.musictoned.workoutcreation.WorkoutExercise
+import java.util.LinkedList
 
 /**
  * Influenced by composable UI example provided by Android
@@ -44,17 +45,35 @@ import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun PlayerScreen(
-    viewModel: PlayerViewModel = androidx.lifecycle.viewmodel.compose.viewModel(),
+    viewModel: PlayerViewModel,
     onNavigateToRoutines: () -> Unit
 ) {
     // TODO - Provide actual workout time
-    val time by viewModel.time.observeAsState(60000L.formatTime())
+    val time by viewModel.time.observeAsState(viewModel.playerScreenData.exerciseTimeMillis.formatTime())
 
-    PlayerScreenBackground()
-    Column {
+    Column(
+        modifier = Modifier
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.White, Color(red = 116, green = 0, blue = 184)
+                    ),
+                    startY = 200f,
+                    endY = 210f
+                )
+            )
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.routines_waves),
+            contentDescription = "Waves",
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillWidth
+        )
         Image(
             modifier = Modifier
-                .offset(x = 350.dp, y = 95.dp)
+                .offset(x = 170.dp, y = 0.dp)
                 .clickable(
                     onClick = onNavigateToRoutines
                 )
@@ -64,9 +83,7 @@ fun PlayerScreen(
             contentDescription = "Exit workout player",
         )
         Text(
-            modifier = Modifier
-                .offset(x = 95.dp, y = 105.dp),
-            text = "BASIC STRETCH", // TODO - Set this based on the routine name
+            text = viewModel.playerScreenData.routineName,
             fontSize = 24.sp,
             fontFamily = FontFamily(Font(R.font.lato_regular)),
             fontWeight = FontWeight(700),
@@ -75,29 +92,27 @@ fun PlayerScreen(
             letterSpacing = 2.4.sp
         )
         Text(
-            modifier = Modifier
-                .offset(x = 103.dp, y = 110.dp),
-            text = "EXERCISE 1 OUT OF 4", // TODO - Set this dynamically based on routine data
+            text = "EXERCISE ${viewModel.playerScreenData.exerciseIndex} OUT OF ${viewModel.playerScreenData.exerciseCount}",
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.lato_regular)),
-                fontWeight = FontWeight(700),
-                fontStyle = FontStyle.Italic,
-                color = Color(0xBDFFFFFF),
-                letterSpacing = 1.6.sp
+            fontWeight = FontWeight(700),
+            fontStyle = FontStyle.Italic,
+            color = Color(0xBDFFFFFF),
+            letterSpacing = 1.6.sp
         )
         Image(
             modifier = Modifier
-                .offset(x = 48.dp, y = 130.dp)
+                .offset(y = 25.dp)
                 .width(300.dp)
                 .height(300.dp),
-            painter = painterResource(id = R.drawable.side_to_side_reaches), // TODO - Set dynamically
+            painter = painterResource(id = viewModel.playerScreenData.exerciseImageId),
             contentDescription = "Workout picture",
             contentScale = ContentScale.Crop
         )
         Text(
             modifier = Modifier
-                .offset(x = 85.dp, y = 145.dp),
-            text = "Side-to-side reaches", // TODO - Set dynamically
+                .offset(y = 35.dp),
+            text = viewModel.playerScreenData.exerciseName,
             fontSize = 24.sp,
             fontFamily = FontFamily(Font(R.font.lato_regular)),
             fontWeight = FontWeight(600),
@@ -105,9 +120,9 @@ fun PlayerScreen(
         )
         Text(
             modifier = Modifier
-                .offset(x = 63.dp, y = 150.dp)
+                .offset(y = 43.dp)
                 .height(19.dp),
-            text = " ♫ I’m so excited - The Pointer Sisters", // TODO - Set dynamically
+            text = "♫ ${viewModel.playerScreenData.songName}",
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.lato_regular)),
             fontWeight = FontWeight(600),
@@ -115,17 +130,16 @@ fun PlayerScreen(
         )
         Timer(
             modifier = Modifier
-                .offset(x = 150.dp, y = 165.dp)
+                .offset(y = 70.dp)
                 .height(62.dp),
             time = time
         )
         Button(
             modifier = Modifier
-                .offset(x = 155.dp, y = 150.dp),
+                .offset(y = 55.dp),
             onClick = { viewModel.handleCountDownTimer() },
         ) {
             Text(
-                textAlign = TextAlign.Center,
                 text = if (viewModel.isPlaying.value == true) "STOP" else "START",
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.lato_regular)),
@@ -135,7 +149,7 @@ fun PlayerScreen(
         Row {
             Text(
                 modifier = Modifier
-                    .offset(x = 20.dp, y = 150.dp)
+                    .offset(x = -(100).dp, y = 60.dp)
                     .height(19.dp),
                 text = "Up Next",
                 fontSize = 16.sp,
@@ -145,9 +159,9 @@ fun PlayerScreen(
             )
             Text(
                 modifier = Modifier
-                    .offset(x = 260.dp, y = 150.dp)
+                    .offset(x = 100.dp, y = 60.dp)
                     .clickable(
-                        onClick = {}
+                        onClick = { viewModel.onSkipPressed() }
                     )
                     .height(17.dp),
                 text = "Skip >>",
@@ -159,8 +173,8 @@ fun PlayerScreen(
         }
         Divider(
             modifier = Modifier
-                .offset(x = 20.dp, y = 160.dp)
-                .width(350.dp),
+                .offset(x = 0.dp, y = 70.dp)
+                .width(310.dp),
             color = Color(180, 167, 214),
             thickness = 0.5.dp
         )
@@ -188,41 +202,59 @@ fun Timer(
     )
 }
 
-@Composable
-fun PlayerScreenBackground() {
-    Surface(modifier = Modifier
-        .supportWideScreen()
-        .fillMaxHeight()
-        .fillMaxWidth()) {
-        Column(
-            modifier = Modifier
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.White, Color(red = 116, green = 0, blue = 184)
-                        ),
-                        startY = 200f,
-                        endY = 210f
-                    ))
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.routines_waves),
-                contentDescription = "Waves",
-                alignment = Alignment.TopCenter,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .offset(x = 0.dp, y = -(10).dp),
-                contentScale = ContentScale.FillWidth
-            )
-        }
-    }
-}
-
 @Preview(name = "Player light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun PlayerScreenPreview() {
     MusicTonedTheme {
         PlayerScreen(
+            viewModel = PlayerViewModel(
+                0,
+                Workout(
+                "Basic Stretch",
+                LinkedList<WorkoutExercise>(listOf(
+                    WorkoutExercise(
+                        Exercise(
+                            "Side-to-side reaches",
+                            listOf("triceps"),
+                            500,
+                            R.drawable.side_to_side_reaches
+                        ),
+                        56,
+                        song = "I'm so excited - The Pointer Sisters"
+                    ),
+                    WorkoutExercise(
+                        Exercise(
+                            "Side-to-side reaches",
+                            listOf("triceps"),
+                            500,
+                            R.drawable.side_to_side_reaches
+                        ),
+                        56,
+                        song = "I'm so excited - The Pointer Sisters"
+                    ),
+                    WorkoutExercise(
+                        Exercise(
+                            "Side-to-side reaches",
+                            listOf("triceps"),
+                            500,
+                            R.drawable.side_to_side_reaches
+                        ),
+                        56,
+                        song = "I'm so excited - The Pointer Sisters"
+                    ),
+                    WorkoutExercise(
+                        Exercise(
+                            "Side-to-side reaches",
+                            listOf("triceps"),
+                            500,
+                            R.drawable.side_to_side_reaches
+                        ),
+                        56,
+                        song = "I'm so excited - The Pointer Sisters"
+                    )
+                ))
+            )
+            ),
             onNavigateToRoutines = {}
         )
     }
