@@ -33,3 +33,4 @@ University Email: <s655chen@uwaterloo.ca>
 | Persistence work         | July 05, 2023 | 12:00pm    | 3:00pm      | 3     | 35.5               |
 | PR #36                   | July 05, 2023 | 4:00pm     | 4:30pm      | 0.5   | 36.0               |
 | Team meeting && #55      | July 06, 2023 | 3:00pm     | 4:30pm      | 1.5   | 37.5               |
+| Persist Profile Work     | July 07, 2023 | 5:00pm     | 6:00pm      | 1     | 38.5               |
