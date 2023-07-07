@@ -1,0 +1,10 @@
+[
+  {"name": "Jogging",
+    "target": ["glutes","quads"],
+    "bpm": 80
+  },
+  {"name": "Walking",
+    "target": ["glutes","quads"],
+    "bpm": 80
+  }
+]
