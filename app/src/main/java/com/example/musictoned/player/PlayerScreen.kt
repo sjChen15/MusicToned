@@ -62,28 +62,30 @@ fun PlayerScreen(
                     endY = 210f
                 )
             )
-            .fillMaxSize(),
+            .fillMaxSize()
+            .offset(y = -(15).dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             painter = painterResource(id = R.drawable.routines_waves),
             contentDescription = "Waves",
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             contentScale = ContentScale.FillWidth
         )
         Image(
             modifier = Modifier
-                .offset(x = 170.dp, y = 0.dp)
+                .offset(x = 170.dp, y = -(5).dp)
                 .clickable(
                     onClick = onNavigateToRoutines
                 )
-                .width(18.dp)
-                .height(18.dp),
+                .width(22.dp)
+                .height(22.dp),
             painter = painterResource(id = R.drawable.x),
             contentDescription = "Exit workout player",
         )
         Text(
-            text = viewModel.playerScreenData.routineName,
+            text = viewModel.playerScreenData.routineName.uppercase(),
             fontSize = 24.sp,
             fontFamily = FontFamily(Font(R.font.lato_regular)),
             fontWeight = FontWeight(700),
@@ -92,7 +94,7 @@ fun PlayerScreen(
             letterSpacing = 2.4.sp
         )
         Text(
-            text = "EXERCISE ${viewModel.playerScreenData.exerciseIndex} OUT OF ${viewModel.playerScreenData.exerciseCount}",
+            text = "Exercise ${viewModel.playerScreenData.exerciseIndex} out of ${viewModel.playerScreenData.exerciseCount}".uppercase(),
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.lato_regular)),
             fontWeight = FontWeight(700),
@@ -217,7 +219,7 @@ fun PlayerScreenPreview() {
                             "Side-to-side reaches",
                             listOf("triceps"),
                             500,
-                            R.drawable.side_to_side_reaches
+                            "side_to_side_reaches"
                         ),
                         56,
                         song = "I'm so excited - The Pointer Sisters"
@@ -227,7 +229,7 @@ fun PlayerScreenPreview() {
                             "Side-to-side reaches",
                             listOf("triceps"),
                             500,
-                            R.drawable.side_to_side_reaches
+                            "side_to_side_reaches"
                         ),
                         56,
                         song = "I'm so excited - The Pointer Sisters"
@@ -237,7 +239,7 @@ fun PlayerScreenPreview() {
                             "Side-to-side reaches",
                             listOf("triceps"),
                             500,
-                            R.drawable.side_to_side_reaches
+                            "side_to_side_reaches"
                         ),
                         56,
                         song = "I'm so excited - The Pointer Sisters"
@@ -247,7 +249,7 @@ fun PlayerScreenPreview() {
                             "Side-to-side reaches",
                             listOf("triceps"),
                             500,
-                            R.drawable.side_to_side_reaches
+                            "side_to_side_reaches"
                         ),
                         56,
                         song = "I'm so excited - The Pointer Sisters"

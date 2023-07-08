@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.musictoned.R
+import com.example.musictoned.util.LocalStorage
 import com.example.musictoned.util.TimerUtils.formatTime
 import com.example.musictoned.workoutcreation.AllWorkouts.getWorkout
 import com.example.musictoned.workoutcreation.Exercise
@@ -35,6 +37,9 @@ class PlayerViewModel(
     routineID: Int,
     workout: Workout? = null
 ) : ViewModel() {
+    // Used to detect when we're just running a preview
+    private val isPreview: Boolean = workout != null
+
     // Accept the provided workout for the preview, otherwise loads from data store
     private val routine = workout ?: getWorkout(routineID)
 
@@ -105,7 +110,7 @@ class PlayerViewModel(
             routineName = routine.name,
             exerciseIndex = exerciseIndex,
             exerciseCount = routine.exercises.size,
-            exerciseImageId = exercise.imageId,
+            exerciseImageId = if (this.isPreview) R.drawable.side_to_side_reaches else LocalStorage.getExerciseImage(exercise.imageName),
             exerciseName = exercise.name,
             songName = workoutExercise.getSong(),
             exerciseTimeMillis = workoutExercise.getLength() * 1000
