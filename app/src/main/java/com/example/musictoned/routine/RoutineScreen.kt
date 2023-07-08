@@ -57,7 +57,7 @@ import com.example.musictoned.workoutcreation.WorkoutExercise
 fun RoutineScreen(
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: () -> Unit,
-    onNavigateToPlayer: () -> Unit,
+    onNavigateToPlayer: (routineId: Int) -> Unit,
     routineID: Int?
 ) {
     val workout: Workout = if(routineID == null){
@@ -87,7 +87,11 @@ fun RoutineScreen(
             },
             bottomBar = {
                 BottomBar( modifier = Modifier.padding( top = 5.dp ),
-                    start = onNavigateToPlayer
+                    start = {
+                        if (routineID != null) {
+                            onNavigateToPlayer(routineID)
+                        }
+                    }
                 )
             },
             content = { innerPadding ->
