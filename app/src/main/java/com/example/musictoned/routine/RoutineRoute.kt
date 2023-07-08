@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 fun RoutineRoute(
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
     onNavigateToRoutines: () -> Unit,
-    onNavigateToPlayer: () -> Unit,
+    onNavigateToPlayer: (routineId: Int) -> Unit,
     routineID: Int?
 ) {
     RoutineScreen(

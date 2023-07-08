@@ -7,9 +7,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.*
 
-
-
-
 object LocalStorage {
 
     private lateinit var app: MainActivity
@@ -38,8 +35,15 @@ object LocalStorage {
         val listWorkoutType = object : TypeToken<ArrayList<Workout>>() {}.type
 
         return gson.fromJson(jsonString, listWorkoutType)
-
     }
+
+    /**
+     * Obtains the drawable resource ID used to render an image by providing a dynamic string of the resource name
+     */
+    fun getExerciseImage(imageName: String): Int {
+        return app.applicationContext.resources.getIdentifier(imageName, "drawable", app.applicationContext.packageName)
+    }
+
     /**
      * Ref: https://www.bezkoder.com/kotlin-parse-json-gson/
      * Ref: https://www.javatpoint.com/kotlin-android-read-and-write-internal-storage

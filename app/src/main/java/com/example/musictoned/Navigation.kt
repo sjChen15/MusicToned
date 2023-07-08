@@ -125,7 +125,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
             )
         }
 
-        composable("$ROUTINE_ROUTE/{routineID}") {
+        composable("$ROUTINE_ROUTE/{routineID}") { it ->
             val routineID = it.arguments?.getString("routineID")
 
             RoutineRoute(
@@ -136,21 +136,26 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                     navController.navigate(ROUTINES_ROUTE)
                 },
                 onNavigateToPlayer = {
-                    navController.navigate("$PLAYER_ROUTE/{routineID}")
+                    navController.navigate("$PLAYER_ROUTE/$it")
                 },
                 routineID = routineID?.toInt()
             )
         }
 
         composable("$PLAYER_ROUTE/{routineID}") {
-            PlayerRoute(
-                onNavigateToRoutines = {
-                    navController.navigate(ROUTINES_ROUTE)
-                }
-            )
+            val routineID = it.arguments?.getString("routineID")
+
+            routineID?.toInt()?.let { innerIt ->
+                PlayerRoute(
+                    onNavigateToRoutines = {
+                        navController.navigate(ROUTINES_ROUTE)
+                    },
+                    routineID = innerIt
+                )
+            }
         }
 
-        composable("$EDIT_ROUTINE_ROUTE/{exerciseName}") {
+        composable("$EDIT_ROUTINE_ROUTE/{exerciseName}") { it ->
             val exerciseName = it.arguments?.getString("exerciseName")
 
             EditRoutineRoute(

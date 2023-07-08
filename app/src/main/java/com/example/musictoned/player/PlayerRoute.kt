@@ -10,9 +10,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun PlayerRoute(
-    onNavigateToRoutines: () -> Unit
+    onNavigateToRoutines: () -> Unit,
+    routineID: Int
 ) {
-    val playerViewModel: PlayerViewModel = viewModel(factory = PlayerViewModelFactory())
+    val playerViewModel: PlayerViewModel = viewModel(factory = PlayerViewModelFactory(routineID))
 
     PlayerScreen(
         viewModel = playerViewModel,
