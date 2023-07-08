@@ -1,10 +1,14 @@
 [
-  {"name": "Sit Ups",
+  {
+    "name": "Sit Ups",
     "target": ["abs"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   },
-  {"name": "Planking",
+  {
+    "name": "Planking",
     "target": ["abs","obliques"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   }
 ]

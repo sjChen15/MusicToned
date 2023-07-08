@@ -1,10 +1,14 @@
 [
-  {"name": "Pull Ups",
+  {
+    "name": "Pull Ups",
     "target": ["traps","biceps","rhomboids"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   },
-  {"name": "Deadlifts",
+  {
+    "name": "Deadlifts",
     "target": ["back","traps","glutes","hamstrings"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   }
 ]

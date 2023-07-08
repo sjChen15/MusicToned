@@ -1,6 +1,8 @@
 [
-  {"name": "Squat",
+  {
+    "name": "Squat",
     "target": ["glutes","quads"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   }
 ]
