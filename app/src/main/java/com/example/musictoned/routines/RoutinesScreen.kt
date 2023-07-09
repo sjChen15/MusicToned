@@ -71,7 +71,6 @@ fun RoutinesScreen(
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
     onNavigateToSettings: (charOffset: Int) -> Unit
 ) {
-    println(Profile.profile)
     Surface(
         modifier = Modifier
         .supportWideScreen()

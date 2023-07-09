@@ -98,7 +98,6 @@ private fun Questionnaire(
     viewModel: YourGoalsViewModel
 ) {
     val profile: ProfileClass = Profile.profile
-    println(profile)
     Text(
         text = "YOUR GOALS",
         fontSize = 26.sp,
