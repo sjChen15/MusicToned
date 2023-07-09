@@ -166,7 +166,6 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 onNavigateToAddExercise = {
                     navController.navigate(ADD_EXERCISE_ROUTE)
                 },
-                exerciseName = exerciseName
             )
         }
 
