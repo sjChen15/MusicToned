@@ -29,3 +29,8 @@ University Email: <w5so@uwaterloo.ca>
 | Tried to look into passing variables between pages and made pages responsive to data | June 25, 2023| 9:00pm     | 12:00am      | 3   | 29                 |
 | Looked more into passing variables between pages and gave back buttons functionality | June 26, 2023| 2:00pm     | 3:00pm      | 1   | 30                 |
 | Met up to try to pass variables                               | June 26, 2023| 8:30pm     | 10:00pm     | 1.5   | 31.5                 |
+| Discuss demo work                                             |	July 04, 2023|	9:00pm	  | 10:00pm	    | 1	    | 32.5                 |
+| Team Meeting                                                  | July 6, 2023 | 3:30pm     | 4:30pm      | 1     | 33.5                 |
+| Added scroll and selecting body parts to Add Exercise Page    | July 7, 2023 | 4:00pm     | 7:00pm      | 3     | 36.5                 |
+| Figured out how to make Add Exercise a Popup                  | July 8, 2023 | 7:00pm     | 10:00pm     | 3     | 39.5                 |
+

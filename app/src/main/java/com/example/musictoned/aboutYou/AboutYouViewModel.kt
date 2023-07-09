@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.example.musictoned.profile.HeightUnit
+import com.example.musictoned.profile.WeightUnit
 
 /**
  * Influenced by composable UI example provided by Android
@@ -40,7 +42,7 @@ class AboutYouViewModel : ViewModel() {
         height = input
     }
 
-    val weightUnits = listOf("kg", "lb")
+    val weightUnits = listOf(WeightUnit.KG, WeightUnit.LB)
 
     var isWeightUnitMenuExpanded by mutableStateOf(false)
         private set
@@ -49,14 +51,14 @@ class AboutYouViewModel : ViewModel() {
         isWeightUnitMenuExpanded = input
     }
 
-    var weightUnit by mutableStateOf("")
+    var weightUnit by mutableStateOf(WeightUnit.KG)
         private set
 
-    fun updateWeightUnit(input: String) {
+    fun updateWeightUnit(input: WeightUnit) {
         weightUnit = input
     }
 
-    val heightUnits = listOf("m", "ft")
+    val heightUnits = listOf(HeightUnit.M, HeightUnit.FT)
 
     var isHeightUnitMenuExpanded by mutableStateOf(false)
         private set
@@ -65,10 +67,10 @@ class AboutYouViewModel : ViewModel() {
         isHeightUnitMenuExpanded = input
     }
 
-    var heightUnit by mutableStateOf("")
+    var heightUnit by mutableStateOf(HeightUnit.M)
         private set
 
-    fun updateHeightUnit(input: String) {
+    fun updateHeightUnit(input: HeightUnit) {
         heightUnit = input
     }
 }

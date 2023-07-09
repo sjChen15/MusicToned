@@ -1,14 +1,20 @@
 [
-  {"name": "Triceps Extension",
+  {
+    "name": "Triceps Extension",
     "target": ["triceps"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   },
-  {"name": "Barbell Bicep Curl",
+  {
+    "name": "Barbell Bicep Curl",
     "target": ["biceps"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   },
-  {"name": "Hammer Curl",
+  {
+    "name": "Hammer Curl",
     "target": ["biceps","forearm"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   }
 ]

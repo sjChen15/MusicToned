@@ -1,10 +1,14 @@
 [
-  {"name": "Jogging",
+  {
+    "name": "Jogging",
     "target": ["glutes","quads"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   },
-  {"name": "Walking",
+  {
+    "name": "Walking",
     "target": ["glutes","quads"],
-    "bpm": 80
+    "bpm": 80,
+    "imageName": "side_to_side_reaches"
   }
 ]
