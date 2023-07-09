@@ -29,7 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
+import com.example.musictoned.profile.Profile
+import com.example.musictoned.profile.ProfileClass
 import com.example.musictoned.ui.theme.MusicTonedTheme
+import com.example.musictoned.util.LocalStorage
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.welcome.BottomBranding
 
@@ -48,7 +51,10 @@ fun YourGoalsScreen(
             )
             Spacer(modifier = Modifier.padding(25.dp))
             Button(
-                onClick = onClickFinish,
+                onClick = {
+                    LocalStorage.writeProfile(Profile.profile)
+                    onClickFinish()
+                },
                 shape = RoundedCornerShape(size = 4.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5E60CE)),
                 modifier = Modifier
@@ -71,7 +77,8 @@ fun YourGoalsScreen(
                     .width(240.dp)
                     .height(55.dp)
                     .background(color = Color(0xFF5E60CE), shape = RoundedCornerShape(size = 4.dp))
-                    .padding(start = 22.dp, top = 8.dp, end = 22.dp, bottom = 8.dp)
+                    .padding(start = 22.dp, top = 8.dp, end = 22.dp, bottom = 8.dp),
+
             ) {
                 Text(
                     text = "FINISH",
@@ -90,6 +97,8 @@ fun YourGoalsScreen(
 private fun Questionnaire(
     viewModel: YourGoalsViewModel
 ) {
+    val profile: ProfileClass = Profile.profile
+    println(profile)
     Text(
         text = "YOUR GOALS",
         fontSize = 26.sp,
@@ -116,7 +125,10 @@ private fun Questionnaire(
     Row {
         Checkbox(
             checked = viewModel.isGainMuscleChecked,
-            onCheckedChange = { viewModel.updateGainMuscleChecked(it) },
+            onCheckedChange = {
+                viewModel.updateGainMuscleChecked(it)
+                profile.gainMuscle = it
+                              },
             modifier = Modifier
                 .offset(x = 35.dp, y = 80.dp)
         )
@@ -130,7 +142,10 @@ private fun Questionnaire(
     Row {
         Checkbox(
             checked = viewModel.isImproveEnduranceChecked,
-            onCheckedChange = { viewModel.updateImproveEnduranceChecked(it) },
+            onCheckedChange = {
+                viewModel.updateImproveEnduranceChecked(it)
+                profile.improveEndurance = it
+                              },
             modifier = Modifier
                 .offset(x = 35.dp, y = 80.dp)
         )
@@ -144,7 +159,10 @@ private fun Questionnaire(
     Row {
         Checkbox(
             checked = viewModel.isLoseWeightChecked,
-            onCheckedChange = { viewModel.updateLoseWeightChecked(it) },
+            onCheckedChange = {
+                viewModel.updateLoseWeightChecked(it)
+                profile.loseWeight = it
+                              },
             modifier = Modifier
                 .offset(x = 35.dp, y = 80.dp)
         )
@@ -158,7 +176,10 @@ private fun Questionnaire(
     Row {
         Checkbox(
             checked = viewModel.isIncreaseFlexibilityChecked,
-            onCheckedChange = { viewModel.updateIncreaseFlexibilityChecked(it) },
+            onCheckedChange = {
+                viewModel.updateIncreaseFlexibilityChecked(it)
+                profile.increaseFlexibility = it
+                              },
             modifier = Modifier
                 .offset(x = 35.dp, y = 80.dp)
         )
@@ -172,7 +193,10 @@ private fun Questionnaire(
     Row {
         Checkbox(
             checked = viewModel.isExerciseRegularlyChecked,
-            onCheckedChange = { viewModel.updateExerciseRegularlyChecked(it) },
+            onCheckedChange = {
+                viewModel.updateExerciseRegularlyChecked(it)
+                profile.exerciseRegularly = it
+                              },
             modifier = Modifier
                 .offset(x = 35.dp, y = 80.dp)
         )

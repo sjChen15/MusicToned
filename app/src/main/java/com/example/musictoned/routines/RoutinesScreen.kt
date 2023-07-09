@@ -50,6 +50,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
+import com.example.musictoned.profile.Profile
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.BottomBar
 import com.example.musictoned.util.BottomNavPages
@@ -70,7 +71,7 @@ fun RoutinesScreen(
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
     onNavigateToSettings: (charOffset: Int) -> Unit
 ) {
-
+    println(Profile.profile)
     Surface(
         modifier = Modifier
         .supportWideScreen()

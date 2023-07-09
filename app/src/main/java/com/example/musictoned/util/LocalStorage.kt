@@ -81,7 +81,7 @@ object LocalStorage {
 
     //save profile to file
     fun writeProfile(profile: ProfileClass){
-        val jsonWorkoutsList: String = gson.toJson((profile))
+        val jsonWorkoutsList: String = gson.toJson(profile)
         //write to local storage
         try {
             //creates file if it does not already exists
@@ -92,6 +92,11 @@ object LocalStorage {
         catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun deleteProfile(){
+        val file:File = app.applicationContext.getFileStreamPath(profileFilename)
+        file.delete()
     }
 
 }

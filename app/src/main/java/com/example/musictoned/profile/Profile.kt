@@ -8,28 +8,26 @@ enum class WeightUnit {
 }
 
 enum class HeightUnit {
-    CM,
+    M,
     FT
 }
 
-enum class Goals {
-    GAIN_MUSCLE,
-    IMPROVE_ENDURANCE,
-    LOSE_WEIGHT,
-    INCREASE_FLEXIBILITY,
-    EXERCISE_REGULARLY
-}
 //singleton profile to be used
 object Profile{
     val profile: ProfileClass = LocalStorage.getProfile()
+
 }
 
 data class ProfileClass(
     var name: String = "",
-    var age: Short = 0,
-    var weight: Pair<Int, WeightUnit> = Pair(0,WeightUnit.LB),
-    var height: Pair<Int, HeightUnit> = Pair(0, HeightUnit.CM),
-    var goals: ArrayList<Goals> = arrayListOf()
-    ) {
-
-}
+    var age: Int = 0,
+    var weight: Float = 0F,
+    var height: Float = 0F,
+    var weightUnit: WeightUnit = WeightUnit.KG,
+    var heightUnit: HeightUnit = HeightUnit.M,
+    var gainMuscle: Boolean = false,
+    var improveEndurance: Boolean = false,
+    var loseWeight: Boolean = false,
+    var increaseFlexibility: Boolean = false,
+    var exerciseRegularly: Boolean = false
+    )
