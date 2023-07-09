@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -60,9 +62,16 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntRect
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupPositionProvider
 import com.example.musictoned.R
+import com.example.musictoned.addExercise.addExerciseScreen
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
@@ -83,19 +92,40 @@ import java.util.Locale
 fun EditRoutineScreen(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
     onNavigateToAddExercise: () -> Unit,
-    exerciseName: String?
 ) {
 
     val workout = AllWorkouts.getWorkoutInProgress()
-    //add exercise to current workout
-    if (exerciseName != null.toString()){
-        workout.addExercise(WorkoutExercise(ExerciseTempos.getExercise(exerciseName.toString())))
-        workout.deleteLastExercise()
-    }
+
+    var popupControl by remember { mutableStateOf(false) }
 
     Surface(modifier = Modifier
         .supportWideScreen()
     ) {
+        if (popupControl) {
+            Popup(
+                alignment = Alignment.Center,
+                offset = IntOffset(0, -40),
+            ){
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight(0.75f)
+                ){
+                    addExerciseScreen(
+                        onPopupChange = { popupControl = it },
+                        returnExercise = {
+                            val exerciseName = it
+                            //add exercise to current workout
+                            if (exerciseName != null.toString()){
+                                workout.addExercise(WorkoutExercise(ExerciseTempos.getExercise(exerciseName.toString())))
+                                workout.deleteLastExercise()
+                            }
+                        }
+                    )
+                }
+
+            }
+        }
         Scaffold(
             modifier = Modifier
                 .fillMaxWidth()
@@ -111,6 +141,8 @@ fun EditRoutineScreen(
             bottomBar = {
                 BottomBar(
                     modifier = Modifier.padding(top = 5.dp),
+                    popupControl = popupControl,
+                    onPopupChange = { popupControl = it },
                     onNavigateToAddExercise = onNavigateToAddExercise
                 )
             },
@@ -386,6 +418,8 @@ fun DropdownMenu(
 @Composable
 private fun BottomBar(
     onNavigateToAddExercise: () -> Unit,
+    popupControl: Boolean,
+    onPopupChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ){
     Column(
@@ -401,7 +435,7 @@ private fun BottomBar(
                 containerColor = Color(0xFF5E60CE),
                 contentColor = Color(0xFFFFFFFF),
             ),
-            onClick = onNavigateToAddExercise,
+            onClick = { onPopupChange( true ) },
             contentPadding = PaddingValues(1.dp),
         ) {
             Text(
@@ -428,7 +462,6 @@ fun EditRoutineScreenPreview() {
         com.example.musictoned.editRoutine.EditRoutineScreen(
             onNavigateToRoutine = {},
             onNavigateToAddExercise = {},
-            exerciseName = null
         )
     }
 }

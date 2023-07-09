@@ -14,7 +14,7 @@ fun AddExerciseRoute(
 ) {
     val addExerciseViewModel: AddExerciseViewModel = viewModel(factory = AddExerciseViewModelFactory())
 
-    addExerciseScreen(
-        onNavigateToEditRoutine = onNavigateToEditRoutine
-    )
+//    addExerciseScreen(
+////        onNavigateToEditRoutine = onNavigateToEditRoutine
+//    )
 }
