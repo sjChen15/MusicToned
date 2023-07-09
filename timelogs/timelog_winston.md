@@ -33,4 +33,5 @@ University Email: <w5so@uwaterloo.ca>
 | Team Meeting                                                  | July 6, 2023 | 3:30pm     | 4:30pm      | 1     | 33.5                 |
 | Added scroll and selecting body parts to Add Exercise Page    | July 7, 2023 | 4:00pm     | 7:00pm      | 3     | 36.5                 |
 | Figured out how to make Add Exercise a Popup                  | July 8, 2023 | 7:00pm     | 10:00pm     | 3     | 39.5                 |
+| Added Functionality to add exercise popup and made it look better | July 9, 2023 | 4:00pm     | 6:30pm     | 2.5     | 42                 |
 
