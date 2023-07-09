@@ -23,6 +23,7 @@ import com.example.musictoned.player.PlayerRoute
 import com.example.musictoned.routine.RoutineRoute
 import com.example.musictoned.routines.RoutinesRoute
 import com.example.musictoned.settings.SettingsRoute
+import com.example.musictoned.util.LocalStorage
 import com.example.musictoned.welcome.WelcomeRoute
 import com.example.musictoned.yourGoals.YourGoalsRoute
 
@@ -51,7 +52,7 @@ object Destinations {
 fun MusicTonedNavHost(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        startDestination = WELCOME_ROUTE
+        startDestination = if(LocalStorage.doesProfileExist()) ROUTINES_ROUTE else WELCOME_ROUTE
     ) {
         composable(WELCOME_ROUTE) {
             WelcomeRoute(
