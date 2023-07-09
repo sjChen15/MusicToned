@@ -23,6 +23,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
@@ -38,6 +39,10 @@ import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.welcome.BottomBranding
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
+import com.example.musictoned.profile.Profile
+import com.example.musictoned.profile.ProfileClass
+import com.example.musictoned.util.LocalStorage
+import com.example.musictoned.workoutcreation.AllWorkouts
 
 @Composable
 fun AboutYouScreen(
@@ -53,7 +58,10 @@ fun AboutYouScreen(
                 viewModel = viewModel
             )
             Button(
-                onClick = onClickContinue,
+                onClick = {
+                    LocalStorage.writeProfile(Profile.profile)
+                    onClickContinue()
+                },
                 shape = RoundedCornerShape(size = 4.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 modifier = Modifier
@@ -85,6 +93,11 @@ fun AboutYouScreen(
 private fun Questionnaire(
     viewModel: AboutYouViewModel
 ) {
+    val wholeNumberRegex = remember { Regex("^\\d+\$") }
+    val decimalNumberRegex = remember{ Regex("^\\d*\\.?\\d*\$") }
+    val textOnlyRegex = remember{ Regex("^[a-zA-Z]*\$") }
+
+    val profile: ProfileClass = Profile.profile //current profile
     Text(
         text = "ABOUT YOU",
         fontSize = 26.sp,
@@ -110,7 +123,12 @@ private fun Questionnaire(
     )
     OutlinedTextField(
         value = viewModel.name,
-        onValueChange = { name -> viewModel.updateName(name) },
+        onValueChange = { name ->
+                if(name.isEmpty() || name.matches(textOnlyRegex)){
+                    viewModel.updateName(name)
+                    profile.name = name
+                }
+        },
         label = { Text("Name*") },
         maxLines = 1,
         textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
@@ -120,7 +138,12 @@ private fun Questionnaire(
     )
     OutlinedTextField(
         value = viewModel.age,
-        onValueChange = { age -> viewModel.updateAge(age) },
+        onValueChange = { age ->
+            if(age.isEmpty() || age.matches(wholeNumberRegex)) {
+                viewModel.updateAge(age)
+                profile.age = if(age.isEmpty()) 0 else age.toInt()
+            }
+        },
         label = { Text("Age") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
@@ -131,7 +154,12 @@ private fun Questionnaire(
     Row {
         OutlinedTextField(
             value = viewModel.weight,
-            onValueChange = { weight -> viewModel.updateWeight(weight) },
+            onValueChange = { weight ->
+                if(weight.isEmpty() || weight.matches(decimalNumberRegex)) {
+                    viewModel.updateWeight(weight)
+                    profile.weight = if(weight.isEmpty()) 0F else weight.toFloat()
+                }
+            },
             label = { Text("Weight") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
@@ -148,7 +176,7 @@ private fun Questionnaire(
         ) {
             TextField(
                 readOnly = true,
-                value = viewModel.weightUnit,
+                value = viewModel.weightUnit.toString(),
                 onValueChange = { },
                 label = { Text("Unit") },
                 textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
@@ -172,9 +200,10 @@ private fun Questionnaire(
                         onClick = {
                             viewModel.updateWeightUnit(weightUnitOption)
                             viewModel.updateWeightUnitMenuExpanded(false)
+                            profile.weightUnit = weightUnitOption
                         },
                         text = {
-                            Text(text = weightUnitOption)
+                            Text(text = weightUnitOption.toString())
                         }
                     )
                 }
@@ -185,7 +214,12 @@ private fun Questionnaire(
     Row {
         OutlinedTextField(
             value = viewModel.height,
-            onValueChange = { height -> viewModel.updateHeight(height) },
+            onValueChange = { height ->
+                if(height.isEmpty() || height.matches(decimalNumberRegex)) {
+                    viewModel.updateHeight(height)
+                    profile.height = if(height.isEmpty()) 0F else height.toFloat()
+                }
+            },
             label = { Text("Height") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
@@ -202,7 +236,7 @@ private fun Questionnaire(
         ) {
             TextField(
                 readOnly = true,
-                value = viewModel.heightUnit,
+                value = viewModel.heightUnit.toString(),
                 onValueChange = { },
                 label = { Text("Unit") },
                 textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
@@ -226,9 +260,10 @@ private fun Questionnaire(
                         onClick = {
                             viewModel.updateHeightUnit(heightUnitOption)
                             viewModel.updateHeightUnitMenuExpanded(false)
+                            profile.heightUnit = heightUnitOption
                         },
                         text = {
-                            Text(text = heightUnitOption)
+                            Text(text = heightUnitOption.toString())
                         }
                     )
                 }
