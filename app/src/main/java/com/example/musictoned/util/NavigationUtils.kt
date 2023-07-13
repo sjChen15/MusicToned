@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
+import com.example.musictoned.ui.theme.BOTTOM_BAR_HEIGHT
 import com.example.musictoned.ui.theme.MusicTonedTheme
 
 enum class BottomNavPages {
@@ -44,70 +45,53 @@ fun BottomBar(
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
     onNavigateToSettings: (charOffset: Int) -> Unit
 ){
-    val paddingOffset = 15.dp
 
-    Column(modifier = Modifier.background(color = Color.Transparent)) {
-        Image(
-            painter = painterResource(id = R.drawable.routines_waves),
-            contentDescription = "Routines Waves",
-            alignment = Alignment.BottomCenter,
+    val paddingOffset = 0.dp
+
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(116, 0, 184, 255))
+            .height(BOTTOM_BAR_HEIGHT.dp)
+    ) {
+        ClickableText(
+            text = AnnotatedString("ROUTINES"),
+            style = TextStyle(
+                color = Color.White,
+                fontSize = 20.sp,
+                fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                textDecoration = if (currentPage === BottomNavPages.ROUTINES) TextDecoration.Underline else null
+            ),
             modifier = Modifier
-                .fillMaxWidth()
-                .offset(x = 0.dp, y = 1.dp)
-                .background(color = Color.Transparent),
-            contentScale = ContentScale.FillWidth,
+                .padding(paddingOffset),
+            onClick = onNavigateToRoutines
         )
-        Row(
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically,
+        ClickableText(
+            text = AnnotatedString("ANALYTICS"),
+            style = TextStyle(
+                color = Color.White,
+                fontSize = 20.sp,
+                fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                textDecoration = if (currentPage === BottomNavPages.ANALYTICS) TextDecoration.Underline else null
+            ),
             modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(116, 0, 184, 255))
-                .height(40.dp)
-        ) {
-            Column {
-                ClickableText(
-                    text = AnnotatedString("ROUTINES"),
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                        textDecoration = if (currentPage === BottomNavPages.ROUTINES) TextDecoration.Underline else null
-                    ),
-                    modifier = Modifier
-                        .padding(bottom = paddingOffset),
-                    onClick = onNavigateToRoutines
-                )
-            }
-            Column {
-                ClickableText(
-                    text = AnnotatedString("ANALYTICS"),
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                        textDecoration = if (currentPage === BottomNavPages.ANALYTICS) TextDecoration.Underline else null
-                    ),
-                    modifier = Modifier
-                        .padding(bottom = paddingOffset),
-                    onClick = onNavigateToAnalytics
-                )
-            }
-            Column {
-                ClickableText(
-                    text = AnnotatedString("SETTINGS"),
-                    style = TextStyle(
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                        textDecoration = if (currentPage === BottomNavPages.SETTINGS) TextDecoration.Underline else null
-                    ),
-                    modifier = Modifier
-                        .padding(bottom = paddingOffset),
-                    onClick = onNavigateToSettings
-                )
-            }
-        }
+                .padding(paddingOffset),
+            onClick = onNavigateToAnalytics
+        )
+        ClickableText(
+            text = AnnotatedString("SETTINGS"),
+            style = TextStyle(
+                color = Color.White,
+                fontSize = 20.sp,
+                fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                textDecoration = if (currentPage === BottomNavPages.SETTINGS) TextDecoration.Underline else null
+            ),
+            modifier = Modifier
+                .padding(paddingOffset),
+            onClick = onNavigateToSettings
+        )
     }
 }
 
