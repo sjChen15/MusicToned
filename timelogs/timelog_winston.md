@@ -36,4 +36,5 @@ University Email: <w5so@uwaterloo.ca>
 | Added Functionality to add exercise popup and made it look better | July 9, 2023 | 4:00pm     | 6:30pm     | 2.5     | 42                 |
 | Looked into drag and drop and made timestamps on routine page work | July 10, 2023 | 3:00pm     | 6:00pm     | 3     | 45                 |
 | Made workout titles editable and looked more into drag and drop | July 10, 2023 | 8:00pm     | 10:30pm     | 2.5     | 47.5                 |
+| Worked on D4                                                  | July 12, 2023 | 5:00pm     | 6:30pm     | 1.5   | 49                 |
 
