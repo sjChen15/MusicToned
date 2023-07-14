@@ -37,4 +37,7 @@ University Email: <w5so@uwaterloo.ca>
 | Looked into drag and drop and made timestamps on routine page work | July 10, 2023 | 3:00pm     | 6:00pm     | 3     | 45                 |
 | Made workout titles editable and looked more into drag and drop | July 10, 2023 | 8:00pm     | 10:30pm     | 2.5     | 47.5                 |
 | Worked on D4                                                  | July 12, 2023 | 5:00pm     | 6:30pm     | 1.5   | 49                 |
+| Met with team                                                 | July 13, 2023 | 3:30pm     | 5:00pm     | 1.5   | 50.5               |
+| Worked on drag and drop                                       | July 13, 2023 | 8:00pm     | 12:00am    | 4   | 54.5                 |
+| Continued on drag and drop                                    | July 14, 2023 | 1:00pm     | 6:00am     | 5   | 59.5                 |
 
