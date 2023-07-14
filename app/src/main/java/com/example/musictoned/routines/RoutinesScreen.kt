@@ -1,11 +1,6 @@
 package com.example.musictoned.routines
 
 import android.content.res.Configuration
-import android.util.DisplayMetrics
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -40,8 +35,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -50,12 +49,6 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -63,11 +56,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
-import com.example.musictoned.ui.theme.BOTTOM_BAR_HEIGHT
 import com.example.musictoned.ui.theme.BottomWaves
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.BottomBar
@@ -76,7 +67,6 @@ import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Workout
 import java.util.LinkedList
-import kotlin.math.exp
 
 
 /**
@@ -160,11 +150,12 @@ private fun RoutinesContent(
     onNavigateToRoutine: (routineID: Int) -> Unit,
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
 ) {
-    //actual functionality
-    //val routines = AllWorkouts.getAllWorkouts()
+            //ACTUAL FUNCTIONALITY
+    //var allWorkouts = remember { mutableStateListOf<Workout>() }
+    val allWorkouts = AllWorkouts.getAllWorkouts().toMutableStateList()
 
-    //for preview purposes only
-    val routines = previewWorkouts()
+            //FOR PREVIEW ONLY
+    //val allWorkouts = previewWorkouts()
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -173,11 +164,12 @@ private fun RoutinesContent(
 
     ) {
         //routines.size + 1 (+1 for the add new button)
-        items(routines.size){
+        items(allWorkouts.size){
                 index ->
             RoutineBox( onNavigateToRoutine = onNavigateToRoutine,
                 onNavigateToEditRoutine = onNavigateToEditRoutine,
-                workout = routines[index]
+                workout = allWorkouts[index],
+                allWorkouts = allWorkouts
             )
         }
         items (1){
@@ -188,6 +180,10 @@ private fun RoutinesContent(
 
     BottomWaves(withBottomBar = true)
 
+//    Button(onClick = { AllWorkouts.deleteWorkout(workout = allWorkouts[0]) }) {
+//        Text(text = AllWorkouts.getAllWorkouts().size.toString())
+//    }
+
 }
 
 
@@ -195,7 +191,8 @@ private fun RoutinesContent(
 private fun RoutineBox(
     onNavigateToRoutine: (routineID: Int) -> Unit,
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
-    workout: Workout
+    workout: Workout,
+    allWorkouts: SnapshotStateList<Workout>
 ){
     Column(
         modifier = Modifier
@@ -227,7 +224,6 @@ private fun RoutineBox(
                 text = workout.name,
                 color = Color.Black,
                 style = MaterialTheme.typography.bodyLarge
-
             )
             Text(
                 text = "Workout time", //<- Need function to get workout total time
@@ -276,7 +272,8 @@ private fun RoutineBox(
                     .width(1.5.dp)
             )
 
-            val context = LocalContext.current
+            /* DropdownMenu reference: https://alexzh.com/jetpack-compose-dropdownmenu/ */
+
             var expanded by remember { mutableStateOf(false) }
 
             //box with onclick event to enable dropdown
@@ -321,7 +318,11 @@ private fun RoutineBox(
                         ),
                         modifier = Modifier
                             .padding(start = 15.dp, end = 15.dp),
-                        onClick = { /* Need a function to remove workout from the allWorkouts arraylist*/ }
+                        onClick = {
+                                    AllWorkouts.deleteWorkout(workout)
+                                    allWorkouts.remove(workout)
+                                    //onNavigateToRoutines(0)
+                        }
                     )
 
                 } //end drop down menu
@@ -400,9 +401,9 @@ fun RoutinesScreenPreview() {
 
 fun previewWorkouts(): ArrayList<Workout>{
 
-    var previewAllWorkouts = ArrayList<Workout>()
+    val previewAllWorkouts = ArrayList<Workout>()
 
-    var previewWorkout = Workout("fake workout", LinkedList())
+    val previewWorkout = Workout("fake workout", LinkedList())
 
     for (i in 20 downTo  1){
         previewAllWorkouts.add(previewWorkout)

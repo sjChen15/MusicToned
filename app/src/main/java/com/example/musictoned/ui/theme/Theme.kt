@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.MaterialTheme
@@ -24,11 +23,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import com.example.musictoned.R
@@ -92,9 +91,9 @@ fun BottomWaves(
     withBottomBar: Boolean = true
 ){
 
-    val configuration = LocalConfiguration.current
+    //val configuration = LocalConfiguration.current
 
-    val screenHeight = configuration.screenHeightDp.dp
+    //val screenHeight = configuration.screenHeightDp.dp
     //Log.d("SCREEN HEIGHT: ", screenHeight.toString())
 
     var componentHeight by remember { mutableStateOf(0.dp) }
@@ -103,13 +102,13 @@ fun BottomWaves(
     // get local density from composable
     val density = LocalDensity.current
 
-    var yOffset = 0.dp;
-
-    if(withBottomBar){
-        yOffset = 567.dp
+    val yOffset: Dp = if(withBottomBar){
+        567.dp
     } else {
-        yOffset = 567.dp + BOTTOM_BAR_HEIGHT.dp
+        567.dp + BOTTOM_BAR_HEIGHT.dp
     }
+
+    /* Reference for using onGloballyPosition: https://medium.com/@vontonnie/how-to-get-the-height-or-width-of-an-element-in-jetpack-compose-8af04365d555*/
 
     Image(
         painter = painterResource(id = R.drawable.routines_waves),
@@ -127,7 +126,7 @@ fun BottomWaves(
             //black bar at the bottom)
             //either that, or it's offsetting from the lazy grid
             //.offset(x = 0.dp, y = screenHeight - ( BOTTOM_BAR_HEIGHT.dp + componentHeight))
-            .offset(x = 0.dp, y = 567.dp)
+            .offset(x = 0.dp, y = yOffset)
             .background(color = Color.Transparent),
         contentScale = ContentScale.FillWidth,
     )
