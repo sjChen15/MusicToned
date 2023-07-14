@@ -12,6 +12,7 @@ import com.example.musictoned.Destinations.WELCOME_ROUTE
 import com.example.musictoned.Destinations.EDIT_ROUTINE_ROUTE
 import com.example.musictoned.Destinations.ADD_EXERCISE_ROUTE
 import com.example.musictoned.Destinations.ANALYTICS_ROUTE
+import com.example.musictoned.Destinations.FINISHED_WORKOUT_ROUTE
 import com.example.musictoned.Destinations.PLAYER_ROUTE
 import com.example.musictoned.Destinations.SETTINGS_ROUTE
 import com.example.musictoned.addExercise.AddExerciseRoute
@@ -19,6 +20,7 @@ import com.example.musictoned.editRoutine.EditRoutineRoute
 import com.example.musictoned.Destinations.YOUR_GOALS_ROUTE
 import com.example.musictoned.aboutYou.AboutYouRoute
 import com.example.musictoned.analytics.AnalyticsRoute
+import com.example.musictoned.finishedWorkout.FinishedWorkoutRoute
 import com.example.musictoned.player.PlayerRoute
 import com.example.musictoned.routine.RoutineRoute
 import com.example.musictoned.routines.RoutinesRoute
@@ -46,6 +48,7 @@ object Destinations {
     const val ANALYTICS_ROUTE = "analytics"
     const val SETTINGS_ROUTE = "settings"
     const val PLAYER_ROUTE = "player"
+    const val FINISHED_WORKOUT_ROUTE = "finishedWorkout"
 }
 
 @Composable
@@ -175,6 +178,19 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                     navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 }
             )
+        }
+
+        composable("$FINISHED_WORKOUT_ROUTE/{routineID}") { it ->
+            val routineID = it.arguments?.getString("routineID")
+
+            routineID?.toInt()?.let { innerIt ->
+                FinishedWorkoutRoute(
+                    onNavigateToRoutine = {
+                        navController.navigate("$ROUTINE_ROUTE/$it")
+                    },
+                    routineID = innerIt
+                )
+            }
         }
     }
 }
