@@ -105,6 +105,8 @@ fun EditRoutineScreen(
 
     var exercises = remember { mutableStateListOf<WorkoutExercise>() }
 
+    var swapped = remember { mutableStateOf(false) }
+
     exercises.addAll(workout.exercises.toList())
 
     Surface(modifier = Modifier
@@ -159,32 +161,26 @@ fun EditRoutineScreen(
             },
             content = { innerPadding ->
                 Box ( modifier = Modifier.padding(innerPadding)){
-                    key(exercises){
-                        LazyColumn {
-                            items(exercises) { exercise ->
-                                var duration by remember { mutableStateOf(exercise.getLength()) }
-                                Exercise( exercise = exercise,
-                                    onMoveUp = {
-                                        val index = workout.exercises.indexOf( it )
-                                        if ( index != 0 ){
-                                            workout.reorderExercise( it, index - 1 )
-                                        }
-                                        exercises.clear()
-                                        exercises.addAll(workout.exercises)
-                                    },
-                                    onMoveDown = {
-                                        val index = workout.exercises.indexOf( it )
-                                        if ( index != workout.exercises.size - 1 ){
-                                            workout.reorderExercise( it, index + 1 )
-                                        }
-                                        duration = exercises[exercises.indexOf(exercise)].getLength()
-                                        exercises.clear()
-                                        exercises.addAll(workout.exercises)
-                                    }
-                                )
+                    Exercises(
+                        modifier = Modifier,
+                        exercises = exercises,
+                        swapped = swapped,
+                        onMoveUp = {
+                            val index = workout.exercises.indexOf( it )
+                            if ( index != 0 ){
+                                workout.reorderExercise( it, index - 1 )
                             }
-                        }
-                    }
+                            exercises.clear()
+                            exercises.addAll(workout.exercises)
+                            swapped.value = true },
+                        onMoveDown = {
+                            val index = workout.exercises.indexOf( it )
+                            if ( index != workout.exercises.size - 1 ){
+                                workout.reorderExercise( it, index + 1 )
+                            }
+                            exercises.clear()
+                            exercises.addAll(workout.exercises)
+                            swapped.value = true },)
                 }
             }
         )
@@ -259,16 +255,48 @@ private fun TopBar(
     }
 }
 
+@Composable
+private fun Exercises(
+    modifier: Modifier,
+    exercises: List<WorkoutExercise>,
+    swapped: MutableState<Boolean>,
+    onMoveUp: ( exercise: WorkoutExercise ) -> Unit,
+    onMoveDown: ( exercise: WorkoutExercise ) -> Unit,
+){
+    LazyColumn {
+        items(exercises) { exercise ->
+            var isLast = false
+            if (exercises.indexOf(exercise) == exercises.size - 1){
+                isLast = true
+            }
+            Exercise( exercise = exercise,
+                swapped = swapped,
+                onMoveUp = onMoveUp,
+                onMoveDown = onMoveDown,
+                onAckSwap = { swapped.value = false },
+                isLast = isLast,
+            )
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun Exercise(
     modifier: Modifier = Modifier,
     exercise: WorkoutExercise,
+    swapped: MutableState<Boolean>,
+    isLast: Boolean,
     onMoveUp: ( exercise: WorkoutExercise ) -> Unit,
     onMoveDown: ( exercise: WorkoutExercise ) -> Unit,
+    onAckSwap: () -> Unit,
 ){
     var duration by remember { mutableStateOf(exercise.getLength().toString()) }
     val interactionSource = remember { MutableInteractionSource() }
+
+    if (swapped.value){
+        duration = exercise.getLength().toString()
+    }
 
     Column( modifier = modifier.padding(bottom=15.dp)){
         Column(
@@ -346,7 +374,9 @@ fun Exercise(
                         BasicTextField(
                             value = duration,
                             onValueChange = {
-                                duration = it },
+                                duration = it
+                                            // TODO UPDATE IN WORKOUT
+                            },
                             modifier = Modifier
                                 .height(30.dp)
                                 .padding(start = 10.dp)
@@ -382,6 +412,9 @@ fun Exercise(
                         )
                         DropdownMenu(
                             exercise = exercise,
+                            swapped = swapped,
+                            isLast = isLast,
+                            onAckSwap = onAckSwap
                         )
                     }
                     Text(
@@ -403,7 +436,10 @@ fun Exercise(
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DropdownMenu(
-    exercise: WorkoutExercise
+    exercise: WorkoutExercise,
+    swapped: MutableState<Boolean>,
+    isLast: Boolean,
+    onAckSwap: () -> Unit,
 ) {
     val context = LocalContext.current
     val speed = arrayOf("Slow", "Average", "Fast")
@@ -413,6 +449,16 @@ fun DropdownMenu(
             .toString()
             .lowercase(Locale.getDefault())
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }) }
+
+    if (swapped.value){
+        selectedText = exercise.getBpmMode()
+            .toString()
+            .lowercase(Locale.getDefault())
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        if ( isLast ){
+            onAckSwap()
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -447,7 +493,7 @@ fun DropdownMenu(
                         onClick = {
                             selectedText = item
                             expanded = false
-                            Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
+                            //TODO UPDATE IN WORKOUT
                         }
                     )
                 }
