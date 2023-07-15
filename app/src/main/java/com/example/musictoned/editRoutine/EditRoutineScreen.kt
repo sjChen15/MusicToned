@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -263,7 +264,10 @@ private fun Exercises(
     onMoveUp: ( exercise: WorkoutExercise ) -> Unit,
     onMoveDown: ( exercise: WorkoutExercise ) -> Unit,
 ){
-    LazyColumn {
+    LazyColumn(
+        modifier = modifier
+            .padding( start = 15.dp, end = 15.dp)
+    ) {
         items(exercises) { exercise ->
             var isLast = false
             if (exercises.indexOf(exercise) == exercises.size - 1){
@@ -320,35 +324,27 @@ fun Exercise(
                     .padding(top = 15.dp, bottom = 15.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ){
-                Column(){
-                    Button(
-                        onClick = {
-                            onMoveUp( exercise )
-                        }
-                    ){
-                        Image(
-                            painter = painterResource(id = R.drawable.drag_drop_icon),
-                            modifier = modifier
-                                .padding(end = 20.dp, start = 20.dp)
-                                .height(20.dp),
-                            contentDescription = "Move up",
-                            contentScale = ContentScale.FillHeight,
-                        )
-                    }
-                    Button(
-                        onClick = {
-                            onMoveDown( exercise )
-                        }
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.drag_drop_icon),
-                            modifier = modifier
-                                .padding(end = 20.dp, start = 20.dp)
-                                .height(20.dp),
-                            contentDescription = "Move down",
-                            contentScale = ContentScale.FillHeight,
-                        )
-                    }
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                   Image(
+                       painter = painterResource(id = R.drawable.arrow_up),
+                       modifier = modifier
+                           .padding(end = 5.dp, start = 5.dp)
+                           .height(30.dp)
+                           .clickable{ onMoveUp(exercise) },
+                       contentDescription = "Move up",
+                       contentScale = ContentScale.FillHeight,
+                   )
+                    Image(
+                        painter = painterResource(id = R.drawable.arrow_down),
+                        modifier = modifier
+                            .padding(end = 5.dp, start = 5.dp)
+                            .height(30.dp)
+                            .clickable{ onMoveDown(exercise) },
+                        contentDescription = "Move down",
+                        contentScale = ContentScale.FillHeight,
+                    )
                 }
                 Column(
                     modifier = modifier
