@@ -33,7 +33,7 @@ object AllWorkouts {
     fun deleteWorkout(workout: Workout){
         //need to delete from local storage as well
         allWorkouts.remove(workout)
-        LocalStorage.deleteWorkoutFile()
+        LocalStorage.reWriteWorkoutsFile()
     }
     fun addWorkout(workout: Workout){
         allWorkouts.add(workout)

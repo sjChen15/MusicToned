@@ -306,7 +306,10 @@ private fun RoutineBox(
                         ),
                         modifier = Modifier
                             .padding(start = 15.dp, end = 15.dp),
-                        onClick = { onNavigateToEditRoutine(workout.name) }
+                        onClick = {
+                            onNavigateToEditRoutine(workout.name)
+                            expanded = false
+                        }
                     )
 
                     ClickableText(
@@ -321,6 +324,7 @@ private fun RoutineBox(
                         onClick = {
                                     AllWorkouts.deleteWorkout(workout)
                                     allWorkouts.remove(workout)
+                                    expanded = false
                                     //onNavigateToRoutines(0)
                         }
                     )

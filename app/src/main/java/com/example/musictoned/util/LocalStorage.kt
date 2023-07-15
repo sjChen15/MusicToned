@@ -67,12 +67,8 @@ object LocalStorage {
     }
 
     //Deletes the old workouts.json file and writes a new one with the updated 'allWorkouts' ArrayList
-    fun deleteWorkoutFile(){
-
-        val file:File = app.applicationContext.getFileStreamPath(workoutsFilename)
-        file.delete()
+    fun reWriteWorkoutsFile(){
         writeWorkouts(AllWorkouts.getAllWorkouts())
-
     }
 
     //check if profile exists
