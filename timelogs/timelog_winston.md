@@ -40,5 +40,6 @@ University Email: <w5so@uwaterloo.ca>
 | Met with team                                                 | July 13, 2023 | 3:30pm     | 5:00pm     | 1.5   | 50.5               |
 | Worked on drag and drop                                       | July 13, 2023 | 8:00pm     | 12:00am    | 4   | 54.5                 |
 | Continued on drag and drop                                    | July 14, 2023 | 1:00pm     | 6:00pm     | 5   | 59.5                 |
-| Created Finish Workout Page                                   | July 14, 2023 | 6:00pm     | 7:00pm     | 5   | 60.5                 |
+| Created Finish Workout Page                                   | July 14, 2023 | 6:00pm     | 7:00pm     | 1   | 60.5                 |
+| Finished Drag and Drop                                        | July 14, 2023 | 7:00pm     | 10:00pm    | 3   | 63.5                 |
 
