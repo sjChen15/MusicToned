@@ -165,12 +165,16 @@ private fun Workouts(
     modifier: Modifier = Modifier,
     workout: Workout
 ) {
+
+    var timeElapsed = 0L;
+
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
     ){
         workout.exercises.forEach {exercise ->
-            Exercise( exercise = exercise )
+            Exercise( exercise = exercise, startTime = timeElapsed )
+            timeElapsed += exercise.getLength()
         }
     }
 }
@@ -179,7 +183,30 @@ private fun Workouts(
 private fun Exercise(
     modifier: Modifier = Modifier,
     exercise: WorkoutExercise,
+    startTime: Long,
 ){
+    val startMinutes = startTime / 60;
+    val startSeconds = startTime % 60;
+
+    val endTime = startTime + exercise.getLength()
+    val endMinutes = endTime / 60;
+    val endSeconds = endTime % 60;
+
+    var startText = ""
+    var endText = ""
+
+    if( startTime < 599 ){
+        startText = String.format("%02d:%02d", startMinutes, startSeconds)
+    } else {
+        startText = String.format("%d:%02d", startMinutes, startSeconds)
+    }
+
+    if( endTime < 599 ){
+        endText = String.format("%02d:%02d", endMinutes, endSeconds)
+    } else {
+        endText = String.format("%d:%02d", endMinutes, endSeconds)
+    }
+
     Column(
         modifier = modifier
             .wrapContentHeight(align = Alignment.CenterVertically)
@@ -192,7 +219,7 @@ private fun Exercise(
             Text(
                 modifier = modifier
                     .padding( end = 10.dp ),
-                text = "00:00 -\r\n01:00",
+                text = "$startText-\r\n$endText",
                 color = Color(0xFF000000),
                 fontSize = 13.sp,
                 fontWeight = FontWeight.W500,

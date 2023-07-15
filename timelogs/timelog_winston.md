@@ -34,4 +34,12 @@ University Email: <w5so@uwaterloo.ca>
 | Added scroll and selecting body parts to Add Exercise Page    | July 7, 2023 | 4:00pm     | 7:00pm      | 3     | 36.5                 |
 | Figured out how to make Add Exercise a Popup                  | July 8, 2023 | 7:00pm     | 10:00pm     | 3     | 39.5                 |
 | Added Functionality to add exercise popup and made it look better | July 9, 2023 | 4:00pm     | 6:30pm     | 2.5     | 42                 |
+| Looked into drag and drop and made timestamps on routine page work | July 10, 2023 | 3:00pm     | 6:00pm     | 3     | 45                 |
+| Made workout titles editable and looked more into drag and drop | July 10, 2023 | 8:00pm     | 10:30pm     | 2.5     | 47.5                 |
+| Worked on D4                                                  | July 12, 2023 | 5:00pm     | 6:30pm     | 1.5   | 49                 |
+| Met with team                                                 | July 13, 2023 | 3:30pm     | 5:00pm     | 1.5   | 50.5               |
+| Worked on drag and drop                                       | July 13, 2023 | 8:00pm     | 12:00am    | 4   | 54.5                 |
+| Continued on drag and drop                                    | July 14, 2023 | 1:00pm     | 6:00pm     | 5   | 59.5                 |
+| Created Finish Workout Page                                   | July 14, 2023 | 6:00pm     | 7:00pm     | 1   | 60.5                 |
+| Finished Drag and Drop                                        | July 14, 2023 | 7:00pm     | 10:00pm    | 3   | 63.5                 |
 
