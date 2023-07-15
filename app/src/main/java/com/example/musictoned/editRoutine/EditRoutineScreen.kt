@@ -121,14 +121,12 @@ fun EditRoutineScreen(
                             //add exercise to current workout
                             if (exerciseName != null.toString()){
                                 workout.addExercise(WorkoutExercise(ExerciseTempos.getExercise(exerciseName)))
-                                workout.deleteLastExercise()
                                 exercises.clear()
                                 exercises.addAll(workout.exercises)
                             }
                         }
                     )
                 }
-
             }
         }
         Scaffold(
@@ -508,6 +506,7 @@ fun DropdownMenu(
                         }
                     )
                 }
+
             }
         }
     }
