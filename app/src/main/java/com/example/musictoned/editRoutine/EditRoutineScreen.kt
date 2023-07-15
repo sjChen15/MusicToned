@@ -41,7 +41,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -67,9 +69,11 @@ import com.example.musictoned.R
 import com.example.musictoned.addExercise.addExerciseScreen
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
+import com.example.musictoned.util.TextFieldRegex
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.AllWorkouts.saveWorkout
+import com.example.musictoned.workoutcreation.BpmMode
 import com.example.musictoned.workoutcreation.ExerciseTempos
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
@@ -216,7 +220,7 @@ private fun TopBar(
                     onValueChange = {
                         if (it.length <= 11){
                             text = it
-                            //TODO INSERT UPDATE WORKOUT NAME HERE
+                            workout.name = text
                         }
                      },
                     textStyle = TextStyle(
@@ -378,8 +382,10 @@ fun Exercise(
                         BasicTextField(
                             value = duration,
                             onValueChange = {
-                                duration = it
-                                            // TODO UPDATE IN WORKOUT
+                                if(duration.isEmpty() || duration.matches(TextFieldRegex.wholeNumberRegex)) {
+                                    duration = it
+                                    exercise.setLength(if(duration.isEmpty()) 0 else duration.toLong())
+                                }
                             },
                             modifier = Modifier
                                 .height(30.dp)
@@ -437,6 +443,10 @@ fun Exercise(
     }
 }
 
+fun formatBPMToProperString(bpm: BpmMode): String {
+    return bpm.toString().lowercase(Locale.getDefault()).replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+}
+
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DropdownMenu(
@@ -446,14 +456,11 @@ fun DropdownMenu(
     onAckSwap: () -> Unit,
 ) {
     val context = LocalContext.current
-    val speed = arrayOf("Slow", "Average", "Fast")
+    val speed = arrayOf(BpmMode.SLOW, BpmMode.AVERAGE, BpmMode.FAST)
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(
-        exercise.getBpmMode()
-            .toString()
-            .lowercase(Locale.getDefault())
-            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }) }
-
+        formatBPMToProperString(exercise.getBpmMode())
+            ) }
     if (swapped.value){
         selectedText = exercise.getBpmMode()
             .toString()
@@ -493,11 +500,11 @@ fun DropdownMenu(
             ) {
                 speed.forEach { item ->
                     DropdownMenuItem(
-                        text = { Text(text = item) },
+                        text = { Text(text = formatBPMToProperString(item)) },
                         onClick = {
-                            selectedText = item
+                            selectedText = formatBPMToProperString(item)
                             expanded = false
-                            //TODO UPDATE IN WORKOUT
+                            exercise.setBpmMode(item)
                         }
                     )
                 }

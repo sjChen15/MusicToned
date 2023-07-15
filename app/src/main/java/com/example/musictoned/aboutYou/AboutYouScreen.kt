@@ -42,6 +42,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import com.example.musictoned.profile.Profile
 import com.example.musictoned.profile.ProfileClass
 import com.example.musictoned.util.LocalStorage
+import com.example.musictoned.util.TextFieldRegex
 import com.example.musictoned.workoutcreation.AllWorkouts
 
 @Composable
@@ -93,10 +94,6 @@ fun AboutYouScreen(
 private fun Questionnaire(
     viewModel: AboutYouViewModel
 ) {
-    val wholeNumberRegex = remember { Regex("^\\d+\$") }
-    val decimalNumberRegex = remember{ Regex("^\\d*\\.?\\d*\$") }
-    val textOnlyRegex = remember{ Regex("^[a-zA-Z]*\$") }
-
     val profile: ProfileClass = Profile.profile //current profile
     Text(
         text = "ABOUT YOU",
@@ -124,7 +121,7 @@ private fun Questionnaire(
     OutlinedTextField(
         value = viewModel.name,
         onValueChange = { name ->
-                if(name.isEmpty() || name.matches(textOnlyRegex)){
+                if(name.isEmpty() || name.matches(TextFieldRegex.textOnlyRegex)){
                     viewModel.updateName(name)
                     profile.name = name
                 }
@@ -139,7 +136,7 @@ private fun Questionnaire(
     OutlinedTextField(
         value = viewModel.age,
         onValueChange = { age ->
-            if(age.isEmpty() || age.matches(wholeNumberRegex)) {
+            if(age.isEmpty() || age.matches(TextFieldRegex.wholeNumberRegex)) {
                 viewModel.updateAge(age)
                 profile.age = if(age.isEmpty()) 0 else age.toInt()
             }
@@ -155,7 +152,7 @@ private fun Questionnaire(
         OutlinedTextField(
             value = viewModel.weight,
             onValueChange = { weight ->
-                if(weight.isEmpty() || weight.matches(decimalNumberRegex)) {
+                if(weight.isEmpty() || weight.matches(TextFieldRegex.decimalNumberRegex)) {
                     viewModel.updateWeight(weight)
                     profile.weight = if(weight.isEmpty()) 0F else weight.toFloat()
                 }
@@ -215,7 +212,7 @@ private fun Questionnaire(
         OutlinedTextField(
             value = viewModel.height,
             onValueChange = { height ->
-                if(height.isEmpty() || height.matches(decimalNumberRegex)) {
+                if(height.isEmpty() || height.matches(TextFieldRegex.decimalNumberRegex)) {
                     viewModel.updateHeight(height)
                     profile.height = if(height.isEmpty()) 0F else height.toFloat()
                 }
