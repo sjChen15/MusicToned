@@ -16,11 +16,19 @@ data class WorkoutExercise(
         return length
     }
 
+    fun setLength(l: Long){
+        length = l
+    }
+
     fun getSong(): String{
         return song
     }
 
     fun getBpmMode(): BpmMode{
         return bpmMode
+    }
+
+    fun setBpmMode(bpm: BpmMode){
+        bpmMode = bpm
     }
 }
