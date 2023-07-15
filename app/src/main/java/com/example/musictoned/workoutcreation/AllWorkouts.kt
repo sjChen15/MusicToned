@@ -28,6 +28,13 @@ object AllWorkouts {
             findFirst().
             orElse(Workout("New Workout"))
     }
+
+    //removes current workout from the ArrayList, 'allWorkouts', and updates workout file in local storage
+    fun deleteWorkout(workout: Workout){
+        //need to delete from local storage as well
+        allWorkouts.remove(workout)
+        LocalStorage.reWriteWorkoutsFile()
+    }
     fun addWorkout(workout: Workout){
         allWorkouts.add(workout)
     }

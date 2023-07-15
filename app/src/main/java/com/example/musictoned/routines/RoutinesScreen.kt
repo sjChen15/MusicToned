@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
@@ -23,15 +24,23 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.DropdownMenu
 import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -50,13 +59,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
-import com.example.musictoned.profile.Profile
+import com.example.musictoned.ui.theme.BottomWaves
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.BottomBar
 import com.example.musictoned.util.BottomNavPages
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Workout
+import java.util.LinkedList
+
 
 /**
  * Influenced by composable UI example provided by Android
@@ -73,7 +84,7 @@ fun RoutinesScreen(
 ) {
     Surface(
         modifier = Modifier
-        .supportWideScreen()
+            .supportWideScreen()
     ) {
         Scaffold(
             modifier = Modifier
@@ -104,14 +115,6 @@ fun RoutinesScreen(
         )
     }
 
-//        Column(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .verticalScroll(rememberScrollState()),
-//            verticalArrangement = Arrangement.Top
-//        )
-
-
 }
 
 @Composable
@@ -119,7 +122,7 @@ private fun TopBar(){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-        ) {
+    ) {
         Text(
             text = "ROUTINES",
             textAlign = TextAlign.Center,
@@ -147,7 +150,12 @@ private fun RoutinesContent(
     onNavigateToRoutine: (routineID: Int) -> Unit,
     onNavigateToEditRoutine: (exerciseName: String) -> Unit,
 ) {
-    val routines = AllWorkouts.getAllWorkouts()
+            //ACTUAL FUNCTIONALITY
+    //var allWorkouts = remember { mutableStateListOf<Workout>() }
+    val allWorkouts = AllWorkouts.getAllWorkouts().toMutableStateList()
+
+            //FOR PREVIEW ONLY
+    //val allWorkouts = previewWorkouts().toMutableStateList()
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -156,24 +164,36 @@ private fun RoutinesContent(
 
     ) {
         //routines.size + 1 (+1 for the add new button)
-        items(routines.size){
-            index ->
-                RoutineBox( onNavigateToRoutine = onNavigateToRoutine, workout = routines[index])
+        items(allWorkouts.size){
+                index ->
+            RoutineBox( onNavigateToRoutine = onNavigateToRoutine,
+                onNavigateToEditRoutine = onNavigateToEditRoutine,
+                workout = allWorkouts[index],
+                allWorkouts = allWorkouts
+            )
         }
         items (1){
             AddNewRoutineBox(onNavigateToEditRoutine = onNavigateToEditRoutine)
         }
 
     }
+
+    BottomWaves(withBottomBar = true)
+
+//    Button(onClick = { AllWorkouts.deleteWorkout(workout = allWorkouts[0]) }) {
+//        Text(text = AllWorkouts.getAllWorkouts().size.toString())
+//    }
+
 }
 
 
 @Composable
 private fun RoutineBox(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    workout: Workout
+    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
+    workout: Workout,
+    allWorkouts: SnapshotStateList<Workout>
 ){
-
     Column(
         modifier = Modifier
             .padding(10.dp)
@@ -204,14 +224,14 @@ private fun RoutineBox(
                 text = workout.name,
                 color = Color.Black,
                 style = MaterialTheme.typography.bodyLarge
-
             )
             Text(
-                text = "Workout time",
+                text = "Workout time", //<- Need function to get workout total time
                 color = Color.Black,
                 style = MaterialTheme.typography.bodySmall
             )
         }
+
         Row(
             modifier = Modifier
                 .height(IntrinsicSize.Min)
@@ -224,18 +244,26 @@ private fun RoutineBox(
 
 
         ) {
-            //button or clickable text
-            ClickableText(
-                text = AnnotatedString("START"),
-                style = TextStyle(
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                ),
+
+            //box with onclick event to start workout
+            Box(
                 modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp),
-                onClick = {onNavigateToRoutine(workout.hashCode())}
-            )
+                    .fillMaxSize()
+                    .weight(1f)
+                    .clickable { onNavigateToRoutine(workout.hashCode()) }
+            ){
+                Text(
+                    text = AnnotatedString("START"),
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                )
+
+            }
 
             Divider(
                 color = Color(81, 83, 181, 255),
@@ -244,19 +272,68 @@ private fun RoutineBox(
                     .width(1.5.dp)
             )
 
-            ClickableText(
-                text = AnnotatedString("^"),
-                style = TextStyle(
-                    color = Color.White,
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                ),
+            /* DropdownMenu reference: https://alexzh.com/jetpack-compose-dropdownmenu/ */
+
+            var expanded by remember { mutableStateOf(false) }
+
+            //box with onclick event to enable dropdown
+            Box(
                 modifier = Modifier
-                    .padding(start = 15.dp, end = 15.dp),
-                onClick = { onNavigateToRoutine(workout.hashCode()) }
-            )
-                //button or clickabletext
-        }
+                    .fillMaxSize()
+                    .weight(0.7f)
+                    .clickable { expanded = !expanded }
+            ){
+                Icon(
+                    modifier = Modifier
+                        .size(size = 25.dp)
+                        .background(color = Color.Transparent)
+                        .align(Alignment.Center),
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = "Drop down arrow Icon",
+                    tint = Color.White
+                )
+
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    ClickableText(
+                        text = AnnotatedString("Edit"),
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 20.sp,
+                            fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                        ),
+                        modifier = Modifier
+                            .padding(start = 15.dp, end = 15.dp),
+                        onClick = {
+                            onNavigateToEditRoutine(workout.name)
+                            expanded = false
+                        }
+                    )
+
+                    ClickableText(
+                        text = AnnotatedString("Delete"),
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontSize = 20.sp,
+                            fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                        ),
+                        modifier = Modifier
+                            .padding(start = 15.dp, end = 15.dp),
+                        onClick = {
+                                    AllWorkouts.deleteWorkout(workout)
+                                    allWorkouts.remove(workout)
+                                    expanded = false
+                                    //onNavigateToRoutines(0)
+                        }
+                    )
+
+                } //end drop down menu
+
+            } //end box
+
+        } //end row
     }
 }
 
@@ -284,10 +361,10 @@ private fun AddNewRoutineBox(
                 color = Color.Transparent,
                 shape = RoundedCornerShape(10.dp)
             )
-            .padding(horizontal = 5.dp, vertical = 5.dp)
-            .fillMaxWidth()
-            .aspectRatio(1f)
-            .clickable{onNavigateToEditRoutine(null.toString())},
+            .padding(horizontal = 5.dp, vertical = 0.dp)
+            .fillMaxSize()
+            .aspectRatio(1.06f)
+            .clickable { onNavigateToEditRoutine(null.toString()) },
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
@@ -297,7 +374,7 @@ private fun AddNewRoutineBox(
                 .size(size = 50.dp)
                 .background(color = Color.Transparent),
             imageVector = Icons.Default.Add,
-            contentDescription = "Person Icon",
+            contentDescription = "Plus Icon",
             tint = Color(94,96,206,255)
         )
 
@@ -307,7 +384,7 @@ private fun AddNewRoutineBox(
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
-            )
+        )
     }
 }
 
@@ -323,4 +400,19 @@ fun RoutinesScreenPreview() {
             onNavigateToSettings = {},
         )
     }
+}
+
+
+fun previewWorkouts(): ArrayList<Workout>{
+
+    val previewAllWorkouts = ArrayList<Workout>()
+
+    val previewWorkout = Workout("fake workout", LinkedList())
+
+    for (i in 20 downTo  1){
+        previewAllWorkouts.add(previewWorkout)
+    }
+
+    return previewAllWorkouts
+
 }

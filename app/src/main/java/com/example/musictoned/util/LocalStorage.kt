@@ -3,6 +3,7 @@ package com.example.musictoned.util
 import android.content.Context
 import com.example.musictoned.MainActivity
 import com.example.musictoned.profile.ProfileClass
+import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Workout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -13,6 +14,7 @@ object LocalStorage {
     private lateinit var app: MainActivity
     fun setApplication(mainActivity: MainActivity) {
         app = mainActivity
+        //writeWorkouts(arrayListOf())
     }
     private val gson = Gson()
     private const val workoutsFilename = "workouts.json"
@@ -63,6 +65,11 @@ object LocalStorage {
             e.printStackTrace()
         }
 
+    }
+
+    //Deletes the old workouts.json file and writes a new one with the updated 'allWorkouts' ArrayList
+    fun reWriteWorkoutsFile(){
+        writeWorkouts(AllWorkouts.getAllWorkouts())
     }
 
     //check if profile exists

@@ -90,7 +90,10 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                     navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
                 },
                 onNavigateToRoutines = {
-                    /* NOOP since we don't need to route to ourselves */
+                    /* PLACEHOLDER:
+                    self navigation might need to be used to refresh screen after workout deletion
+                    navController.navigate(ROUTINES_ROUTE)
+                     */
                 },
                 onNavigateToAnalytics = {
                     navController.navigate(ANALYTICS_ROUTE)
