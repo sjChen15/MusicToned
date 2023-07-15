@@ -1,6 +1,7 @@
 package com.example.musictoned.routine
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -66,6 +67,8 @@ fun RoutineScreen(
     else{
         AllWorkouts.getWorkout(routineID)
     }
+
+    Log.d("ROUTINE ID:", routineID.toString())
 
 
     Surface(modifier = Modifier
@@ -166,7 +169,7 @@ private fun Workouts(
     workout: Workout
 ) {
 
-    var timeElapsed = 0L;
+    var timeElapsed = 0L
 
     Column(
         modifier = modifier
@@ -185,12 +188,12 @@ private fun Exercise(
     exercise: WorkoutExercise,
     startTime: Long,
 ){
-    val startMinutes = startTime / 60;
-    val startSeconds = startTime % 60;
+    val startMinutes = startTime / 60
+    val startSeconds = startTime % 60
 
     val endTime = startTime + exercise.getLength()
-    val endMinutes = endTime / 60;
-    val endSeconds = endTime % 60;
+    val endMinutes = endTime / 60
+    val endSeconds = endTime % 60
 
     var startText = ""
     var endText = ""

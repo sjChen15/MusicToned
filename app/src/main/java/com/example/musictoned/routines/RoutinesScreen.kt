@@ -155,7 +155,7 @@ private fun RoutinesContent(
     val allWorkouts = AllWorkouts.getAllWorkouts().toMutableStateList()
 
             //FOR PREVIEW ONLY
-    //val allWorkouts = previewWorkouts()
+    //val allWorkouts = previewWorkouts().toMutableStateList()
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
