@@ -8,5 +8,4 @@
     <string name="password">Password</string>
     <string name="show_password">Show password</string>
     <string name="hide_password">Hide password</string>
-    <string name="title_activity_spotify_pkg">SpotifyPkg</string>
 </resources>
