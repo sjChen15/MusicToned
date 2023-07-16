@@ -26,3 +26,9 @@ University Email: <hn6patel@uwaterloo.ca>
 | Demo Planning Meeting #1, Android Studio Emulator Setup  | June 22, 2023 | 2:30 pm    | 5:00 pm     | 2.5   | 32.5               |
 | Prototype Demo Document - Status Report                  | June 27, 2023 | 12:00 pm   | 12:30 pm    | 0.5   | 33                 |
 | Demo Planning Meeting #2                                 | June 27, 2023 | 3:00 pm    | 4:00 pm     | 1     | 34                 |
+| Research Spotify API Player                              | June 28, 2023 | 3:00 pm    | 6:00 pm     | 3     | 37                 |
+| Discuss the after demo work                              | July 4, 2023  | 9:00 pm    | 10:00 pm    | 1     | 38                 |
+| Weekly meeting, D4 discussion                            | July 6, 2023  | 3:30 pm    | 4:30 pm     | 1     | 39                 |
+| Reduced Asset Sizes for lesser frames skipped            | July 9, 2023  | 3:00 pm    | 4:00 pm     | 1.5   | 40.5               |
+| D4 submission work                                       | July 12, 2023 | 3:00 pm    | 4:00 pm     | 1     | 41.5               |
+| Created SpotifyConnect package                           | July 16, 2023 | 6:00 am    | 8:00 am     | 2     | 43.5               |
