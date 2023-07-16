@@ -11,9 +11,11 @@ import androidx.compose.runtime.Composable
 fun EditRoutineRoute(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
     onNavigateToAddExercise: () -> Unit,
+    routineID: Int?
 ) {
     EditRoutineScreen(
         onNavigateToRoutine = onNavigateToRoutine,
         onNavigateToAddExercise = onNavigateToAddExercise,
+        routineID = routineID
     )
 }

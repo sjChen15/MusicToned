@@ -56,7 +56,7 @@ import com.example.musictoned.workoutcreation.WorkoutExercise
 
 @Composable
 fun RoutineScreen(
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
+    onNavigateToEditRoutine: (routineId: Int) -> Unit,
     onNavigateToRoutines: () -> Unit,
     onNavigateToPlayer: (routineId: Int) -> Unit,
     routineID: Int?
@@ -111,7 +111,7 @@ fun RoutineScreen(
 
 @Composable
 private fun TopBar(
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
+    onNavigateToEditRoutine: (routineId: Int) -> Unit,
     onNavigateToRoutines: () -> Unit,
     modifier: Modifier = Modifier,
     workout: Workout,
@@ -153,7 +153,7 @@ private fun TopBar(
                 modifier = modifier
                     .size(25.dp)
                     .clickable {
-                        onNavigateToEditRoutine(null.toString())
+                        onNavigateToEditRoutine(workout.hashCode())
                     },
                 painter = painterResource(id = R.drawable.edit_button),
                 contentDescription = "Edit Button",

@@ -89,9 +89,16 @@ import java.util.Locale
 fun EditRoutineScreen(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
     onNavigateToAddExercise: () -> Unit,
+    routineID: Int?
 ) {
 
+    //var workout by remember { mutableStateOf(AllWorkouts.getWorkout(routineID ?: 0)) }
     var workout by remember { mutableStateOf(AllWorkouts.getWorkoutInProgress()) }
+
+    if (routineID != null){
+        workout = AllWorkouts.getWorkout(routineID)
+    }
+
 
     var popupControl by remember { mutableStateOf(false) }
 
@@ -202,7 +209,7 @@ private fun TopBar(
                 Text(
                     modifier = modifier
                         .clickable {
-                            onNavigateToRoutine(0)
+                            onNavigateToRoutine(workout.hashCode())
                         },
                     text = "< ",
                     color = Color(0xFF5E60CE),
@@ -247,7 +254,7 @@ private fun TopBar(
                 ),
                 onClick = {
                     if(workout.exercises.size > 0){
-                        saveWorkout()
+                        saveWorkout(workout)
                         onNavigateToRoutine(workout.hashCode())
                     } else {
                         Toast.makeText(context, "Must Create an Exercise", Toast.LENGTH_SHORT).show()
@@ -559,6 +566,7 @@ fun EditRoutineScreenPreview() {
         com.example.musictoned.editRoutine.EditRoutineScreen(
             onNavigateToRoutine = {},
             onNavigateToAddExercise = {},
+            routineID = null
         )
     }
 }

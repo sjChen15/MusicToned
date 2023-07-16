@@ -77,7 +77,7 @@ import java.util.LinkedList
 @Composable
 fun RoutinesScreen(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
+    onNavigateToEditRoutine: (routineID: Int) -> Unit,
     onNavigateToRoutines: (charOffset: Int) -> Unit,
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
     onNavigateToSettings: (charOffset: Int) -> Unit
@@ -148,7 +148,7 @@ private fun TopBar(){
 @Composable
 private fun RoutinesContent(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
+    onNavigateToEditRoutine: (routineID: Int) -> Unit,
 ) {
             //ACTUAL FUNCTIONALITY
     //var allWorkouts = remember { mutableStateListOf<Workout>() }
@@ -190,7 +190,7 @@ private fun RoutinesContent(
 @Composable
 private fun RoutineBox(
     onNavigateToRoutine: (routineID: Int) -> Unit,
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
+    onNavigateToEditRoutine: (routineID: Int) -> Unit,
     workout: Workout,
     allWorkouts: SnapshotStateList<Workout>
 ){
@@ -226,7 +226,7 @@ private fun RoutineBox(
                 style = MaterialTheme.typography.bodyLarge
             )
             Text(
-                text = "Workout time", //<- Need function to get workout total time
+                text = workout.getWorkoutDurationHourFormat(),
                 color = Color.Black,
                 style = MaterialTheme.typography.bodySmall
             )
@@ -307,7 +307,7 @@ private fun RoutineBox(
                         modifier = Modifier
                             .padding(start = 15.dp, end = 15.dp),
                         onClick = {
-                            onNavigateToEditRoutine(workout.name)
+                            onNavigateToEditRoutine(workout.hashCode())
                             expanded = false
                         }
                     )
@@ -340,7 +340,7 @@ private fun RoutineBox(
 
 @Composable
 private fun AddNewRoutineBox(
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit
+    onNavigateToEditRoutine: (routineID: Int) -> Unit
 ){
     val stroke = Stroke(
         width = 6f,
@@ -364,7 +364,7 @@ private fun AddNewRoutineBox(
             .padding(horizontal = 5.dp, vertical = 0.dp)
             .fillMaxSize()
             .aspectRatio(1.06f)
-            .clickable { onNavigateToEditRoutine(null.toString()) },
+            .clickable { onNavigateToEditRoutine(null?.toInt() ?: 0) },
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
