@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun RoutineRoute(
-    onNavigateToEditRoutine: (exerciseName: String) -> Unit,
+    onNavigateToEditRoutine: (routineId: Int) -> Unit,
     onNavigateToRoutines: () -> Unit,
     onNavigateToPlayer: (routineId: Int) -> Unit,
     routineID: Int?
