@@ -39,10 +39,20 @@ object AllWorkouts {
         allWorkouts.add(workout)
     }
 
-    fun saveWorkout(){
-        allWorkouts.add(workoutInProgress)
-        workoutInProgress = Workout("New Workout")
-        storeAllWorkouts()
+    //this function should only rewrite the updated workout to local storage, not add a new workout, right?
+    fun saveWorkout(workout: Workout){
+
+        //check if workout is already in the arrayList of workouts
+        if (workout == getWorkout(workout.hashCode())){
+            //just rewrite file to local storage with updated data as
+            storeAllWorkouts()
+        } else {
+            setWorkoutInProgress(workout)
+            allWorkouts.add(workoutInProgress)
+            workoutInProgress = Workout("New Workout")
+            storeAllWorkouts()
+        }
+
     }
     fun getNumberOfWorkouts(): Int = allWorkouts.size
 

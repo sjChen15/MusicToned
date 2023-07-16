@@ -305,12 +305,13 @@ private fun ExerciseList(
     }
 }
 
-//@Preview(name = "Routine light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
-//@Composable
-//fun AddExerciseScreenPreview() {
-//    MusicTonedTheme {
-//        com.example.musictoned.addExercise.addExerciseScreen(
-////            onNavigateToEditRoutine = {}
-//        )
-//    }
-//}
+@Preview(name = "Routine light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+fun AddExerciseScreenPreview() {
+    MusicTonedTheme {
+        com.example.musictoned.addExercise.addExerciseScreen(
+            returnExercise = {},
+            onPopupChange = {}
+        )
+    }
+}
