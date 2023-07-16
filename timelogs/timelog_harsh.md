@@ -32,3 +32,4 @@ University Email: <hn6patel@uwaterloo.ca>
 | Reduced Asset Sizes for lesser frames skipped            | July 9, 2023  | 3:00 pm    | 4:00 pm     | 1.5   | 40.5               |
 | D4 submission work                                       | July 12, 2023 | 3:00 pm    | 4:00 pm     | 1     | 41.5               |
 | Created SpotifyConnect package                           | July 16, 2023 | 6:00 am    | 8:00 am     | 2     | 43.5               |
+| Created SpotifyAuth package                              | July 16, 2023 | 12:00 pm   | 5:00 pm     | 5     | 48.5               |
