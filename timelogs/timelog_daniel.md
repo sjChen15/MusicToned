@@ -23,4 +23,5 @@ University Email: <dm2adams@uwaterloo.ca>
 | Major updates to RoutinesScreen front end, Dropdown menu, etc...| July  12, 2023 | 2:00pm  | 12:00am      | 8  | 37                  |
 | Major updates to RoutinesScreen back end, workout deletion, etc...| July  12, 2023 | 2:00pm| 12:00am      | 8  | 45                  |
 | Team meeting, progress updates, assign new tasks, discuss D4  | July  12, 2023| 3:30pm     | 5:00pm       | 1.5| 46.5                |
-
+| Completing D4                                                 | July  14, 2023| 12:00pm     | 2:00pm      | 2  | 48.5                |
+| Various bug fixes and feature updates to the app              | July  15, 2023| 3:00pm     | 12:00am      | 9  | 57.5                |
