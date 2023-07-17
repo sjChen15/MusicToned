@@ -3,6 +3,7 @@
     "name": "Squat",
     "target": ["glutes","quads"],
     "bpm": 80,
+    "calories": 0.36,
     "imageName": "side_to_side_reaches"
   }
 ]

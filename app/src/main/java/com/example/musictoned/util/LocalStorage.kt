@@ -110,4 +110,6 @@ object LocalStorage {
         file.delete()
     }
 
+    //TODO: get and save workouts: when done, how long, how many calories, boolean of
+
 }

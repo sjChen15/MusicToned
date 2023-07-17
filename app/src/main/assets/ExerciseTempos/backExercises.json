@@ -3,12 +3,14 @@
     "name": "Pull Ups",
     "target": ["traps","biceps","rhomboids"],
     "bpm": 80,
+    "calories": 0.36,
     "imageName": "side_to_side_reaches"
   },
   {
     "name": "Deadlifts",
     "target": ["back","traps","glutes","hamstrings"],
     "bpm": 80,
+    "calories": 0.36,
     "imageName": "side_to_side_reaches"
   }
 ]

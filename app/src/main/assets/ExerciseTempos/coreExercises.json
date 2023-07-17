@@ -3,12 +3,14 @@
     "name": "Sit Ups",
     "target": ["abs"],
     "bpm": 80,
+    "calories": 0.36,
     "imageName": "side_to_side_reaches"
   },
   {
     "name": "Planking",
     "target": ["abs","obliques"],
     "bpm": 80,
+    "calories": 0.36,
     "imageName": "side_to_side_reaches"
   }
 ]

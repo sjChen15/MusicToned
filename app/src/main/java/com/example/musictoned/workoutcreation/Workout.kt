@@ -2,22 +2,26 @@ package com.example.musictoned.workoutcreation
 
 import java.util.LinkedList
 
-data class Workout (var name: String, val exercises: LinkedList<WorkoutExercise> = LinkedList() ){
+data class Workout (
+    var name: String,
+    val exercises: LinkedList<WorkoutExercise> = LinkedList(),
+    var totalDurationSeconds: Long = 0,
+    var totalCalories: Float = 0F
+    ){
     fun addExercise(exercise: WorkoutExercise){
         exercises.add(exercise)
+        totalDurationSeconds += exercise.getLength()
+        totalCalories += exercise.getExercise().calories
     }
     fun deleteExercise(exercise: WorkoutExercise){
-       exercises.remove(exercise)
+        exercises.remove(exercise)
+        totalDurationSeconds -= exercise.getLength()
+        totalCalories -= exercise.getExercise().calories
     }
 
-    fun getWorkoutDurationHourFormat(): String{
+    fun getWorkoutDurationHourFormat(): String {
 
-        var seconds: Long = 0
-        var totalTime: String = "00:00:00"
-
-        for(ex in exercises){
-            seconds += ex.getLength()
-        }
+        var seconds: Long = totalDurationSeconds
 
         val hours = seconds / 3600
         val minutes = (seconds % 3600) / 60
@@ -27,19 +31,17 @@ data class Workout (var name: String, val exercises: LinkedList<WorkoutExercise>
         var minutePrefix = "0"
         var secondPrefix = "0"
 
-        if(hours >= 10){
+        if (hours >= 10) {
             hourPrefix = ""
         }
-        if(minutes >= 10){
+        if (minutes >= 10) {
             minutePrefix = ""
         }
-        if(seconds >= 10){
+        if (seconds >= 10) {
             secondPrefix = ""
         }
 
-        totalTime = "$hourPrefix$hours:$minutePrefix$minutes:$secondPrefix$seconds"
-
-        return totalTime
+        return "$hourPrefix$hours:$minutePrefix$minutes:$secondPrefix$seconds"
     }
 
     //drag to a new order
