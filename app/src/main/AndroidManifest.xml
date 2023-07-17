@@ -10,22 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MusicToned"
         tools:targetApi="31">
-        <activity
-            android:name=".SpotifyAuth"
-            android:exported="true"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="com.example.musictoned"
-                    android:pathPrefix="/callback"
-                    android:scheme="callback" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"

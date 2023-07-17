@@ -2,6 +2,7 @@ package com.example.musictoned.util
 
 import android.content.Context
 import com.example.musictoned.MainActivity
+import com.example.musictoned.analytics.WorkoutHistory
 import com.example.musictoned.profile.ProfileClass
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Workout
@@ -19,6 +20,7 @@ object LocalStorage {
     private val gson = Gson()
     private const val workoutsFilename = "workouts.json"
     private const val profileFilename = "profile.json"
+    private const val workoutHistoryFilename = "workoutHistory.json"
 
     /**
      * Ref: https://www.bezkoder.com/kotlin-parse-json-gson/
@@ -110,6 +112,33 @@ object LocalStorage {
         file.delete()
     }
 
-    //TODO: get and save workouts: when done, how long, how many calories, boolean of
+    fun getAllWorkoutHistory(): ArrayList<WorkoutHistory>{
+        //check if file exists, if not it is the first run of the app
+        val file:File = app.applicationContext.getFileStreamPath(workoutHistoryFilename)
+        if(!file.exists()){
+            return arrayListOf()
+        }
 
+        //string of a list of json objects
+        val jsonString = app.applicationContext.openFileInput(workoutHistoryFilename).bufferedReader().use{it.readText()}
+        //convert string to list of WorkoutHistory
+        val listWorkoutHistoryType = object : TypeToken<ArrayList<WorkoutHistory>>() {}.type
+
+        return gson.fromJson(jsonString, listWorkoutHistoryType)
+    }
+
+    fun writeAllWorkoutHistory(allWorkoutHistory: ArrayList<WorkoutHistory>){
+        val jsonWorkoutsList: String = gson.toJson(allWorkoutHistory)
+        //write to local storage
+        try {
+            //creates file if it does not already exists
+            //overwrites file if it does exist
+            val fileOutputStream: FileOutputStream = app.applicationContext.openFileOutput(
+                workoutHistoryFilename,Context.MODE_PRIVATE)
+            fileOutputStream.write(jsonWorkoutsList.toByteArray())
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 }
