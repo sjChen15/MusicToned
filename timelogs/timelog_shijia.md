@@ -37,3 +37,4 @@ University Email: <s655chen@uwaterloo.ca>
 |PR #57                    | July 09, 2023 | 1:00pm     | 3:00pm      | 2.0   | 40.5               |
 |Team meeting              | July 13, 2023 | 3:30pm     | 5:00pm      | 1.5   | 42.0               |
 |PR #64,68,69              | July 15, 2023 | 12:00pm    | 2:00pm      | 2.0   | 44.0               |
+|PR #70 review             | July 16, 2023 | 12:00pm    | 12:30pm     | 0.5   | 44.5               |
