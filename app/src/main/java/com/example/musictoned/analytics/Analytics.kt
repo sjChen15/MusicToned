@@ -4,9 +4,9 @@ import java.time.LocalDate
 
 object Analytics {
     //TODO: depedning on mock, get the hours worked
-    var workoutStreak: Int = getWorkoutStreak()
-    var caloriesBurnedToday: Float = getCaloriesBurnedToday()
-    private fun getWorkoutStreak(): Int{
+    var workoutStreak: Int = getWorkoutStreakFromHistory()
+    var caloriesBurnedToday: Float = getCaloriesBurned()
+    private fun getWorkoutStreakFromHistory(): Int{
         var currentDate: LocalDate = LocalDate.now().minusDays(1) //start at yesterday looking for streaks
         var streak = 0
         for(workoutHistory in AllWorkoutHistory.allWorkoutHistory.reversed()){
@@ -22,7 +22,7 @@ object Analytics {
         return streak
     }
 
-    private fun getCaloriesBurnedToday(): Float{
+    private fun getCaloriesBurned(): Float{
         val todaysWorkouts = AllWorkoutHistory.getTodaysWorkouts()
         var calories = 0F
         for(workoutHistory in todaysWorkouts){
@@ -31,7 +31,7 @@ object Analytics {
         return calories
     }
     fun updateAnalytics(){
-        caloriesBurnedToday = getCaloriesBurnedToday()
+        caloriesBurnedToday = getCaloriesBurned()
     }
 
 }

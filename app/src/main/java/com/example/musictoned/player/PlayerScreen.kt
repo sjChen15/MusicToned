@@ -219,6 +219,7 @@ fun PlayerScreenPreview() {
                             "Side-to-side reaches",
                             listOf("triceps"),
                             500,
+                            0.35F,
                             "side_to_side_reaches"
                         ),
                         56,
@@ -229,6 +230,7 @@ fun PlayerScreenPreview() {
                             "Side-to-side reaches",
                             listOf("triceps"),
                             500,
+                            0.35F,
                             "side_to_side_reaches"
                         ),
                         56,
@@ -239,6 +241,7 @@ fun PlayerScreenPreview() {
                             "Side-to-side reaches",
                             listOf("triceps"),
                             500,
+                            0.35F,
                             "side_to_side_reaches"
                         ),
                         56,
@@ -249,6 +252,7 @@ fun PlayerScreenPreview() {
                             "Side-to-side reaches",
                             listOf("triceps"),
                             500,
+                            0.35F,
                             "side_to_side_reaches"
                         ),
                         56,

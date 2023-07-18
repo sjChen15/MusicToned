@@ -15,7 +15,7 @@ object LocalStorage {
     private lateinit var app: MainActivity
     fun setApplication(mainActivity: MainActivity) {
         app = mainActivity
-        //writeWorkouts(arrayListOf())
+        writeWorkouts(arrayListOf())
     }
     private val gson = Gson()
     private const val workoutsFilename = "workouts.json"
