@@ -40,4 +40,6 @@ University Email: <s655chen@uwaterloo.ca>
 |PR #70 review             | July 16, 2023 | 12:00pm    | 12:30pm     | 0.5   | 44.5               |
 |Analytics backend         | July 17, 2023 | 11:30am    | 4:00pm      | 4.5   | 49.0               |
 |D5                        | July 17, 2023 | 5:00pm     | 7:00pm      | 2.0   | 51.0               |
-|Debugging                 | July 18, 2023 | 11:00pm    | 12:00pm     | 1.0   | 52.0               |
+|Debugging                 | July 17, 2023 | 11:00pm    | 12:00pm     | 1.0   | 52.0               |
+|Implement design pattern  | July 18, 2023 | 2:00pm     | 3:00pm      | 1.0   | 53.0               |
+
