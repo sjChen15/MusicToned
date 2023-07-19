@@ -33,3 +33,7 @@ University Email: <hn6patel@uwaterloo.ca>
 | D4 submission work                                       | July 12, 2023 | 3:00 pm    | 4:00 pm     | 1     | 41.5               |
 | Created SpotifyConnect package                           | July 16, 2023 | 6:00 am    | 8:00 am     | 2     | 43.5               |
 | Created SpotifyAuth package                              | July 16, 2023 | 12:00 pm   | 5:00 pm     | 5     | 48.5               |
+| Research Spotify API calls, Added Player Functionality   | July 17, 2023 | 8:00 am    | 12:00 pm    | 4     | 52.5               |
+| Added Spotify Web API HTTP calls                         | July 18, 2023 | 8:00 am    | 2:30 pm     | 6.5   | 59                 |
+| Debug LocalStorage issue, SpotifyAuth issue              | July 18, 2023 | 4:00 pm    | 6:00 pm     | 2     | 61                 |
+| Added Spotify Member Functions to get track ids          | July 18, 2023 | 7:00 pm    | 1:30 am     | 6.5   | 67.5               |
