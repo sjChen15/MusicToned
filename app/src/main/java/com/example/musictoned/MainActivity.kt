@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
     }
     override fun onStart() {
         super.onStart()
-        //SpotifyConnect.connect(this)
+        SpotifyConnect.connect(this)
 
         //the following line is the one that is causing the error, but it returns access token
         //SpotifyAuth.connect(this)
