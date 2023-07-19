@@ -42,4 +42,4 @@ University Email: <s655chen@uwaterloo.ca>
 |D5                        | July 17, 2023 | 5:00pm     | 7:00pm      | 2.0   | 51.0               |
 |Debugging                 | July 17, 2023 | 11:00pm    | 12:00pm     | 1.0   | 52.0               |
 |Implement design pattern  | July 18, 2023 | 2:00pm     | 3:00pm      | 1.0   | 53.0               |
-
+|Debugging                 | July 17, 2023 | 11:00pm    | 12:00am     | 1.0   | 54.0               |
