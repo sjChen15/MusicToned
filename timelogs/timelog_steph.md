@@ -35,3 +35,5 @@ University Email: <sdepol@uwaterloo.ca>
 | Worked on collecting data for workout routines | July 17, 2023 | 5:00pm     | 8:00pm      | 3.0   | 33.75              |
 | Worked on analytics page mocks                 | July 19, 2023 | 12:00am    | 1:00am      | 1.0   | 34.75              |
 | Worked on deliverable 5                        | July 20, 2023 | 12:45pm    | 2:00pm      | 1.25  | 36.0               |
+| Group meeting about final task                 | July 20, 2023 | 3:30pm     | 4:45pm      | 1.25  | 37.25              |
+| Finalized analytics page mocks with Jenny      | July 20, 2023 | 4:45pm     | 5:15pm      | 0.5   | 37.75              |
