@@ -34,6 +34,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -62,14 +63,14 @@ import com.example.musictoned.workoutcreation.ExerciseTempos
  * Ref: https://github.com/android/compose-samples/blob/main/Jetsurvey/app/src/main/java/com/example/compose/jetsurvey/signinsignup/WelcomeScreen.kt
  */
 
-//only arm exercises for the demo
-var exercises = ExerciseTempos.getAllArmExercises()
-
 @Composable
 fun addExerciseScreen(
     returnExercise: (exerciseName: String) -> Unit,
     onPopupChange: (Boolean) -> Unit,
 ) {
+    var currentExerciseType =  remember { mutableStateOf( "ARMS" ) }
+    var exercises = ExerciseTempos.getExercises(currentExerciseType.value)
+
     Surface(modifier = Modifier
         .supportWideScreen()
     ) {
@@ -86,7 +87,11 @@ fun addExerciseScreen(
             backgroundColor = Color(0x00000000),
             topBar = {
                 TopBar(
-                    onPopupChange = onPopupChange
+                    onPopupChange = onPopupChange,
+                    onExerciseTypeChange = {
+                        currentExerciseType.value = it.value
+                        exercises = ExerciseTempos.getExercises(currentExerciseType.value)
+                    }
                 )
             },
             content = { innerPadding ->
@@ -95,7 +100,8 @@ fun addExerciseScreen(
                    ExerciseList(
                        returnExercise = returnExercise,
                        onPopupChange = onPopupChange,
-                       exercises = exercises
+                       exercises = exercises,
+
                    )
                 }
             }
@@ -106,6 +112,7 @@ fun addExerciseScreen(
 @Composable
 private fun TopBar(
     onPopupChange: (Boolean) -> Unit,
+    onExerciseTypeChange: (MutableState<String>) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -136,7 +143,7 @@ private fun TopBar(
                 modifier = modifier
                     .fillMaxHeight()
                     .clickable {
-                        onPopupChange( false )
+                        onPopupChange(false)
                     },
                 painter = painterResource(id = R.drawable.exit),
                 contentDescription = "Close Button",
@@ -155,12 +162,14 @@ private fun TopBar(
                 modifier = modifier
                     .fillMaxHeight()
                     .clickable {
-                        if ( exerciseType.indexOf(currentExerciseType.value) != 0 ){
-                            currentExerciseType.value = exerciseType[exerciseType.indexOf(currentExerciseType.value) - 1]
+                        if (exerciseType.indexOf(currentExerciseType.value) != 0) {
+                            currentExerciseType.value =
+                                exerciseType[exerciseType.indexOf(currentExerciseType.value) - 1]
+
                         } else {
                             currentExerciseType.value = exerciseType[exerciseType.size - 1]
                         }
-                        //get all exercises based on item
+                        onExerciseTypeChange(currentExerciseType)
                     },
                 painter = painterResource(id = R.drawable.back),
                 contentDescription = "Left",
@@ -180,7 +189,8 @@ private fun TopBar(
                                 .padding( end = 27.dp ),
                             onClick = {
                                 currentExerciseType.value = item
-                                //get all exercises based on item
+                                onExerciseTypeChange(currentExerciseType)
+
                             },
                             style = TextStyle(
                                 color = Color( 0xFF7400B8),
@@ -196,7 +206,7 @@ private fun TopBar(
                                 .padding( end = 25.dp ),
                             onClick = {
                                 currentExerciseType.value = item
-                                //get all exercises based on item
+                                onExerciseTypeChange(currentExerciseType)
                             },
                             style = TextStyle(
                                 color = Color( 0x99000000),
@@ -211,11 +221,14 @@ private fun TopBar(
                 modifier = modifier
                     .fillMaxHeight()
                     .clickable {
-                        if ( exerciseType.indexOf(currentExerciseType.value) != exerciseType.size - 1 ){
-                            currentExerciseType.value = exerciseType[exerciseType.indexOf(currentExerciseType.value) + 1]
+                        if (exerciseType.indexOf(currentExerciseType.value) != exerciseType.size - 1) {
+                            currentExerciseType.value =
+                                exerciseType[exerciseType.indexOf(currentExerciseType.value) + 1]
+
                         } else {
                             currentExerciseType.value = exerciseType[0]
                         }
+                        onExerciseTypeChange(currentExerciseType)
                     },
                 painter = painterResource(id = R.drawable.forward),
                 contentDescription = "Right",

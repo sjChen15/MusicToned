@@ -1,17 +1,12 @@
 package com.example.musictoned
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.musictoned.spotify.SpotifyConnect
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.LocalStorage
 import com.example.musictoned.workoutcreation.ExerciseTempos
-import com.spotify.sdk.android.auth.AuthorizationClient
-import com.spotify.sdk.android.auth.AuthorizationRequest
-import com.spotify.sdk.android.auth.AuthorizationResponse
-import com.spotify.sdk.android.auth.LoginActivity.REQUEST_CODE
 
 
 /*
@@ -41,16 +36,12 @@ class MainActivity : ComponentActivity() {
         super.onStart()
         //SpotifyConnect.connect(this)
 
-        //val intent = Intent(this@MainActivity, SpotifyAuth::class.java)
-        //this@MainActivity.startActivity(intent)
-
+        //the following line is the one that is causing the error, but it returns access token
+        //SpotifyAuth.connect(this)
     }
 
     override fun onStop() {
         super.onStop()
-    }
-
-    public fun connectToSpotify() {
-
+        //SpotifyConnect.disconnect()
     }
 }

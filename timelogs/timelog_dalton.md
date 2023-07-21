@@ -35,3 +35,6 @@ University Email: <dbown@uwaterloo.ca>
 | Continued work on the workout player                         | July 6, 2023  | 5:00pm     | 1:00am      | 8     | 63.75              |
 | Connecting workout player to backend                         | July 7, 2023  | 10:30pm    | 12:45am     | 2.25  | 66                 |
 | Finished one example for D4                                  | July 8, 2023  | 6:00pm     | 7:00pm      | 1     | 67                 |
+| Weekly meeting, discuss D4, remaining work                   | July 13, 2023 | 3:30pm     | 5:00pm      | 1.5   | 68.5               |
+| Reviewed Daniel's PR                                         | July 16, 2023 | 11:00am    | 11:30am     | 0.5   | 69                 |
+| Work on D5                                                   | July 18, 2023 | 1:00pm     | 1:30pm      | 0.5   | 69.5               |
