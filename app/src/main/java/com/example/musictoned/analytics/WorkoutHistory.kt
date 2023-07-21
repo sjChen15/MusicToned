@@ -2,14 +2,11 @@ package com.example.musictoned.analytics
 
 import com.example.musictoned.util.LocalStorage
 import com.example.musictoned.workoutcreation.Workout
-import com.example.musictoned.workoutcreation.WorkoutExercise
 import java.time.LocalDate
 
 object AllWorkoutHistory {
-    //TODO: get and set list of all workouts... not scalable but just for the app yk
-    //TODO: get workout streak
-    //TODO: get workouts for today, past week and maybe past month...
     var allWorkoutHistory: ArrayList<WorkoutHistory> = LocalStorage.getAllWorkoutHistory()//LocalStorage.get
+
     fun saveHistory(workout: Workout){//TODO: save at the end of a workout
         val currentDate = LocalDate.now()
         allWorkoutHistory.add(WorkoutHistory(workout,currentDate))

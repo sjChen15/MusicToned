@@ -11,12 +11,12 @@ data class Workout (
     fun addExercise(exercise: WorkoutExercise){
         exercises.add(exercise)
         totalDurationSeconds += exercise.getLength()
-        totalCalories += exercise.getExercise().calories
+        totalCalories += exercise.getExercise().calories * totalDurationSeconds
     }
     fun deleteExercise(exercise: WorkoutExercise){
         exercises.remove(exercise)
         totalDurationSeconds -= exercise.getLength()
-        totalCalories -= exercise.getExercise().calories
+        totalCalories -= exercise.getExercise().calories * totalDurationSeconds
     }
 
     fun getWorkoutDurationHourFormat(): String {

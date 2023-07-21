@@ -21,8 +21,9 @@ class MainActivity : ComponentActivity() {
         /**
          * Pass context to classes
          */
-        LocalStorage.setApplication(this)
         ExerciseTempos.setApplication(this)
+        LocalStorage.setApplication(this)
+
         /**
          * Initialize the navigation host
          */

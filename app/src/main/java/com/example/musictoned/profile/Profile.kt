@@ -15,7 +15,6 @@ enum class HeightUnit {
 //singleton profile to be used
 object Profile{
     val profile: ProfileClass = LocalStorage.getProfile()
-
 }
 
 data class ProfileClass(
@@ -29,5 +28,6 @@ data class ProfileClass(
     var improveEndurance: Boolean = false,
     var loseWeight: Boolean = false,
     var increaseFlexibility: Boolean = false,
-    var exerciseRegularly: Boolean = false
+    var exerciseRegularly: Boolean = false,
+    var calorieGoal: Int = 0
     )

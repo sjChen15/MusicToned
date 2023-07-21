@@ -75,7 +75,6 @@ import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.AllWorkouts.saveWorkout
 import com.example.musictoned.workoutcreation.BpmMode
-import com.example.musictoned.workoutcreation.Exercise
 import com.example.musictoned.workoutcreation.ExerciseTempos
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
@@ -106,9 +105,9 @@ fun EditRoutineScreen(
 
     var popupControl by remember { mutableStateOf(false) }
 
-    var exercises = remember { mutableStateListOf<WorkoutExercise>() }
+    val exercises = remember { mutableStateListOf<WorkoutExercise>() }
 
-    var swapped = remember { mutableStateOf(false) }
+    val swapped = remember { mutableStateOf(false) }
 
     exercises.addAll(workout.exercises.toList())
 
@@ -212,7 +211,7 @@ private fun TopBar(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(bottom = 10.dp,),
+                .padding(bottom = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -315,7 +314,7 @@ private fun Exercises(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Exercise(
     modifier: Modifier = Modifier,
@@ -593,7 +592,7 @@ private fun BottomBar(
 @Composable
 fun EditRoutineScreenPreview() {
     MusicTonedTheme {
-        com.example.musictoned.editRoutine.EditRoutineScreen(
+        EditRoutineScreen(
             onNavigateToRoutine = {},
             onNavigateToAddExercise = {},
             routineID = null

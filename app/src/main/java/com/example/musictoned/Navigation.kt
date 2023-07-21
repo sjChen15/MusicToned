@@ -56,6 +56,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = if(LocalStorage.doesProfileExist()) ROUTINES_ROUTE else WELCOME_ROUTE
+        //startDestination = ANALYTICS_ROUTE
     ) {
         composable(WELCOME_ROUTE) {
             WelcomeRoute(

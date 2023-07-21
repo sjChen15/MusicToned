@@ -2,13 +2,17 @@ package com.example.musictoned.util
 
 import android.content.Context
 import com.example.musictoned.MainActivity
+import com.example.musictoned.analytics.AllWorkoutHistory
 import com.example.musictoned.analytics.WorkoutHistory
 import com.example.musictoned.profile.ProfileClass
 import com.example.musictoned.workoutcreation.AllWorkouts
+import com.example.musictoned.workoutcreation.ExerciseTempos
 import com.example.musictoned.workoutcreation.Workout
+import com.example.musictoned.workoutcreation.WorkoutExercise
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.*
+import java.time.LocalDate
 
 object LocalStorage {
 
@@ -16,6 +20,17 @@ object LocalStorage {
     fun setApplication(mainActivity: MainActivity) {
         app = mainActivity
         writeWorkouts(arrayListOf())
+        //deleteProfile()
+
+        val date = LocalDate.now()
+        val w = Workout("Hello")
+        val e = ExerciseTempos.getExercise("Deadlifts")
+        w.addExercise(WorkoutExercise(e))
+        writeAllWorkoutHistory( arrayListOf(
+            WorkoutHistory(w,date.minusDays(1)),
+            WorkoutHistory(w,date.minusDays(1)),
+            WorkoutHistory(w,date.minusDays(1)),
+        ))
     }
     private val gson = Gson()
     private const val workoutsFilename = "workouts.json"
@@ -121,6 +136,7 @@ object LocalStorage {
 
         //string of a list of json objects
         val jsonString = app.applicationContext.openFileInput(workoutHistoryFilename).bufferedReader().use{it.readText()}
+
         //convert string to list of WorkoutHistory
         val listWorkoutHistoryType = object : TypeToken<ArrayList<WorkoutHistory>>() {}.type
 
