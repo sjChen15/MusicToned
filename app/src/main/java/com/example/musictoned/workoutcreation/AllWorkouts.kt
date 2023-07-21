@@ -13,6 +13,7 @@ object AllWorkouts {
 
     fun setWorkoutInProgress(workout: Workout){
         workoutInProgress = workout
+
     }
 
     fun getWorkoutInProgress(): Workout{
