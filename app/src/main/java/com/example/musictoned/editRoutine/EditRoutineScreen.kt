@@ -31,6 +31,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ExposedDropdownMenuBox
 import androidx.compose.material.Scaffold
+import androidx.compose.material.TextButton
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -74,6 +75,7 @@ import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.AllWorkouts.saveWorkout
 import com.example.musictoned.workoutcreation.BpmMode
+import com.example.musictoned.workoutcreation.Exercise
 import com.example.musictoned.workoutcreation.ExerciseTempos
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
@@ -91,7 +93,9 @@ fun EditRoutineScreen(
     onNavigateToAddExercise: () -> Unit,
     routineID: Int?
 ) {
-
+    if(routineID != null){
+        println(AllWorkouts.getWorkout(routineID))
+    }
     //var workout by remember { mutableStateOf(AllWorkouts.getWorkout(routineID ?: 0)) }
     var workout by remember { mutableStateOf(AllWorkouts.getWorkoutInProgress()) }
 
@@ -161,23 +165,30 @@ fun EditRoutineScreen(
                     Exercises(
                         modifier = Modifier,
                         exercises = exercises,
+                        deleteExercise = {
+                            workout.deleteExercise(it)
+                            exercises.clear()
+                            exercises.addAll(workout.exercises)},
                         swapped = swapped,
                         onMoveUp = {
-                            val index = workout.exercises.indexOf( it )
-                            if ( index != 0 ){
-                                workout.reorderExercise( it, index - 1 )
+                            val index = workout.exercises.indexOf(it)
+                            if (index != 0) {
+                                workout.reorderExercise(it, index - 1)
                             }
                             exercises.clear()
                             exercises.addAll(workout.exercises)
-                            swapped.value = true },
+                            swapped.value = true
+                        },
                         onMoveDown = {
-                            val index = workout.exercises.indexOf( it )
-                            if ( index != workout.exercises.size - 1 ){
-                                workout.reorderExercise( it, index + 1 )
+                            val index = workout.exercises.indexOf(it)
+                            if (index != workout.exercises.size - 1) {
+                                workout.reorderExercise(it, index + 1)
                             }
                             exercises.clear()
                             exercises.addAll(workout.exercises)
-                            swapped.value = true },)
+                            swapped.value = true
+                        },
+                    )
                 }
             }
         )
@@ -277,6 +288,7 @@ private fun TopBar(
 private fun Exercises(
     modifier: Modifier,
     exercises: List<WorkoutExercise>,
+    deleteExercise: (WorkoutExercise) -> Unit,
     swapped: MutableState<Boolean>,
     onMoveUp: ( exercise: WorkoutExercise ) -> Unit,
     onMoveDown: ( exercise: WorkoutExercise ) -> Unit,
@@ -290,7 +302,9 @@ private fun Exercises(
             if (exercises.indexOf(exercise) == exercises.size - 1){
                 isLast = true
             }
-            Exercise( exercise = exercise,
+            Exercise(
+                exercise = exercise,
+                deleteExercise = deleteExercise,
                 swapped = swapped,
                 onMoveUp = onMoveUp,
                 onMoveDown = onMoveDown,
@@ -306,6 +320,7 @@ private fun Exercises(
 fun Exercise(
     modifier: Modifier = Modifier,
     exercise: WorkoutExercise,
+    deleteExercise: (WorkoutExercise) -> Unit,
     swapped: MutableState<Boolean>,
     isLast: Boolean,
     onMoveUp: ( exercise: WorkoutExercise ) -> Unit,
@@ -349,7 +364,7 @@ fun Exercise(
                        modifier = modifier
                            .padding(end = 5.dp, start = 5.dp)
                            .height(30.dp)
-                           .clickable{ onMoveUp(exercise) },
+                           .clickable { onMoveUp(exercise) },
                        contentDescription = "Move up",
                        contentScale = ContentScale.FillHeight,
                    )
@@ -358,7 +373,7 @@ fun Exercise(
                         modifier = modifier
                             .padding(end = 5.dp, start = 5.dp)
                             .height(30.dp)
-                            .clickable{ onMoveDown(exercise) },
+                            .clickable { onMoveDown(exercise) },
                         contentDescription = "Move down",
                         contentScale = ContentScale.FillHeight,
                     )
@@ -432,16 +447,31 @@ fun Exercise(
                             onAckSwap = onAckSwap
                         )
                     }
-                    Text(
-                        modifier = modifier
+                    TextButton(
+                        onClick = {
+                            deleteExercise(exercise)
+                        }
+                    ) {
+                        Text(
+                            modifier = modifier
                             .fillMaxWidth(),
-                        text = "DELETE",
-                        fontSize = 12.sp,
-                        fontFamily = FontName,
-                        color = Color(0xFF7400B8),
-                        textAlign = TextAlign.End,
-                        fontStyle = FontStyle.Italic,
-                    )
+                            text = "DELETE",
+                            fontSize = 12.sp,
+                            fontFamily = FontName,
+                            color = Color(0xFF7400B8),
+                            textAlign = TextAlign.End,
+                            fontStyle = FontStyle.Italic,)
+                    }
+//                    Text(
+//                        modifier = modifier
+//                            .fillMaxWidth(),
+//                        text = "DELETE",
+//                        fontSize = 12.sp,
+//                        fontFamily = FontName,
+//                        color = Color(0xFF7400B8),
+//                        textAlign = TextAlign.End,
+//                        fontStyle = FontStyle.Italic,
+//                    )
                 }
             }
         }
