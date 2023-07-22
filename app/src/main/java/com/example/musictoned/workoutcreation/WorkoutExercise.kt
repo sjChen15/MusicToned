@@ -24,6 +24,10 @@ data class WorkoutExercise(
         return song
     }
 
+    fun setSong(s: String){
+        song = s
+    }
+
     fun getBpmMode(): BpmMode{
         return bpmMode
     }

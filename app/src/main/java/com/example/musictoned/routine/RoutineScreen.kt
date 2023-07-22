@@ -48,6 +48,7 @@ import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
+import com.example.musictoned.spotify.SpotifyConnect
 
 /**
  * Influenced by composable UI example provided by Android
@@ -286,6 +287,8 @@ private fun Exercise(
                                 overflow = TextOverflow.Ellipsis,
                             )
                         }
+
+
                         Row(
                             modifier = modifier
                                 .fillMaxHeight()
@@ -295,10 +298,15 @@ private fun Exercise(
                                 painter = painterResource(id = R.drawable.shuffle),
                                 modifier = modifier
                                     .padding(end = 10.dp)
-                                    .fillMaxHeight(),
+                                    .fillMaxHeight()
+                                    .clickable {
+                                                exercise.setSong("power")
+                                                Log.d("SHUFFLE:", exercise.getSong())
+                                               },
                                 contentDescription = "Shuffle button",
                                 contentScale = ContentScale.FillHeight,
                             )
+                            //exercise.setSong(SpotifyConnect.Companion.getSongName("1"))
                         }
                     }
                 }
