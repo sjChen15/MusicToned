@@ -45,3 +45,4 @@ University Email: <s655chen@uwaterloo.ca>
 |Debugging                 | July 17, 2023 | 11:00pm    | 12:00am     | 1.0   | 54.0               |
 |Team meeting              | July 20, 2023 | 3:30pm     | 5:00pm      | 1.5   | 55.5               |
 |Analytics page            | July 21, 2023 | 11:00am    | 4:30pm      | 5.5   | 61                 |
+|Analytics page bar chart  | July 22, 2023 | 12:00pm    | 5:30pm      | 5.5   | 66.5               |
