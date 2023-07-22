@@ -34,10 +34,12 @@ object Analytics {
     }
 
     fun getRecentActivityHours(): List<Float>{
-        val recent = listOf(0F,0F,0F,0F,0F,0F,0F)
-        //TODO: actually get data
+        val recent = listOf(1F,8F,3F,2F,1F,0F,0F)
+
+
         return recent
     }
+
 //    fun updateAnalytics(){
 //        caloriesBurnedToday = getCaloriesBurned()
 //        recentActivity = getRecentActivityHours()

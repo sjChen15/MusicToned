@@ -27,7 +27,7 @@ object LocalStorage {
         println("LOCAL STORAGE")
         val w = Workout("Hello")
         val e = ExerciseTempos.getExercise("Deadlifts")
-        w.addExercise(WorkoutExercise(e))
+        w.addExercise(WorkoutExercise(e,length = 4600))
         writeAllWorkoutHistory( arrayListOf(w,w,w))
         writeAllWorkoutHistoryDates(arrayListOf(date.minusDays(3),date.minusDays(2),date.minusDays(1)))
 
