@@ -166,7 +166,7 @@ private fun StreaksBox(){
             )
         )
         Text(
-            text = Analytics.workoutStreak.toString(),
+            text = Analytics.getWorkoutStreakFromHistory().toString(),
             style = androidx.compose.ui.text.TextStyle(
                 fontSize = 35.sp,
                 fontFamily = FontFamily(Font(R.font.roboto_regular)),
@@ -226,7 +226,7 @@ private fun CalorieGoalBox(){
             )
         )
         Text(
-            text = Analytics.caloriesBurnedToday.toString(),
+            text = Analytics.getCaloriesBurned().toString(),
             style = androidx.compose.ui.text.TextStyle(
                 fontSize = 35.sp,
                 fontFamily = FontFamily(Font(R.font.roboto_regular)),
