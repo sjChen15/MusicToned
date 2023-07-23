@@ -38,3 +38,5 @@ University Email: <dbown@uwaterloo.ca>
 | Weekly meeting, discuss D4, remaining work                   | July 13, 2023 | 3:30pm     | 5:00pm      | 1.5   | 68.5               |
 | Reviewed Daniel's PR                                         | July 16, 2023 | 11:00am    | 11:30am     | 0.5   | 69                 |
 | Work on D5                                                   | July 18, 2023 | 1:00pm     | 1:30pm      | 0.5   | 69.5               |
+| Weekly meeting, discuss remaining items                      | July 20, 2023 | 3:30pm     | 5:00pm      | 1.5   | 71                 |
+| Work on making UI consistent, update deps, fix warnings.     | July 22, 2023 | 7:30pm     | 1:30am      | 6     | 77                 |
