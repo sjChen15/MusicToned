@@ -260,6 +260,8 @@ private fun TopBar(
                         for(ex in workout.exercises){
                             if (ex.getSong() == ""){
                                 ex.setSongByBPM(ex.getBpmMode())
+                                //TODO - (DisableSpotifySongs) if you do not need to work with spotify, replace the above line with the below line:
+                                //ex.setSong("Despacito", "")
                             }
                         }
 
@@ -521,6 +523,8 @@ fun DropdownMenu(
                             //if the user changes the speed of their exercise
                             if(item != exercise.getBpmMode()){
                                 exercise.setSongByBPM(item)
+                                //TODO - (DisableSpotifySongs) if you do not need to work with spotify, replace the above line with the below line:
+                                //exercise.setSong("Despacito", "")
                             }
                             exercise.setBpmMode(item)
                         }
@@ -530,11 +534,6 @@ fun DropdownMenu(
             }
         }
     }
-}
-
-private fun updateSong(ex: WorkoutExercise): String{
-
-    return ""
 }
 @Composable
 private fun BottomBar(
