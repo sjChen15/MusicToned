@@ -1,6 +1,7 @@
 package com.example.musictoned.editRoutine
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 /**
  * Influenced by composable UI example provided by Android
@@ -12,8 +13,10 @@ fun EditRoutineRoute(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
     routineID: Int?
 ) {
+    val editRoutineViewModel: EditRoutineViewModel = viewModel(factory = EditRoutineViewModelFactory(routineID))
+
     EditRoutineScreen(
-        onNavigateToRoutine = onNavigateToRoutine,
-        routineID = routineID
+        viewModel = editRoutineViewModel,
+        onNavigateToRoutine = onNavigateToRoutine
     )
 }
