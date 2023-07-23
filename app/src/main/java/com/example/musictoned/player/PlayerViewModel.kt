@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.musictoned.R
+import com.example.musictoned.spotify.SpotifyConnect
 import com.example.musictoned.util.LocalStorage
 import com.example.musictoned.util.TimerUtils.formatTime
 import com.example.musictoned.workoutcreation.AllWorkouts.getWorkout
@@ -45,7 +46,7 @@ class PlayerViewModel(
 
     private var countDownTimer: CountDownTimer? = null
 
-    // TODO - Ensure we can't create routines with < 1 exercise
+    // TODO - Ensure we can't create routines with < 1 exercise (we can't create a routine with 0 exercises but we can still delete)
     private var exerciseIndex = 1
 
     private val _playerScreenData = mutableStateOf(createPlayerScreenData())
@@ -86,20 +87,33 @@ class PlayerViewModel(
 
             // TODO - Need to transition between workouts here
             override fun onFinish() {
-                pauseTimer()
+                SpotifyConnect.pauseSong()
+                if(exerciseIndex == routine.exercises.size){
+                    //TODO - need to go to finishRoutine screen
+                    //onNavigateToFinishWorkoutRoutine(workout.hashcode())
+                    //SpotifyConnect.disconnect()
+                } else {
+                    changeExercise(exerciseIndex + 1)
+                    pauseTimer()
+                }
+
             }
         }.start()
     }
 
     // TODO - Connect to skip button
     fun onSkipPressed() {
+        SpotifyConnect.pauseSong()
+        if(exerciseIndex == routine.exercises.size){
+
+        }
         changeExercise(exerciseIndex + 1)
     }
 
     private fun changeExercise(newExerciseIndex: Int) {
         exerciseIndex = newExerciseIndex
         _playerScreenData.value = createPlayerScreenData()
-        // TODO - Reset timer
+        pauseTimer()
     }
 
     private fun createPlayerScreenData(): PlayerScreenData {
@@ -107,18 +121,26 @@ class PlayerViewModel(
         val exercise: Exercise = workoutExercise.getExercise()
 
         return PlayerScreenData(
+            routineID = routine.hashCode(),
             routineName = routine.name,
             exerciseIndex = exerciseIndex,
             exerciseCount = routine.exercises.size,
+            //TODO: need to assign an image to an exercise when the exercise is created
             exerciseImageId = if (this.isPreview) R.drawable.side_to_side_reaches else LocalStorage.getExerciseImage(exercise.imageName),
             exerciseName = exercise.name,
             songName = workoutExercise.getSong(),
             exerciseTimeMillis = workoutExercise.getLength() * 1000
         )
     }
+
+    fun playSong(){
+        val songID = routine.exercises[exerciseIndex - 1].getSongID()
+        SpotifyConnect.playSong("spotify:track:$songID")
+    }
 }
 
 data class PlayerScreenData(
+    val routineID: Int,
     val routineName: String,
     val exerciseIndex: Int,
     val exerciseCount: Int,
