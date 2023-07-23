@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
@@ -68,7 +69,11 @@ fun AddExerciseScreen(
 
     var exercises: List<Exercise> = if (LocalInspectionMode.current) {
         // Preview mode
-        listOf(Exercise(name="Triceps Extension", target=listOf("triceps")))
+        listOf(
+            Exercise(name="Triceps Extension", target=listOf("triceps")),
+            Exercise(name="Bench press", target=listOf("triceps, traps")),
+            Exercise(name="Something else", target=listOf("triceps, traps"))
+            )
     } else {
         // Production
         ExerciseTempos.getExercises(currentExerciseType.value)
@@ -263,7 +268,7 @@ private fun ExerciseList(
             Box(
                 modifier = modifier
                     .background(color = Color(0xFFE6E6FD), shape = RoundedCornerShape(size = 10.dp))
-                    .aspectRatio(1f)
+                    .aspectRatio(1.1f)
             ){
                 Column(
                     modifier = modifier
@@ -280,7 +285,7 @@ private fun ExerciseList(
                     )
                     Text(
                         modifier = modifier
-                            .padding(top = 10.dp, bottom = 10.dp),
+                            .padding(top = 5.dp, bottom = 5.dp),
                         text = java.lang.String.join( ", ", exercises[index].target )
                             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() },
                         fontFamily = FontName,
@@ -298,7 +303,9 @@ private fun ExerciseList(
                                 color = Color(0xFF5E60CE),
                                 shape = RoundedCornerShape(size = 4.dp)
                             )
-                            .padding(start = 10.dp, end = 10.dp),
+                            .padding(start = 10.dp, end = 10.dp)
+                            .width(50.dp)
+                            .height(40.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFF5E60CE),
                             contentColor = Color(0xFFFFFFFF),
