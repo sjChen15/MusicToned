@@ -27,7 +27,7 @@ object LocalStorage {
         println("LOCAL STORAGE")
         val w = Workout("Hello")
         val e = ExerciseTempos.getExercise("Deadlifts")
-        w.addExercise(WorkoutExercise(e,length = 4600))
+        //w.addExercise(WorkoutExercise(e,length = 4600))
         writeAllWorkoutHistory( arrayListOf(w,w,w))
         writeAllWorkoutHistoryDates(arrayListOf(date.minusDays(3),date.minusDays(2),date.minusDays(1)))
 
@@ -74,16 +74,11 @@ object LocalStorage {
         val jsonWorkoutsList: String = gson.toJson((workouts))
         println(jsonWorkoutsList)
         //write to local storage
-        try {
-            //creates file if it does not already exists
-            //overwrites file if it does exist
-            val fileOutputStream: FileOutputStream = app.applicationContext.openFileOutput(workoutsFilename,Context.MODE_PRIVATE)
-            fileOutputStream.write(jsonWorkoutsList.toByteArray())
+        //creates file if it does not already exists
+        //overwrites file if it does exist
+        app.applicationContext.openFileOutput(workoutsFilename,Context.MODE_PRIVATE).use {
+            it.write(jsonWorkoutsList.toByteArray())
         }
-        catch (e: Exception) {
-            e.printStackTrace()
-        }
-
     }
 
     //Deletes the old workouts.json file and writes a new one with the updated 'allWorkouts' ArrayList
@@ -113,14 +108,10 @@ object LocalStorage {
     fun writeProfile(profile: ProfileClass){
         val jsonWorkoutsList: String = gson.toJson(profile)
         //write to local storage
-        try {
-            //creates file if it does not already exists
-            //overwrites file if it does exist
-            val fileOutputStream: FileOutputStream = app.applicationContext.openFileOutput(profileFilename,Context.MODE_PRIVATE)
-            fileOutputStream.write(jsonWorkoutsList.toByteArray())
-        }
-        catch (e: Exception) {
-            e.printStackTrace()
+        //creates file if it does not already exists
+        //overwrites file if it does exist
+        app.applicationContext.openFileOutput(profileFilename,Context.MODE_PRIVATE).use {
+            it.write(jsonWorkoutsList.toByteArray())
         }
     }
 

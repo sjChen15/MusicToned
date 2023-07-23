@@ -33,6 +33,9 @@ import com.example.musictoned.R
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.TimerUtils.formatTime
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.example.musictoned.workoutcreation.Exercise
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
@@ -46,7 +49,8 @@ import java.util.LinkedList
 @Composable
 fun PlayerScreen(
     viewModel: PlayerViewModel,
-    onNavigateToRoutines: () -> Unit
+    onNavigateToRoutines: () -> Unit,
+    onNavigateToFinishedWorkoutRoutine: (routineID: Int?) -> Unit
 ) {
     // TODO - Provide actual workout time
     val time by viewModel.time.observeAsState(viewModel.playerScreenData.exerciseTimeMillis.formatTime())
@@ -139,7 +143,10 @@ fun PlayerScreen(
         Button(
             modifier = Modifier
                 .offset(y = 55.dp),
-            onClick = { viewModel.handleCountDownTimer() },
+            onClick = {
+                viewModel.handleCountDownTimer()
+                viewModel.playSong()
+                      },
         ) {
             Text(
                 text = if (viewModel.isPlaying.value == true) "STOP" else "START",
@@ -159,14 +166,28 @@ fun PlayerScreen(
                 fontWeight = FontWeight(600),
                 color = Color(0xFFFFFFFF)
             )
+
+            var text by remember { mutableStateOf("Skip >>") }
+            text = if(viewModel.playerScreenData.exerciseIndex == viewModel.playerScreenData.exerciseCount){
+                "Finish"
+            } else {
+                "Skip >>"
+            }
             Text(
                 modifier = Modifier
                     .offset(x = 100.dp, y = 60.dp)
                     .clickable(
-                        onClick = { viewModel.onSkipPressed() }
+                        onClick = {
+                            if(viewModel.playerScreenData.exerciseIndex == viewModel.playerScreenData.exerciseCount){
+                                onNavigateToFinishedWorkoutRoutine(viewModel.playerScreenData.routineID)
+                            } else {
+                                viewModel.onSkipPressed()
+                            }
+
+                        }
                     )
                     .height(17.dp),
-                text = "Skip >>",
+                text = text,
                 fontSize = 14.sp,
                 fontFamily = FontFamily(Font(R.font.lato_regular)),
                 fontWeight = FontWeight(600),
@@ -261,7 +282,8 @@ fun PlayerScreenPreview() {
                 ))
             )
             ),
-            onNavigateToRoutines = {}
+            onNavigateToRoutines = {},
+            onNavigateToFinishedWorkoutRoutine = {}
         )
     }
 }

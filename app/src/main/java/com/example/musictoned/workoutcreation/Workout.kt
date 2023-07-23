@@ -6,17 +6,11 @@ data class Workout (
     var name: String,
     val exercises: LinkedList<WorkoutExercise> = LinkedList(),
     var totalDurationSeconds: Long = 0,
-    var totalCalories: Float = 0F
-    ){
-    fun addExercise(exercise: WorkoutExercise){
-        exercises.add(exercise)
-        totalDurationSeconds += exercise.getLength()
-        totalCalories += exercise.getExercise().calories * totalDurationSeconds
-    }
-    fun deleteExercise(exercise: WorkoutExercise){
-        exercises.remove(exercise)
-        totalDurationSeconds -= exercise.getLength()
-        totalCalories -= exercise.getExercise().calories * totalDurationSeconds
+    var totalCalories: Float = 0F ){
+
+    fun saveExercises(newExercises: List<WorkoutExercise>) {
+        exercises.clear()
+        exercises.addAll(newExercises)
     }
 
     fun getWorkoutDurationHourFormat(): String {
@@ -46,13 +40,5 @@ data class Workout (
         }
 
         return "$hourPrefix$hours:$minutePrefix$minutes:$secondPrefix$seconds"
-    }
-
-    //drag to a new order
-    //ie A B C D -> B C A D
-    //input for the example above: A is the object and the input index is 2
-    fun reorderExercise(exercise: WorkoutExercise, index: Int){
-        exercises.remove(exercise)
-        exercises.add(index, exercise)
     }
 }
