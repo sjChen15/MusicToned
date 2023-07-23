@@ -24,8 +24,8 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
-import androidx.compose.material.Scaffold
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
 import com.example.musictoned.profile.Profile
+import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.util.BottomBar
@@ -74,7 +75,7 @@ fun AnalyticsScreen(
                 .fillMaxWidth()
                 .background(Color(0xFFFFFFFF))
                 .navigationBarsPadding(),
-            backgroundColor = Color.Transparent,
+            containerColor = Color.Transparent,
             contentColor = Color.Transparent,
             topBar = {
                 TopBar()
@@ -104,23 +105,24 @@ private fun TopBar(){
         ) {
         Text(
             text = "ANALYTICS",
+            color = Color(0xFF5E60CE),
+            fontSize = 24.sp,
+            letterSpacing = 2.sp,
+            fontFamily = FontName,
+            fontStyle = FontStyle.Italic,
+            fontWeight = FontWeight.W700,
+
             textAlign = TextAlign.Center,
-            fontSize = 25.sp,
-            color = Color(94,96,206,255),
-            fontFamily = FontFamily(Font(R.font.roboto_regular)),
-            fontWeight = FontWeight(500),
-            letterSpacing = 0.46.sp,
             modifier = Modifier
-                .padding(start = 24.dp)
-                .padding(top = 12.dp)
+                .padding(start = 18.dp)
+                .padding(top = 20.dp, bottom = 13.dp)
         )
         Divider(
-            color = Color(94,96,206,255),
-            thickness = 1.dp,
+            color = Color(0x69B4A7D6),
+            thickness = 2.dp,
             modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, bottom = 4.dp)
+                .padding(start = 18.dp, end = 18.dp, bottom = 0.dp)
         )
-
     }
 }
 

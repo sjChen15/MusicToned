@@ -20,8 +20,12 @@ data class Workout (
     }
 
     fun getWorkoutDurationHourFormat(): String {
+        var seconds: Long = 0
+        val totalTime: String
 
-        var seconds: Long = totalDurationSeconds
+        for(ex in exercises){
+            seconds += ex.getLength()
+        }
 
         val hours = seconds / 3600
         val minutes = (seconds % 3600) / 60

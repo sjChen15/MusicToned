@@ -12,19 +12,17 @@ import com.spotify.android.appremote.api.SpotifyAppRemote
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.net.URL
 
 
 class SpotifyConnect {
 
     companion object {
-        private val accessToken = "BQBSg73wyV8v1cR6X-_wRDzc809CnFA__tIoWbtRQd3f8eaDsXslCwMILqnEP0YmLzQsPM1M2c8ExceDsEspqrkX8daITtVRF2l7O419aQz0Mlmuz2zSYTM-OTZdY-0qw9uES6oruug1Ax1B7IQnntO1DegWxmlFOOoe250knX9bIKuw5YsFvAp0rOUlQqvZQ5y0KAiygw"
-        private val clientId = "8b97731837b64c60b30ba2ecac7a8b74"
-        private val redirectUri = "com.example.musictoned://callback"
+        private const val accessToken = "BQBSg73wyV8v1cR6X-_wRDzc809CnFA__tIoWbtRQd3f8eaDsXslCwMILqnEP0YmLzQsPM1M2c8ExceDsEspqrkX8daITtVRF2l7O419aQz0Mlmuz2zSYTM-OTZdY-0qw9uES6oruug1Ax1B7IQnntO1DegWxmlFOOoe250knX9bIKuw5YsFvAp0rOUlQqvZQ5y0KAiygw"
+        private const val clientId = "8b97731837b64c60b30ba2ecac7a8b74"
+        private const val redirectUri = "com.example.musictoned://callback"
         private var spotifyAppRemote: SpotifyAppRemote? = null
-        val playlistURI = "spotify:playlist:6hwjHl90iQXO8JdBAbA3ky"
+        private const val playlistURI = "spotify:playlist:6hwjHl90iQXO8JdBAbA3ky"
 
         fun connect(context: Context) {
             val connectionParams = ConnectionParams.Builder(clientId)
@@ -69,7 +67,7 @@ class SpotifyConnect {
                 val request = Request.Builder().url(url).addHeader("Authorization", "Bearer $accessToken").build()
                 // Execute request
                 val response = client.newCall(request).execute()
-                result = response.body?.string()
+                result = response.body.string()
             }
             catch(err:Error) {
                 print("Error when executing get request: "+err.localizedMessage)
@@ -79,7 +77,7 @@ class SpotifyConnect {
             val json = result?.let { JSONObject(it) }
 
             //get total info from result json
-            val total_count = json?.get("total")
+            val totalCount = json?.get("total")
 
             //make comma separated string of song ids located in items array, assisted by Github Copilot
             val items = json?.getJSONArray("items")
@@ -94,7 +92,7 @@ class SpotifyConnect {
                 }
             }
 
-            Log.d("SpotifyConnect", "total count is $total_count")
+            Log.d("SpotifyConnect", "total count is $totalCount")
             Log.d("SpotifyConnect", songIds)
 
             getSongBPM(songIds)
@@ -118,7 +116,7 @@ class SpotifyConnect {
                 val request = Request.Builder().url(url).addHeader("Authorization", "Bearer $accessToken").build()
                 // Execute request
                 val response = client.newCall(request).execute()
-                result = response.body?.string()
+                result = response.body.string()
             }
             catch(err:Error) {
                 print("Error when executing get request: "+err.localizedMessage)
@@ -188,7 +186,7 @@ class SpotifyConnect {
                 val request = Request.Builder().url(url).addHeader("Authorization", "Bearer $accessToken").build()
                 // Execute request
                 val response = client.newCall(request).execute()
-                result = response.body?.string()
+                result = response.body.string()
             }
             catch(err:Error) {
                 print("Error when executing get request: "+err.localizedMessage)
@@ -206,15 +204,11 @@ class SpotifyConnect {
         }
 
         private fun playPlaylist() {
-            spotifyAppRemote?.let {
-                it.playerApi.play(playlistURI)
-            }
+            spotifyAppRemote?.playerApi?.play(playlistURI)
         }
 
         private fun playSong(songURI: String) {
-                    spotifyAppRemote?.let {
-                        it.playerApi.play(songURI)
-                    }
+            spotifyAppRemote?.playerApi?.play(songURI)
                 }
 
         //timer for song
@@ -225,9 +219,7 @@ class SpotifyConnect {
         }
 
         private fun pauseSong() {
-                    spotifyAppRemote?.let {
-                        it.playerApi.pause()
-                    }
+            spotifyAppRemote?.playerApi?.pause()
                 }
 
         fun disconnect() {
