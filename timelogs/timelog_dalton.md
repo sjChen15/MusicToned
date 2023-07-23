@@ -40,3 +40,4 @@ University Email: <dbown@uwaterloo.ca>
 | Work on D5                                                   | July 18, 2023 | 1:00pm     | 1:30pm      | 0.5   | 69.5               |
 | Weekly meeting, discuss remaining items                      | July 20, 2023 | 3:30pm     | 5:00pm      | 1.5   | 71                 |
 | Work on making UI consistent, update deps, fix warnings.     | July 22, 2023 | 7:30pm     | 1:30am      | 6     | 77                 |
+| Merge PR, work on demo script                                | July 23, 2023 | 12:00pm    | 1:00pm      | 1     | 78                 |
