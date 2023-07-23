@@ -21,8 +21,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
@@ -79,7 +79,7 @@ fun RoutineScreen(
                 .fillMaxWidth()
                 .background(Color(0xFFFFFFFF))
                 .navigationBarsPadding(),
-            backgroundColor = Color(0x00000000),
+            containerColor = Color(0x00000000),
             topBar = {
                 //Text(text = routineID.toString(), modifier = Modifier.padding(start = 100.dp))
                 TopBar(
@@ -195,8 +195,8 @@ private fun Exercise(
     val endMinutes = endTime / 60
     val endSeconds = endTime % 60
 
-    var startText = ""
-    var endText = ""
+    var startText: String
+    var endText: String
 
     if( startTime < 599 ){
         startText = String.format("%02d:%02d", startMinutes, startSeconds)

@@ -10,12 +10,10 @@ import com.example.musictoned.Destinations.ROUTINES_ROUTE
 import com.example.musictoned.Destinations.ROUTINE_ROUTE
 import com.example.musictoned.Destinations.WELCOME_ROUTE
 import com.example.musictoned.Destinations.EDIT_ROUTINE_ROUTE
-import com.example.musictoned.Destinations.ADD_EXERCISE_ROUTE
 import com.example.musictoned.Destinations.ANALYTICS_ROUTE
 import com.example.musictoned.Destinations.FINISHED_WORKOUT_ROUTE
 import com.example.musictoned.Destinations.PLAYER_ROUTE
 import com.example.musictoned.Destinations.SETTINGS_ROUTE
-import com.example.musictoned.addExercise.AddExerciseRoute
 import com.example.musictoned.editRoutine.EditRoutineRoute
 import com.example.musictoned.Destinations.YOUR_GOALS_ROUTE
 import com.example.musictoned.aboutYou.AboutYouRoute
@@ -44,7 +42,6 @@ object Destinations {
     const val ROUTINES_ROUTE = "routines"
     const val ROUTINE_ROUTE = "routine"
     const val EDIT_ROUTINE_ROUTE = "editRoutine"
-    const val ADD_EXERCISE_ROUTE = "addExercise"
     const val ANALYTICS_ROUTE = "analytics"
     const val SETTINGS_ROUTE = "settings"
     const val PLAYER_ROUTE = "player"
@@ -169,18 +166,7 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 onNavigateToRoutine = {
                     navController.navigate("$ROUTINE_ROUTE/$it")
                 },
-                onNavigateToAddExercise = {
-                    navController.navigate(ADD_EXERCISE_ROUTE)
-                },
                 routineID = routineID?.toInt()
-            )
-        }
-
-        composable(ADD_EXERCISE_ROUTE) {
-            AddExerciseRoute(
-                onNavigateToEditRoutine = {
-                    navController.navigate("$EDIT_ROUTINE_ROUTE/$it")
-                }
             )
         }
 

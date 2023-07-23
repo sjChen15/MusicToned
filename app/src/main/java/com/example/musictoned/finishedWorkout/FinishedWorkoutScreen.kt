@@ -35,7 +35,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import com.example.musictoned.ui.theme.FontName
-import com.example.musictoned.workoutcreation.AllWorkouts
 
 @Composable
 fun FinishedWorkoutScreen(

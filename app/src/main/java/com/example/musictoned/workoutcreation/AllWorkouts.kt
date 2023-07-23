@@ -1,7 +1,6 @@
 package com.example.musictoned.workoutcreation
 
 import com.example.musictoned.util.LocalStorage
-import java.util.LinkedList
 
 object AllWorkouts {
     //local storage
@@ -11,9 +10,8 @@ object AllWorkouts {
 //    private var allWorkouts: ArrayList<Workout> = arrayListOf(Workout("I love squats"))
     private var workoutInProgress: Workout = Workout("New Workout")
 
-    fun setWorkoutInProgress(workout: Workout){
+    private fun setWorkoutInProgress(workout: Workout){
         workoutInProgress = workout
-
     }
 
     fun getWorkoutInProgress(): Workout{
@@ -57,7 +55,7 @@ object AllWorkouts {
     }
     fun getNumberOfWorkouts(): Int = allWorkouts.size
 
-    fun storeAllWorkouts(){
+    private fun storeAllWorkouts(){
         LocalStorage.writeWorkouts(allWorkouts)
     }
 }
