@@ -146,13 +146,16 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
             )
         }
 
-        composable("$PLAYER_ROUTE/{routineID}") {
+        composable("$PLAYER_ROUTE/{routineID}") { it ->
             val routineID = it.arguments?.getString("routineID")
 
             routineID?.toInt()?.let { innerIt ->
                 PlayerRoute(
                     onNavigateToRoutines = {
                         navController.navigate(ROUTINES_ROUTE)
+                    },
+                    onNavigateToFinishedWorkoutRoutine = {
+                        navController.navigate("$FINISHED_WORKOUT_ROUTE/$it")
                     },
                     routineID = innerIt
                 )

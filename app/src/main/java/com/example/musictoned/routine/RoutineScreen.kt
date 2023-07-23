@@ -28,6 +28,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -36,6 +40,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,6 +53,7 @@ import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
+import com.example.musictoned.spotify.SpotifyConnect
 
 /**
  * Influenced by composable UI example provided by Android
@@ -261,6 +267,9 @@ private fun Exercise(
                         fontWeight = FontWeight.W600,
                         lineHeight = 20.sp,
                     )
+
+                    var songName by remember { mutableStateOf(("")) }
+                    songName = exercise.getSong()
                     Row (
                         modifier = modifier
                             .padding(top = 2.dp)
@@ -278,7 +287,7 @@ private fun Exercise(
                                 fontWeight = FontWeight.W600,
                             )
                             Text(
-                                text = exercise.getSong(),
+                                text = songName,
                                 color = Color(0xFF000000),
                                 fontFamily = FontName,
                                 fontSize = 14.sp,
@@ -286,19 +295,30 @@ private fun Exercise(
                                 overflow = TextOverflow.Ellipsis,
                             )
                         }
+
                         Row(
                             modifier = modifier
                                 .fillMaxHeight()
                                 .height(IntrinsicSize.Min),
                         ){
+
                             Image(
                                 painter = painterResource(id = R.drawable.shuffle),
                                 modifier = modifier
                                     .padding(end = 10.dp)
-                                    .fillMaxHeight(),
+                                    .fillMaxHeight()
+                                    .clickable {
+                                                //todo: ensure the same song isn't selected
+                                                //you can ensure the shuffle button works by uncommenting line 314
+                                                exercise.setSongByBPM(exercise.getBpmMode())
+                                                //exercise.setSong("Comfortably Numb", "ID")
+                                                songName = exercise.getSong()
+                                                Log.d("SHUFFLE:", exercise.getSong())
+                                               },
                                 contentDescription = "Shuffle button",
                                 contentScale = ContentScale.FillHeight,
                             )
+                            //exercise.setSong(SpotifyConnect.Companion.getSongName("1"))
                         }
                     }
                 }
