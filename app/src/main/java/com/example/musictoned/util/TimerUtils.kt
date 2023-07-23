@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit
  */
 
 object TimerUtils {
-    const val TIME_COUNTDOWN: Long = 60000L
     private const val TIME_FORMAT = "%02d:%02d"
 
     fun Long.formatTime(): String = String.format(

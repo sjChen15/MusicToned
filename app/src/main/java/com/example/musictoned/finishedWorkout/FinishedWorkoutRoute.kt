@@ -1,7 +1,6 @@
 package com.example.musictoned.finishedWorkout
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 /**
  * Influenced by composable UI example provided by Android
@@ -13,8 +12,6 @@ fun FinishedWorkoutRoute(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
     routineID: Int
 ) {
-    val FinishedWorkoutViewModel: FinishedWorkoutViewModel = viewModel(factory = FinishedWorkoutViewModelFactory())
-
     FinishedWorkoutScreen(
         onNavigateToRoutine = onNavigateToRoutine,
         routineID = routineID

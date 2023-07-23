@@ -12,8 +12,6 @@ import com.spotify.android.appremote.api.SpotifyAppRemote
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.net.URL
 
 
@@ -81,7 +79,7 @@ class SpotifyConnect {
             val json = result?.let { JSONObject(it) }
 
             //get total info from result json
-            val total_count = json?.get("total")
+            val totalCount = json?.get("total")
 
             //make comma separated string of song ids located in items array, assisted by Github Copilot
             val items = json?.getJSONArray("items")
@@ -96,7 +94,7 @@ class SpotifyConnect {
                 }
             }
 
-            Log.d("SpotifyConnect", "total count is $total_count")
+            Log.d("SpotifyConnect", "total count is $totalCount")
             Log.d("SpotifyConnect", songIds)
 
             getSongBPM(songIds)

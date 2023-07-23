@@ -13,7 +13,7 @@ data class Workout (var name: String, val exercises: LinkedList<WorkoutExercise>
     fun getWorkoutDurationHourFormat(): String{
 
         var seconds: Long = 0
-        var totalTime: String = "00:00:00"
+        val totalTime: String
 
         for(ex in exercises){
             seconds += ex.getLength()

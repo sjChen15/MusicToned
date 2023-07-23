@@ -27,17 +27,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ExposedDropdownMenuBox
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,6 +52,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -66,7 +66,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.musictoned.R
-import com.example.musictoned.addExercise.addExerciseScreen
+import com.example.musictoned.addExercise.AddExerciseScreen
 import com.example.musictoned.spotify.SpotifyConnect
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
@@ -89,25 +89,26 @@ import java.util.Locale
 @Composable
 fun EditRoutineScreen(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
-    onNavigateToAddExercise: () -> Unit,
     routineID: Int?
 ) {
-
-    //var workout by remember { mutableStateOf(AllWorkouts.getWorkout(routineID ?: 0)) }
-    var workout by remember { mutableStateOf(AllWorkouts.getWorkoutInProgress()) }
-
-    if (routineID != null){
-        workout = AllWorkouts.getWorkout(routineID)
+    val workout: MutableState<Workout> = if (LocalInspectionMode.current) {
+        // Preview mode
+        remember { mutableStateOf(Workout("New Workout")) }
+    } else if (routineID != null) {
+        // Existing workout
+        remember { mutableStateOf(AllWorkouts.getWorkout(routineID)) }
+    } else {
+        // New workout
+        remember { mutableStateOf(AllWorkouts.getWorkoutInProgress()) }
     }
-
 
     var popupControl by remember { mutableStateOf(false) }
 
-    var exercises = remember { mutableStateListOf<WorkoutExercise>() }
+    val exercises = remember { mutableStateListOf<WorkoutExercise>() }
 
-    var swapped = remember { mutableStateOf(false) }
+    val swapped = remember { mutableStateOf(false) }
 
-    exercises.addAll(workout.exercises.toList())
+    exercises.addAll(workout.component1().exercises.toList())
 
     Surface(modifier = Modifier
         .supportWideScreen()
@@ -122,15 +123,15 @@ fun EditRoutineScreen(
                         .fillMaxWidth(0.9f)
                         .fillMaxHeight(0.75f)
                 ){
-                    addExerciseScreen(
+                    AddExerciseScreen(
                         onPopupChange = { popupControl = it },
                         returnExercise = {
                             val exerciseName = it
                             //add exercise to current workout
                             if (exerciseName != null.toString()){
-                                workout.addExercise(WorkoutExercise(ExerciseTempos.getExercise(exerciseName)))
+                                workout.component1().addExercise(WorkoutExercise(ExerciseTempos.getExercise(exerciseName)))
                                 exercises.clear()
-                                exercises.addAll(workout.exercises)
+                                exercises.addAll(workout.component1().exercises)
                             }
                         }
                     )
@@ -142,19 +143,17 @@ fun EditRoutineScreen(
                 .fillMaxWidth()
                 .background(Color(0xFFFFFFFF))
                 .navigationBarsPadding(),
-            backgroundColor = Color(0x00000000),
+            containerColor = Color(0x00000000),
             topBar = {
                 TopBar(
                     onNavigateToRoutine = onNavigateToRoutine,
-                    workout = workout,
+                    workout = workout.component1(),
                 )
             },
             bottomBar = {
                 BottomBar(
                     modifier = Modifier.padding(top = 5.dp),
-                    popupControl = popupControl,
                     onPopupChange = { popupControl = it },
-                    onNavigateToAddExercise = onNavigateToAddExercise
                 )
             },
             content = { innerPadding ->
@@ -162,23 +161,30 @@ fun EditRoutineScreen(
                     Exercises(
                         modifier = Modifier,
                         exercises = exercises,
+                        deleteExercise = {
+                            workout.component1().deleteExercise(it)
+                            exercises.clear()
+                            exercises.addAll(workout.component1().exercises)},
                         swapped = swapped,
                         onMoveUp = {
-                            val index = workout.exercises.indexOf( it )
-                            if ( index != 0 ){
-                                workout.reorderExercise( it, index - 1 )
+                            val index = workout.component1().exercises.indexOf(it)
+                            if (index != 0) {
+                                workout.component1().reorderExercise(it, index - 1)
                             }
                             exercises.clear()
-                            exercises.addAll(workout.exercises)
-                            swapped.value = true },
+                            exercises.addAll(workout.component1().exercises)
+                            swapped.value = true
+                        },
                         onMoveDown = {
-                            val index = workout.exercises.indexOf( it )
-                            if ( index != workout.exercises.size - 1 ){
-                                workout.reorderExercise( it, index + 1 )
+                            val index = workout.component1().exercises.indexOf(it)
+                            if (index != workout.component1().exercises.size - 1) {
+                                workout.component1().reorderExercise(it, index + 1)
                             }
                             exercises.clear()
-                            exercises.addAll(workout.exercises)
-                            swapped.value = true },)
+                            exercises.addAll(workout.component1().exercises)
+                            swapped.value = true
+                        },
+                    )
                 }
             }
         )
@@ -202,7 +208,7 @@ private fun TopBar(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(bottom = 10.dp,),
+                .padding(bottom = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -214,7 +220,7 @@ private fun TopBar(
                         },
                     text = "< ",
                     color = Color(0xFF5E60CE),
-                    fontSize = 30.sp,
+                    fontSize = 24.sp,
                     letterSpacing = 2.sp,
                     fontFamily = FontName,
                     fontWeight = FontWeight.W700,
@@ -222,7 +228,7 @@ private fun TopBar(
                 BasicTextField(
                     modifier = modifier
                         .width(IntrinsicSize.Min),
-                    value = text,
+                    value = text.uppercase(),
                     onValueChange = {
                         if (it.length <= 11){
                             text = it
@@ -231,9 +237,10 @@ private fun TopBar(
                      },
                     textStyle = TextStyle(
                         color = Color(0xFF5E60CE),
-                        fontSize = 30.sp,
+                        fontSize = 24.sp,
                         letterSpacing = 2.sp,
                         fontFamily = FontName,
+                        fontStyle = FontStyle.Italic,
                         fontWeight = FontWeight.W700,
                     ),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -288,6 +295,7 @@ private fun TopBar(
 private fun Exercises(
     modifier: Modifier,
     exercises: List<WorkoutExercise>,
+    deleteExercise: (WorkoutExercise) -> Unit,
     swapped: MutableState<Boolean>,
     onMoveUp: ( exercise: WorkoutExercise ) -> Unit,
     onMoveDown: ( exercise: WorkoutExercise ) -> Unit,
@@ -301,7 +309,9 @@ private fun Exercises(
             if (exercises.indexOf(exercise) == exercises.size - 1){
                 isLast = true
             }
-            Exercise( exercise = exercise,
+            Exercise(
+                exercise = exercise,
+                deleteExercise = deleteExercise,
                 swapped = swapped,
                 onMoveUp = onMoveUp,
                 onMoveDown = onMoveDown,
@@ -312,11 +322,11 @@ private fun Exercises(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun Exercise(
     modifier: Modifier = Modifier,
     exercise: WorkoutExercise,
+    deleteExercise: (WorkoutExercise) -> Unit,
     swapped: MutableState<Boolean>,
     isLast: Boolean,
     onMoveUp: ( exercise: WorkoutExercise ) -> Unit,
@@ -360,7 +370,7 @@ fun Exercise(
                        modifier = modifier
                            .padding(end = 5.dp, start = 5.dp)
                            .height(30.dp)
-                           .clickable{ onMoveUp(exercise) },
+                           .clickable { onMoveUp(exercise) },
                        contentDescription = "Move up",
                        contentScale = ContentScale.FillHeight,
                    )
@@ -369,7 +379,7 @@ fun Exercise(
                         modifier = modifier
                             .padding(end = 5.dp, start = 5.dp)
                             .height(30.dp)
-                            .clickable{ onMoveDown(exercise) },
+                            .clickable { onMoveDown(exercise) },
                         contentDescription = "Move down",
                         contentScale = ContentScale.FillHeight,
                     )
@@ -411,18 +421,22 @@ fun Exercise(
                             interactionSource = interactionSource,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         ) { innerTextField ->
-                            TextFieldDefaults.OutlinedTextFieldDecorationBox(
+                            OutlinedTextFieldDefaults.DecorationBox(
                                 value = duration,
                                 innerTextField = innerTextField,
                                 enabled = true,
                                 singleLine = true,
                                 visualTransformation = VisualTransformation.None,
                                 interactionSource = interactionSource,
-                                contentPadding = TextFieldDefaults.textFieldWithoutLabelPadding(
+                                colors = OutlinedTextFieldDefaults.colors(),
+                                contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
+                                    start = 15.dp,
                                     top = 0.dp,
                                     bottom = 0.dp,
-                                    start = 7.dp,
-                                )
+                                ),
+                                container = {
+                                    OutlinedTextFieldDefaults.ContainerBox(enabled=true, isError=false, interactionSource, OutlinedTextFieldDefaults.colors())
+                                },
                             )
                         }
                     }
@@ -443,16 +457,31 @@ fun Exercise(
                             onAckSwap = onAckSwap
                         )
                     }
-                    Text(
-                        modifier = modifier
+                    TextButton(
+                        onClick = {
+                            deleteExercise(exercise)
+                        }
+                    ) {
+                        Text(
+                            modifier = modifier
                             .fillMaxWidth(),
-                        text = "DELETE",
-                        fontSize = 12.sp,
-                        fontFamily = FontName,
-                        color = Color(0xFF7400B8),
-                        textAlign = TextAlign.End,
-                        fontStyle = FontStyle.Italic,
-                    )
+                            text = "DELETE",
+                            fontSize = 12.sp,
+                            fontFamily = FontName,
+                            color = Color(0xFF7400B8),
+                            textAlign = TextAlign.End,
+                            fontStyle = FontStyle.Italic,)
+                    }
+//                    Text(
+//                        modifier = modifier
+//                            .fillMaxWidth(),
+//                        text = "DELETE",
+//                        fontSize = 12.sp,
+//                        fontFamily = FontName,
+//                        color = Color(0xFF7400B8),
+//                        textAlign = TextAlign.End,
+//                        fontStyle = FontStyle.Italic,
+//                    )
                 }
             }
         }
@@ -463,7 +492,6 @@ fun formatBPMToProperString(bpm: BpmMode): String {
     return bpm.toString().lowercase(Locale.getDefault()).replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 }
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun DropdownMenu(
     exercise: WorkoutExercise,
@@ -471,7 +499,6 @@ fun DropdownMenu(
     isLast: Boolean,
     onAckSwap: () -> Unit,
 ) {
-    val context = LocalContext.current
     val speed = arrayOf(BpmMode.SLOW, BpmMode.AVERAGE, BpmMode.FAST)
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(
@@ -498,21 +525,61 @@ fun DropdownMenu(
                 expanded = !expanded
             }
         ) {
-            OutlinedTextField(
+//            BasicTextField(
+//                value = selectedText,
+//                onValueChange = {},
+//                readOnly = true,
+//                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(
+//                    expanded = expanded
+//                )},
+//                modifier = Modifier
+//                    .menuAnchor()
+//                    .height(50.dp)
+//                    .padding(5.dp),
+//                textStyle = TextStyle(
+//                    fontSize = 15.sp,
+//                ),
+//                colors = ExposedDropdownMenuDefaults.textFieldColors(
+//                    unfocusedContainerColor = Color.White,
+//                    focusedContainerColor = Color.White
+//                ),
+//            ) { innerTextField ->
+//                OutlinedTextFieldDefaults.DecorationBox(
+//                    value = selectedText
+//                )
+//
+//            }
+            val interactionSource = remember { MutableInteractionSource() }
+            BasicTextField(
                 value = selectedText,
                 onValueChange = {},
                 readOnly = true,
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(
-                    expanded = expanded
-                )},
-                modifier = Modifier,
-                textStyle = TextStyle(
-                    fontSize = 15.sp,
-                ),
-            )
+                modifier = Modifier
+                    .menuAnchor()
+                    .fillMaxWidth()
+                    .height(30.dp)
+            ) { innerTextField ->
+                OutlinedTextFieldDefaults.DecorationBox(
+                    value = selectedText,
+                    innerTextField = innerTextField,
+                    enabled = true,
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = expanded
+                    )},
+                    singleLine = true,
+                    visualTransformation = VisualTransformation.None,
+                    colors = ExposedDropdownMenuDefaults.textFieldColors(
+                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.White
+                    ),
+                    interactionSource = interactionSource,
+                    contentPadding = PaddingValues(start=15.dp, top=0.dp, end=0.dp, bottom=0.dp), // this is how you can remove the padding
+                )
+            }
             ExposedDropdownMenu(
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.background(Color.White)
             ) {
                 speed.forEach { item ->
                     DropdownMenuItem(
@@ -527,7 +594,8 @@ fun DropdownMenu(
                                 //exercise.setSong("Despacito", "")
                             }
                             exercise.setBpmMode(item)
-                        }
+                        },
+                        modifier = Modifier.height(30.dp)
                     )
                 }
 
@@ -535,10 +603,9 @@ fun DropdownMenu(
         }
     }
 }
+
 @Composable
 private fun BottomBar(
-    onNavigateToAddExercise: () -> Unit,
-    popupControl: Boolean,
     onPopupChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ){
@@ -579,10 +646,25 @@ private fun BottomBar(
 @Composable
 fun EditRoutineScreenPreview() {
     MusicTonedTheme {
-        com.example.musictoned.editRoutine.EditRoutineScreen(
+        EditRoutineScreen(
             onNavigateToRoutine = {},
-            onNavigateToAddExercise = {},
             routineID = null
         )
     }
+}
+
+@Preview(name = "Dropdown", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+fun DropdownPreview() {
+    DropdownMenu(
+        exercise=WorkoutExercise(
+            exercise=com.example.musictoned.workoutcreation.Exercise(
+                name="Bench press"
+            ),
+            length=30
+        ),
+        swapped = remember { mutableStateOf(false) },
+        isLast = false,
+        onAckSwap = {}
+    )
 }

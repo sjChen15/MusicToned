@@ -5,12 +5,11 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
 import java.lang.reflect.Type
-import java.util.stream.Collectors
 
 //singleton
 object ExerciseTempos{
     private const val exerciseTemposFolder= "ExerciseTempos/"
-    private val filenames = listOf<String>("armExercises","legExercises","backExercises","coreExercises","cardioExercises")
+    private val filenames = listOf("armExercises","chestExercises","legExercises","backExercises","coreExercises","cardioExercises")
     /**
      * Keep lists of exercises organized into categories by filename and also a master list of all exercises
      */
@@ -50,22 +49,40 @@ object ExerciseTempos{
         return allExercises.getValue(exercise)
     }
 
-    fun getAllArmExercises(): List<Exercise> {
+    fun getExercises(type: String) :List<Exercise>{
+        return when (type) {
+            "ARMS" -> getAllArmExercises()
+            "CHEST" -> getAllChestExercises()
+            "LEGS" -> getAllLegExercises()
+            "BACK" -> getAllBackExercises()
+            "CORE" -> getAllCoreExercises()
+            "CARDIO" -> getAllCardioExercises()
+            else -> { // Note the block
+                print("UNKNOWN EXERCISE ENTERED")
+                listOf()
+            }
+        }
+    }
+    private fun getAllArmExercises(): List<Exercise> {
         return sortedExercises.getValue("armExercises")
     }
-    fun getAllLegExercises(): List<Exercise> {
+
+    private fun getAllChestExercises(): List<Exercise>{
+        return sortedExercises.getValue("chestExercises")
+    }
+    private fun getAllLegExercises(): List<Exercise> {
         return sortedExercises.getValue("legExercises")
     }
 
-    fun getAllBackExercises(): List<Exercise>{
+    private fun getAllBackExercises(): List<Exercise>{
         return sortedExercises.getValue("backExercises")
     }
 
-    fun getAllCoreExercises(): List<Exercise>{
+    private fun getAllCoreExercises(): List<Exercise>{
         return sortedExercises.getValue("coreExercises")
     }
 
-    fun getAllCardioExercises(): List<Exercise>{
+    private fun getAllCardioExercises(): List<Exercise>{
         return sortedExercises.getValue("cardioExercises")
     }
 }
