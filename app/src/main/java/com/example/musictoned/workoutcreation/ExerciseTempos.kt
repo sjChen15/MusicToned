@@ -5,12 +5,11 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.IOException
 import java.lang.reflect.Type
-import java.util.stream.Collectors
 
 //singleton
 object ExerciseTempos{
     private const val exerciseTemposFolder= "ExerciseTempos/"
-    private val filenames = listOf<String>("armExercises","chestExercises","legExercises","backExercises","coreExercises","cardioExercises")
+    private val filenames = listOf("armExercises","chestExercises","legExercises","backExercises","coreExercises","cardioExercises")
     /**
      * Keep lists of exercises organized into categories by filename and also a master list of all exercises
      */
