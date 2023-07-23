@@ -64,7 +64,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.musictoned.R
 import com.example.musictoned.addExercise.AddExerciseScreen
-import com.example.musictoned.spotify.SpotifyConnect
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.TextFieldRegex
@@ -214,15 +213,6 @@ private fun TopBar(
                 ),
                 onClick = {
                     if (viewModel.exercises.isNotEmpty()) {
-                        //Should we just make it so that exercises have a default song?
-                        for(ex in workout.exercises){
-                            if (ex.getSong() == ""){
-                                ex.setSongByBPM(ex.getBpmMode())
-                                //TODO - (DisableSpotifySongs) if you do not need to work with spotify, replace the above line with the below line:
-                                //ex.setSong("Despacito", "")
-                            }
-                        }
-
                         viewModel.save()
                         onNavigateToRoutine(viewModel.workout.hashCode())
                     } else {
