@@ -67,6 +67,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import com.example.musictoned.R
 import com.example.musictoned.addExercise.addExerciseScreen
+import com.example.musictoned.spotify.SpotifyConnect
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.TextFieldRegex
@@ -254,6 +255,14 @@ private fun TopBar(
                 ),
                 onClick = {
                     if(workout.exercises.size > 0){
+
+                        //Should we just make it so that exercises have a default song?
+                        for(ex in workout.exercises){
+                            if (ex.getSong() == ""){
+                                ex.setSongByBPM(ex.getBpmMode())
+                            }
+                        }
+
                         saveWorkout(workout)
                         onNavigateToRoutine(workout.hashCode())
                     } else {
@@ -509,6 +518,10 @@ fun DropdownMenu(
                         onClick = {
                             selectedText = formatBPMToProperString(item)
                             expanded = false
+                            //if the user changes the speed of their exercise
+                            if(item != exercise.getBpmMode()){
+                                exercise.setSongByBPM(item)
+                            }
                             exercise.setBpmMode(item)
                         }
                     )
@@ -519,6 +532,10 @@ fun DropdownMenu(
     }
 }
 
+private fun updateSong(ex: WorkoutExercise): String{
+
+    return ""
+}
 @Composable
 private fun BottomBar(
     onNavigateToAddExercise: () -> Unit,

@@ -20,11 +20,13 @@ import java.net.URL
 class SpotifyConnect {
 
     companion object {
-        private val accessToken = "BQBSg73wyV8v1cR6X-_wRDzc809CnFA__tIoWbtRQd3f8eaDsXslCwMILqnEP0YmLzQsPM1M2c8ExceDsEspqrkX8daITtVRF2l7O419aQz0Mlmuz2zSYTM-OTZdY-0qw9uES6oruug1Ax1B7IQnntO1DegWxmlFOOoe250knX9bIKuw5YsFvAp0rOUlQqvZQ5y0KAiygw"
+        private val accessToken = "BQDvKou_gehsHBail5BMyXu43GdUUN1kIv6FN9kO_ORFh7H6RrSf7ipqWuf8Vyl6qAmQk8Fc-Zwwk2iZv82X-RGMzBdcmjxkmbf2GCJd_Ot3zIbHmacwlcavnBbggY6805GgCVr5zw5arJuiUHhOkjOurhfc0Y9sk1okY3t39YiEXRUe1JYM0SIhMrOZC4_KqsMKuebf5gAj2b3WpExdMjNat1DyWP5PfBRets3kJUhrw69KqDeWhURDISZcS5pI-5Qze4UXJNllJL_CbJZbhQmE"
         private val clientId = "8b97731837b64c60b30ba2ecac7a8b74"
         private val redirectUri = "com.example.musictoned://callback"
         private var spotifyAppRemote: SpotifyAppRemote? = null
         val playlistURI = "spotify:playlist:6hwjHl90iQXO8JdBAbA3ky"
+        private val songInfo = mutableMapOf<String, List<Double>>()
+
 
         fun connect(context: Context) {
             val connectionParams = ConnectionParams.Builder(clientId)
@@ -129,7 +131,8 @@ class SpotifyConnect {
 
             //get song id, tempo, and energy from result json and make key value pairs as id: [tempo, energy]
             val items = json?.getJSONArray("audio_features")
-            val songInfo = mutableMapOf<String, List<Double>>()
+
+            //song info is a songID with associated tempo and energy rating
             for (i in 0 until items!!.length()) {
                 val item = items.getJSONObject(i)
                 val id = item.getString("id")
@@ -138,7 +141,7 @@ class SpotifyConnect {
                 songInfo[id] = listOf(tempo, energy)
             }
 
-            Log.d("SpotifyConnect", songInfo.toString())
+            Log.d("SpotifyConnect", "Song Info${songInfo.toString()}")
 
             //get song id with highest energy in a tempo range
             val songId = getSongId(listOf(140.0, 150.0), songInfo)
@@ -147,11 +150,14 @@ class SpotifyConnect {
             playSong("spotify:track:$songId")
             getSongName(songId)
 
-            pauseSongAfterTime(10000)
+            pauseSongAfterTime(1000)
         }
 
+        fun getSongInfo(): MutableMap<String, List<Double>>{
+            return songInfo
+        }
         //get song id with highest energy in a tempo range
-        private fun getSongId(tempoRange: List<Double>, songInfo: MutableMap<String, List<Double>>): String {
+        fun getSongId(tempoRange: List<Double>, songInfo: MutableMap<String, List<Double>>): String {
             var maxEnergy = 0.0
             var maxEnergyId = ""
 
@@ -172,7 +178,7 @@ class SpotifyConnect {
             return maxEnergyId
         }
 
-        private fun getSongName(id: String){
+        fun getSongName(id: String): String{
             //overriding thread policy to allow network access on main thread
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
@@ -203,6 +209,8 @@ class SpotifyConnect {
             val artist = artists?.getJSONObject(0)?.getString("name")
 
             Log.d("SpotifyConnect", "$name by $artist")
+
+            return "$name by $artist"
         }
 
         private fun playPlaylist() {
@@ -211,7 +219,7 @@ class SpotifyConnect {
             }
         }
 
-        private fun playSong(songURI: String) {
+        fun playSong(songURI: String) {
                     spotifyAppRemote?.let {
                         it.playerApi.play(songURI)
                     }
@@ -224,7 +232,7 @@ class SpotifyConnect {
             }, time)
         }
 
-        private fun pauseSong() {
+        fun pauseSong() {
                     spotifyAppRemote?.let {
                         it.playerApi.pause()
                     }
