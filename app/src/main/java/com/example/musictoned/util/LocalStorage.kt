@@ -3,6 +3,7 @@ package com.example.musictoned.util
 import android.content.Context.MODE_PRIVATE
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.lifecycle.LifecycleCoroutineScope
 import com.example.musictoned.MainActivity
 import com.example.musictoned.profile.ProfileClass
 import com.example.musictoned.workoutcreation.AllWorkouts
@@ -13,6 +14,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.*
 import java.time.Clock
@@ -21,14 +24,15 @@ import java.time.LocalDate
 object LocalStorage {
 
     private lateinit var app: MainActivity
-    fun setApplication(mainActivity: MainActivity) {
+    private lateinit var lifecycleScope: LifecycleCoroutineScope
+    fun setApplication(mainActivity: MainActivity, cycleScope: LifecycleCoroutineScope) {
         app = mainActivity
+        lifecycleScope = cycleScope
         writeWorkouts(arrayListOf())
         //deleteProfile()
 
         //Create some fake streak and recent activity data
         val date = LocalDate.now(Clock.systemDefaultZone())
-        println("LOCAL STORAGE")
         val w = Workout("Hello")
         val e = ExerciseTempos.getExercise("Deadlifts")
         val we =WorkoutExercise(e,length = 3600)
@@ -36,8 +40,6 @@ object LocalStorage {
         writeAllWorkoutHistory( arrayListOf(w,w,w,w,w))
         writeAllWorkoutHistoryDates(arrayListOf(date.minusDays(3),date.minusDays(2),date.minusDays(1),date,date))
 
-        println(getAllWorkoutHistory())
-        println(getAllWorkoutHistoryDates())
     }
     private val localDateGson = GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter().nullSafe()).create()
     private val gson = Gson()
@@ -209,6 +211,18 @@ object LocalStorage {
                InternalStoragePhoto(it.name, bmp)
            } ?: listOf()
        }
+    }
+
+    fun loadPhotoFromInternalStorage(date:LocalDate): Bitmap{
+        lifecycleScope.async{
+            val img: InternalStoragePhoto? = loadPhotoFromDate(date)
+
+            if (img != null) {
+                return@async img.bitmap
+            }
+            return@async Bitmap.createBitmap(5,5,Bitmap.Config.ARGB_8888)
+        }
+        return Bitmap.createBitmap(5,5,Bitmap.Config.ARGB_8888)
     }
 
     //filename should be the date

@@ -22,17 +22,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -64,6 +67,14 @@ import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.util.BottomBar
 import com.example.musictoned.util.BottomNavPages
+import com.example.musictoned.util.InternalStoragePhoto
+import com.example.musictoned.util.LocalStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 /**
@@ -383,8 +394,11 @@ private fun RowScope.Bar(
 
 }
 
+
+
 @Composable
 private fun ProgressPictures(){
+
     Text(
         text = "Progress Pictures",
         style = TextStyle(
@@ -393,7 +407,7 @@ private fun ProgressPictures(){
             fontWeight = FontWeight(700),
             color = Color(0xFF5E60CE),
         ),
-        modifier = Modifier.padding(bottom = 10.dp)
+        modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
 
     )
 
@@ -401,67 +415,137 @@ private fun ProgressPictures(){
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
 
-    var selectedDateBeforeText by remember { mutableStateOf("") }
-    var selectedDateAfterText by remember { mutableStateOf("") }
+    var selectedDateBeforeText by remember { mutableStateOf("DD/MM/YYYY") }
+    var selectedDateAfterText by remember { mutableStateOf("DD/MM/YYYY") }
 
 // Fetching current year, month and day
-    val year = calendar[Calendar.YEAR]
-    val month = calendar[Calendar.MONTH]
-    val dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
+    val yearBefore = calendar[Calendar.YEAR]
+    val monthBefore = calendar[Calendar.MONTH]
+    val dayOfMonthBefore = calendar[Calendar.DAY_OF_MONTH]
     val dateBeforePicker = DatePickerDialog(
         context,
         { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
-            selectedDateBeforeText = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
-        }, year, month, dayOfMonth
+            selectedDateBeforeText = "${if(selectedDayOfMonth<10 )"0" else ""}$selectedDayOfMonth/${if((selectedMonth + 1)<10 )"0" else ""}${selectedMonth + 1}/$selectedYear"
+        }, yearBefore, monthBefore, dayOfMonthBefore
     )
+
+    val yearAfter = calendar[Calendar.YEAR]
+    val monthAfter = calendar[Calendar.MONTH]
+    val dayOfMonthAfter = calendar[Calendar.DAY_OF_MONTH]
     val dateAfterPicker = DatePickerDialog(
         context,
         { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
-            selectedDateAfterText = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
-        }, year, month, dayOfMonth
+            selectedDateAfterText = "${if(selectedDayOfMonth<10 )"0" else ""}$selectedDayOfMonth/${if((selectedMonth + 1)<10 )"0" else ""}${selectedMonth + 1}/$selectedYear"
+        }, yearAfter, monthAfter, dayOfMonthAfter
     )
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(start = 5.dp, end = 5.dp))
+    Row(modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        //verticalAlignment = Alignment.Top
+        )
     {
-        item(1){
-            Column{
-                Text(
-                    text = if (selectedDateBeforeText.isNotEmpty()) {
-                        "Selected date is $selectedDateBeforeText"
-                    } else {
-                        "Please pick a date"
-                    }
-                )
 
-                Button(
-                    onClick = {
-                        dateBeforePicker.show()
-                    }
-                ) {
-                    Text(text = "Select a date")
-                }
-            }
-        }
-        item(1){
-            Column{
-                Text(
-                    text = if (selectedDateAfterText.isNotEmpty()) {
-                        "Selected date is $selectedDateAfterText"
-                    } else {
-                        "Please pick a date"
-                    }
+        Column(
+            modifier = Modifier.fillMaxWidth(0.5f)
+        ){
+            Text(
+                text = "Before",
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight(500),
+                    color = Color(0xFF484848),
                 )
-                Button(
-                    onClick = {
-                        dateAfterPicker.show()
-                    }
-                ) {
-                    Text(text = "Select a date")
+            )
+
+            Button(
+                modifier = Modifier
+                    .shadow(
+                        elevation = 8.dp,
+                        spotColor = Color(0x1F000000),
+                        ambientColor = Color(0x1F000000)
+                    )
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0x45B6E8F8),
+                    contentColor = Color(0xFFFFFFFF),
+                ),
+                onClick = {
+                    dateBeforePicker.show()
+                }
+            ) {
+                Text(
+                    text = selectedDateBeforeText,
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight(500),
+                        color = Color(0xFF484848),
+                    )
+                )
+            }
+
+            if(selectedDateBeforeText != "DD/MM/YYYY"){
+                val date = LocalDate.parse(selectedDateBeforeText, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                val img = LocalStorage.loadPhotoFromInternalStorage(date)
+
+                if(img.height != 5){
+                    println("SHOULDNT BE HERE")
+                    BitmapImage(
+                        bitmap = img,
+                    )
                 }
             }
         }
+
+
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ){
+            Text(
+                text = "After",
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight(500),
+                    color = Color(0xFF484848),
+                )
+            )
+            Button(
+                modifier = Modifier
+                    .shadow(
+                        elevation = 8.dp,
+                        spotColor = Color(0x1F000000),
+                        ambientColor = Color(0x1F000000)
+                    )
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0x45B6E8F8),
+                    contentColor = Color(0xFFFFFFFF),
+                ),
+                onClick = {
+                    dateAfterPicker.show()
+                }
+            ) {
+                Text(
+                    text = selectedDateAfterText,
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight(500),
+                        color = Color(0xFF484848),
+                    )
+                )
+            }
+
+            if(selectedDateAfterText != "DD/MM/YYYY"){
+                val date = LocalDate.parse(selectedDateAfterText, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                val img = LocalStorage.loadPhotoFromInternalStorage(date)
+
+                if(img.height != 0){
+                    BitmapImage(
+                        bitmap = img,
+                    )
+                }
+            }
+        }
+
     }
 
 }

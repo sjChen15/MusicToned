@@ -3,6 +3,7 @@ package com.example.musictoned
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.lifecycleScope
 import com.example.musictoned.spotify.SpotifyConnect
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.LocalStorage
@@ -17,12 +18,11 @@ import com.example.musictoned.workoutcreation.ExerciseTempos
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         /**
          * Pass context to classes
          */
         ExerciseTempos.setApplication(this)
-        LocalStorage.setApplication(this)
+        LocalStorage.setApplication(this,lifecycleScope)
 
         /**
          * Initialize the navigation host
