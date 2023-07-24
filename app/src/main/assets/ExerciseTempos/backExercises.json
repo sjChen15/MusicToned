@@ -7,10 +7,42 @@
     "imageName": "side_to_side_reaches"
   },
   {
-    "name": "Deadlifts",
+    "name": "Barbell Rows",
+    "target": ["lats","trapezius","rear deltoids"],
+    "bpm": 120,
+    "imageName": "Back_Barbell_Rows"
+  },{
+    "name": "Pull-Ups",
+    "target": ["lats","biceps","rear deltoids"],
+    "bpm": 100,
+    "imageName": "Back_Pull_Up"
+  },
+  {
+    "name": "Seated Machine Row",
+    "target": ["lats","trapezius","rear deltoids"],
+    "bpm": 120,
+    "imageName": "Chest_Seated_Row"
+  },{
+    "name": "Kettlebell Swing",
     "target": ["back","traps","glutes","hamstrings"],
-    "bpm": 80,
-    "MET": 0.36,
-    "imageName": "side_to_side_reaches"
+    "bpm": 110,
+    "imageName": "Back_Kettlebell_Swing"
+  },{
+    "name": "Chin-Up",
+    "target": ["lats","biceps","rear deltoids"],
+    "bpm": 100,
+    "imageName": "Chest_Chin_Up"
+  },
+  {
+    "name": "Cleans",
+    "target": ["lower back","glutes","adductors"],
+    "bpm": 120,
+    "imageName": "Back_Cleans"
+  },{
+    "name": "Clean and Jerk",
+    "target": ["lower back","glutes","adductors"],
+    "bpm": 120,
+    "imageName": "Back_Clean_and_Jerk"
+
   }
 ]

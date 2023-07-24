@@ -40,7 +40,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,7 +52,6 @@ import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
-import com.example.musictoned.spotify.SpotifyConnect
 
 /**
  * Influenced by composable UI example provided by Android
@@ -95,7 +93,7 @@ fun RoutineScreen(
                 BottomBar( modifier = Modifier.padding( top = 5.dp ),
                     start = {
                         if (routineID != null) {
-                            onNavigateToPlayer(routineID)
+                              onNavigateToPlayer(workout.hashCode())
                         }
                     }
                 )
@@ -298,7 +296,6 @@ private fun Exercise(
                                 .fillMaxHeight()
                                 .height(IntrinsicSize.Min),
                         ){
-
                             Image(
                                 painter = painterResource(id = R.drawable.shuffle),
                                 modifier = modifier
@@ -310,7 +307,6 @@ private fun Exercise(
                                                 exercise.setSongByBPM(exercise.getBpmMode())
                                                 //exercise.setSong("Comfortably Numb", "ID")
                                                 songName = exercise.getSong()
-                                                Log.d("SHUFFLE:", exercise.getSong())
                                                },
                                 contentDescription = "Shuffle button",
                                 contentScale = ContentScale.FillHeight,
