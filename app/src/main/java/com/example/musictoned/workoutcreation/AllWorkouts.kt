@@ -12,6 +12,8 @@ object AllWorkouts {
 
     private fun setWorkoutInProgress(workout: Workout){
         workoutInProgress = workout
+        //LocalStorage.writeWorkouts(arrayListOf())
+
     }
 
     fun getWorkoutInProgress(): Workout{

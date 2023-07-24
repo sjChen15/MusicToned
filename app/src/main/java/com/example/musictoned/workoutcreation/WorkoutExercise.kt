@@ -1,11 +1,12 @@
 package com.example.musictoned.workoutcreation
 
+import com.example.musictoned.profile.Profile
 import com.example.musictoned.spotify.SpotifyConnect
 
 //input is workout name, time in seconds
 data class WorkoutExercise(
     private val exercise: Exercise,
-    private var length: Long = 30, //in seconds
+    private var length: Long = 30L,
     private var songSetting: SongSetting = SongSetting.SHUFFLE,
     private var bpmMode: BpmMode = BpmMode.AVERAGE,
     private var song: String = "", //song name in string? depends on what info needed to play the song
@@ -70,5 +71,9 @@ data class WorkoutExercise(
 
     fun setBpmMode(bpm: BpmMode){
         bpmMode = bpm
+    }
+    //calorie burned equation from https://www.medicinenet.com/how_to_calculate_calories_burned_during_exercise/article.htm
+    fun getTotalCalories(): Float{
+        return exercise.MET * length/60 * 3.5F * Profile.profile.getNonZeroWeightInKG() / 200F
     }
 }

@@ -3,18 +3,21 @@
     "name": "Triceps Extension",
     "target": ["triceps"],
     "bpm": 80,
+    "MET": 0.36,
     "imageName": "side_to_side_reaches"
   },
   {
     "name": "Barbell Bicep Curl",
     "target": ["biceps"],
     "bpm": 80,
+    "MET": 0.36,
     "imageName": "side_to_side_reaches"
   },
   {
     "name": "Hammer Curl",
     "target": ["biceps","forearm"],
     "bpm": 80,
+    "MET": 0.36,
     "imageName": "side_to_side_reaches"
   }
 ]

@@ -2,14 +2,25 @@ package com.example.musictoned.workoutcreation
 
 import java.util.LinkedList
 
-data class Workout (var name: String, val exercises: LinkedList<WorkoutExercise> = LinkedList() ){
+data class Workout (
+    var name: String,
+    val exercises: LinkedList<WorkoutExercise> = LinkedList(),
+    var totalDurationSeconds: Long = 0,
+    var totalCalories: Float = 0F ){
+
     fun saveExercises(newExercises: List<WorkoutExercise>) {
         exercises.clear()
-        exercises.addAll(newExercises)
+        totalDurationSeconds = 0
+        totalCalories = 0F
+
+        for(exercise:WorkoutExercise in newExercises){
+            exercises.add(exercise)
+            totalDurationSeconds += exercise.getLength()
+            totalCalories += exercise.getTotalCalories()
+        }
     }
 
-    fun getWorkoutDurationHourFormat(): String{
-
+    fun getWorkoutDurationHourFormat(): String {
         var seconds: Long = 0
         val totalTime: String
 
@@ -25,18 +36,16 @@ data class Workout (var name: String, val exercises: LinkedList<WorkoutExercise>
         var minutePrefix = "0"
         var secondPrefix = "0"
 
-        if(hours >= 10){
+        if (hours >= 10) {
             hourPrefix = ""
         }
-        if(minutes >= 10){
+        if (minutes >= 10) {
             minutePrefix = ""
         }
-        if(seconds >= 10){
+        if (seconds >= 10) {
             secondPrefix = ""
         }
 
-        totalTime = "$hourPrefix$hours:$minutePrefix$minutes:$secondPrefix$seconds"
-
-        return totalTime
+        return "$hourPrefix$hours:$minutePrefix$minutes:$secondPrefix$seconds"
     }
 }

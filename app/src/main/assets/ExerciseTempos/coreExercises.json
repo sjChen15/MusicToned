@@ -4,6 +4,7 @@
     "target": ["abs", "obliques"],
     "bpm": 90,
     "imageName": "Core_Sit_Up"
+
   },
   {
     "name": "Plank",

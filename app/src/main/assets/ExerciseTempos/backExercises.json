@@ -1,9 +1,10 @@
 [
   {
-    "name": "Back Extension",
-    "target": ["lower back","glutes","hamstrings"],
-    "bpm": 100,
-    "imageName": "Back_Back_Extension"
+    "name": "Pull Ups",
+    "target": ["traps","biceps","rhomboids"],
+    "bpm": 80,
+    "MET": 0.36,
+    "imageName": "side_to_side_reaches"
   },
   {
     "name": "Barbell Rows",
@@ -42,5 +43,6 @@
     "target": ["lower back","glutes","adductors"],
     "bpm": 120,
     "imageName": "Back_Clean_and_Jerk"
+
   }
 ]

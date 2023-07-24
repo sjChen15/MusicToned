@@ -7,6 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 
 class YourGoalsViewModel : ViewModel() {
+    var calorieGoal by mutableStateOf("")
+        private set
+
+    fun updateCalorieGoal(input: String) {
+        calorieGoal = input
+    }
     var isGainMuscleChecked by mutableStateOf(false)
         private set
 

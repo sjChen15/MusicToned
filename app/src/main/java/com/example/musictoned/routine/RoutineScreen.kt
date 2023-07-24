@@ -72,9 +72,6 @@ fun RoutineScreen(
         AllWorkouts.getWorkout(routineID)
     }
 
-    Log.d("ROUTINE ID:", routineID.toString())
-
-
     Surface(modifier = Modifier
         .supportWideScreen()
     ) {
