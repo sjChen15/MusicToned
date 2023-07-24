@@ -4,82 +4,82 @@
     "target": ["biceps","forearm flexors"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Barbell_Curl"
+    "imageName": "arms_barbell_curl"
   },{
     "name": "Cable Curl With Bar",
     "target": ["biceps","forearm flexors"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Cable_Curl_Bar"
+    "imageName": "arms_cable_curl_bar"
   },{
     "name": "Cable Curl With Rope",
     "target": ["biceps","forearm flexors"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Cable_Curl_Rope"
+    "imageName": "arms_cable_curl_rope"
   },{
     "name": "Dumbbell Curl",
     "target": ["biceps","forearm flexors"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Dumbbell_Curl"
+    "imageName": "arms_dumbbell_curl"
   },
   {
     "name": "Hammer Curl",
     "target": ["biceps","forearm flexors"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Hammerhead_Curl"
+    "imageName": "arms_hammerhead_curl"
   },{
     "name": "Overhead Cable Triceps Extension",
     "target": ["triceps"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Overhead_Cable_Tricep_Extension"
+    "imageName": "arms_overhead_cable_tricep_extension"
   },
   {
     "name": "Dumbbell Lying Triceps Extension",
     "target": ["triceps"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Dumbbell_Lying_Triceps_Extension"
+    "imageName": "arms_dumbbell_lying_triceps_extension"
   },
   {
     "name": "Dumbbell Standing Triceps Extension",
     "target": ["triceps"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Dumbbell_Standing_Tricep_Extension"
+    "imageName": "arms_dumbbell_standing_tricep_extension"
   },{
     "name": "Face Pull",
     "target": ["rear deltoid","rotator cuff"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Face_Pull"
+    "imageName": "arms_face_pull"
   },{
     "name": "Reverse Machine Fly",
     "target": ["rear deltoid","rotator cuff"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Reverse_Machine_Fly"
+    "imageName": "arms_reverse_machine_fly"
   },
   {
     "name": "Dumbbell Front Raise",
     "target": ["front deltoid"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Dumbbell_Front_Raise"
+    "imageName": "arms_dumbbell_front_raise"
   },{
     "name": "Dumbbell Lateral Raise",
     "target": ["lateral deltoid"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Dumbbell_Lateral_Raise"
+    "imageName": "arms_dumbbell_lateral_raise"
   },{
     "name": "Dumbbell Shoulder Press",
     "target": ["front deltoid","triceps"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Arms_Dumbbell_Shoulder_Press"
+    "imageName": "arms_dumbbell_shoulder_press"
   }
 ]
