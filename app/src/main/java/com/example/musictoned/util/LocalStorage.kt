@@ -34,7 +34,7 @@ object LocalStorage {
         //Create some fake streak and recent activity data
         val date = LocalDate.now(Clock.systemDefaultZone())
         val w = Workout("Hello")
-        val e = ExerciseTempos.getExercise("Deadlifts")
+        val e = ExerciseTempos.getExercise("Hanging Leg Raise")
         val we =WorkoutExercise(e,length = 3600)
         w.saveExercises(listOf(we,we,we,we,we))
         writeAllWorkoutHistory( arrayListOf(w,w,w,w,w))
