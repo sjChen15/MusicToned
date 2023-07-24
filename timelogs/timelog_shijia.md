@@ -47,3 +47,4 @@ University Email: <s655chen@uwaterloo.ca>
 |Analytics page            | July 21, 2023 | 11:00am    | 4:30pm      | 5.5   | 61.0               |
 |Analytics page bar chart  | July 22, 2023 | 12:00pm    | 5:30pm      | 5.5   | 66.5               |
 |PR #86 review             | July 23, 2023 | 12:00pm    | 12:30pm     | 0.5   | 67.0               |
+|Progress pics             | July 23, 2023 | 6:00pm     | 10:00pm     | 4.0   | 71.0               |
