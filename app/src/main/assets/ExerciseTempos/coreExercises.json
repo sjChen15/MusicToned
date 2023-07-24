@@ -1,14 +1,50 @@
 [
   {
     "name": "Sit Ups",
-    "target": ["abs"],
-    "bpm": 80,
-    "imageName": "side_to_side_reaches"
+    "target": ["abs", "obliques"],
+    "bpm": 90,
+    "imageName": "Core_Sit_Up"
   },
   {
-    "name": "Planking",
-    "target": ["abs","obliques"],
+    "name": "Plank",
+    "target": ["abs", "obliques"],
     "bpm": 80,
-    "imageName": "side_to_side_reaches"
+    "imageName": "Core_Plank"
+  },
+  {
+    "name": "Mountain Climbers",
+    "target": ["abs", "obliques"],
+    "bpm": 100,
+    "imageName": "Core_Mountain_Climbers"
+  },
+  {
+    "name": "Crunches",
+    "target": ["abs", "obliques"],
+    "bpm": 90,
+    "imageName": "Core_Crunches"
+  },
+  {
+    "name": "Dead Bugs",
+    "target": ["abs", "obliques"],
+    "bpm": 100,
+    "imageName": "Core_Dead_Bugs"
+  },
+  {
+    "name": "Oblique Crunch",
+    "target": ["obliques"],
+    "bpm": 90,
+    "imageName": "Core_Oblique_Crunches"
+  },
+  {
+    "name": "Hanging Leg Raise",
+    "target": ["abs", "obliques"],
+    "bpm": 100,
+    "imageName": "Core_Hanging_Leg_Raise"
+  },
+  {
+    "name": "Side Plank",
+    "target": ["obliques"],
+    "bpm": 80,
+    "imageName": "Core_Side_Plank"
   }
 ]
