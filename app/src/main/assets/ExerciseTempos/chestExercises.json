@@ -3,57 +3,67 @@
     "name": "Bar Dips",
     "target": ["chest","front deltoid"],
     "bpm": 120,
+    "MET": 3.5,
     "imageName": "Chest_Bar_Dips"
   },
   {
     "name": "Bench Press",
     "target": ["chest","front deltoid"],
     "bpm": 130,
+    "MET": 3.5,
     "imageName": "Chest_Bench_Press"
   },{
     "name": "Dumbbell Chest Fly",
     "target": ["chest","front deltoid"],
     "bpm": 120,
+    "MET": 3.5,
     "imageName": "Chest_Dumbbell_Chest_Fly"
   },
   {
     "name": "Dumbbell Chest Press",
     "target": ["chest","front deltoid","triceps"],
     "bpm": 130,
+    "MET": 3.5,
     "imageName": "Chest_Dumbbell_Press"
   },
   {
     "name": "Push-Up",
     "target": ["chest","front deltoid","abs"],
     "bpm": 100,
+    "MET": 3.5,
     "imageName": "Chest_PushUp"
   },{
     "name": "Pec Deck",
     "target": ["chest","front deltoid"],
     "bpm": 120,
+    "MET": 3.5,
     "imageName": "Chest_Pec_Deck"
   },
   {
     "name": "Cable Chest Press",
     "target": ["chest","front deltoid","triceps"],
     "bpm": 120,
+    "MET": 3.5,
     "imageName": "Chest_Cable_Chest_Press"
   },{
     "name": "Close-Grip Bench Press",
     "target": ["triceps","chest","front deltoid"],
     "bpm": 130,
+    "MET": 3.5,
     "imageName": "Chest_Close_Grip_Bench_Press"
   },
   {
     "name": "Decline Bench Press",
     "target": ["chest","triceps","front deltoid"],
     "bpm": 130,
+    "MET": 3.5,
     "imageName": "Chest_Decline_Bench_Press"
   },
   {
     "name": "Incline Bench Press",
     "target": ["chest","front deltoid","triceps"],
     "bpm": 130,
+    "MET": 3.5,
     "imageName": "Chest_Incline_Bench_Press"
   }
 ]
