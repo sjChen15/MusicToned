@@ -4,7 +4,7 @@
     "target": ["abs", "obliques"],
     "bpm": 90,
     "MET": 3.5,
-    "imageName": "Core_Sit_Up"
+    "imageName": "core_sit_up"
 
   },
   {
@@ -12,48 +12,48 @@
     "target": ["abs", "obliques"],
     "bpm": 80,
     "MET": 3.8,
-    "imageName": "Core_Plank"
+    "imageName": "core_plank"
   },
   {
     "name": "Mountain Climbers",
     "target": ["abs", "obliques"],
     "bpm": 100,
     "MET": 3.8,
-    "imageName": "Core_Mountain_Climbers"
+    "imageName": "core_mountain_climbers"
   },
   {
     "name": "Crunches",
     "target": ["abs", "obliques"],
     "bpm": 90,
     "MET": 3.8,
-    "imageName": "Core_Crunches"
+    "imageName": "core_crunches"
   },
   {
     "name": "Dead Bugs",
     "target": ["abs", "obliques"],
     "bpm": 100,
     "MET": 3.5,
-    "imageName": "Core_Dead_Bugs"
+    "imageName": "core_dead_bugs"
   },
   {
     "name": "Oblique Crunch",
     "target": ["obliques"],
     "bpm": 90,
     "MET": 3.8,
-    "imageName": "Core_Oblique_Crunches"
+    "imageName": "core_oblique_crunches"
   },
   {
     "name": "Hanging Leg Raise",
     "target": ["abs", "obliques"],
     "bpm": 100,
     "MET": 3.8,
-    "imageName": "Core_Hanging_Leg_Raise"
+    "imageName": "core_hanging_leg_raise"
   },
   {
     "name": "Side Plank",
     "target": ["obliques"],
     "bpm": 80,
     "MET": 3.5,
-    "imageName": "Core_Side_Plank"
+    "imageName": "core_side_plank"
   }
 ]
