@@ -36,6 +36,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.example.musictoned.spotify.SpotifyConnect
 import com.example.musictoned.workoutcreation.Exercise
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
@@ -81,7 +82,10 @@ fun PlayerScreen(
             modifier = Modifier
                 .offset(x = 170.dp, y = -(5).dp)
                 .clickable(
-                    onClick = onNavigateToRoutines
+                    onClick = {
+                        SpotifyConnect.pauseSong()
+                        onNavigateToRoutines()
+                    }
                 )
                 .width(22.dp)
                 .height(22.dp),
@@ -140,16 +144,18 @@ fun PlayerScreen(
                 .height(62.dp),
             time = time
         )
+
+        var text by remember { mutableStateOf("START") }
         Button(
             modifier = Modifier
                 .offset(y = 55.dp),
             onClick = {
                 viewModel.handleCountDownTimer()
-                viewModel.playSong()
+                text = if (viewModel.isPlaying.value == true) "STOP" else "START"
                       },
         ) {
             Text(
-                text = if (viewModel.isPlaying.value == true) "STOP" else "START",
+                text = text,
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.lato_regular)),
                 fontWeight = FontWeight(600)
@@ -179,6 +185,7 @@ fun PlayerScreen(
                     .clickable(
                         onClick = {
                             if(viewModel.playerScreenData.exerciseIndex == viewModel.playerScreenData.exerciseCount){
+                                SpotifyConnect.pauseSong()
                                 onNavigateToFinishedWorkoutRoutine(viewModel.playerScreenData.routineID)
                             } else {
                                 viewModel.onSkipPressed()
