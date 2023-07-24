@@ -3,14 +3,14 @@
     "name": "Jogging",
     "target": ["glutes","quads"],
     "bpm": 80,
-    "calories": 0.36,
+    "MET": 0.36,
     "imageName": "side_to_side_reaches"
   },
   {
     "name": "Walking",
     "target": ["glutes","quads"],
     "bpm": 80,
-    "calories": 0.36,
+    "MET": 0.36,
     "imageName": "side_to_side_reaches"
   }
 ]

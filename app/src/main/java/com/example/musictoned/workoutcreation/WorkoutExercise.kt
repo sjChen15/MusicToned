@@ -1,5 +1,6 @@
 package com.example.musictoned.workoutcreation
 
+import com.example.musictoned.profile.Profile
 import com.example.musictoned.spotify.SpotifyConnect
 
 //input is workout name, time in seconds
@@ -71,9 +72,8 @@ data class WorkoutExercise(
     fun setBpmMode(bpm: BpmMode){
         bpmMode = bpm
     }
-
-    //TODO: fix calorie calculation
+    //calorie burned equation from https://www.medicinenet.com/how_to_calculate_calories_burned_during_exercise/article.htm
     fun getTotalCalories(): Float{
-        return exercise.calories * length
+        return exercise.MET * length/60 * 3.5F * Profile.profile.getNonZeroWeightInKG() / 200F
     }
 }

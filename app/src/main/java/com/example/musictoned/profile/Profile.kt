@@ -30,4 +30,13 @@ data class ProfileClass(
     var increaseFlexibility: Boolean = false,
     var exerciseRegularly: Boolean = false,
     var calorieGoal: Int = 0
-    )
+    ){
+    fun getNonZeroWeightInKG(): Float{
+        if(weight != 0F){
+            return if(weightUnit == WeightUnit.KG) weight else (weight*0.45).toFloat()
+        }
+        //if no weight specified use 70kg
+        return 70F
+    }
+
+}
