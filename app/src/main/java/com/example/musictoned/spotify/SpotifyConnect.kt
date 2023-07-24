@@ -18,7 +18,7 @@ import java.net.URL
 class SpotifyConnect {
 
     companion object {
-        private val accessToken = "BQDvKou_gehsHBail5BMyXu43GdUUN1kIv6FN9kO_ORFh7H6RrSf7ipqWuf8Vyl6qAmQk8Fc-Zwwk2iZv82X-RGMzBdcmjxkmbf2GCJd_Ot3zIbHmacwlcavnBbggY6805GgCVr5zw5arJuiUHhOkjOurhfc0Y9sk1okY3t39YiEXRUe1JYM0SIhMrOZC4_KqsMKuebf5gAj2b3WpExdMjNat1DyWP5PfBRets3kJUhrw69KqDeWhURDISZcS5pI-5Qze4UXJNllJL_CbJZbhQmE"
+        private val accessToken = "BQCeC9mGFTnjK7j8dgikkPO7CuzBzVmyPCzSmyyXG6CKsUaojTSPEnZcf7wLtCNYhpSC_c591Y2VG9irUqhl-J2BsTkcLBC6hcxiM6v3qCUA8oJWn-IaTR389B9zJDUnhYe2skg4O76ndiKyBiUCJL-pB--3l5O7QywFJ3HpruCoWxqWmGoLY3JMq5kgVHyG6kvQeP5yn9pJM3MTUhJJFcjO44d8IM42J_zzIiGYD-qzYKdT_da3uSvgMPoDhrtc4WN8cm2M8xDEX4UIxEolkJ7V"
         private val clientId = "8b97731837b64c60b30ba2ecac7a8b74"
         private val redirectUri = "com.example.musictoned://callback"
         private var spotifyAppRemote: SpotifyAppRemote? = null
@@ -156,24 +156,17 @@ class SpotifyConnect {
         }
         //get song id with highest energy in a tempo range
         fun getSongId(tempoRange: List<Double>, songInfo: MutableMap<String, List<Double>>): String {
-            var maxEnergy = 0.0
-            var maxEnergyId = ""
 
-            for ((id, info) in songInfo) {
-                //Log.d("SpotifyConnect", "id is $id, info is $info")
-                //Log.d("SpotifyConnect", "tempo is ${info[0]}, energy is ${info[1]}")
-                val tempo = info[0]
-                val energy = info[1]
-                if (energy > maxEnergy && tempo > tempoRange[0] && tempo < tempoRange[1]) {
-                    //Log.d("SpotifyConnect", "updating max energy")
-                    maxEnergy = energy
-                    maxEnergyId = id
-                    Log.d("SpotifyConnect", "tempo is $tempo, energy is $energy")
+            //get song ids in tempo range
+            val songIds = mutableListOf<String>()
+            for (song in songInfo) {
+                if (song.value[0] > tempoRange[0] && song.value[0] < tempoRange[1] ) {
+                    songIds.add(song.key)
                 }
             }
 
-            Log.d("SpotifyConnect", "max energy is $maxEnergy, max energy id is $maxEnergyId")
-            return maxEnergyId
+            //return a random song id from the list of song ids
+            return songIds.random()
         }
 
         fun getSongName(id: String): String{

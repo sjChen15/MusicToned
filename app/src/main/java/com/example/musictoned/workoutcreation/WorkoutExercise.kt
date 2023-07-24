@@ -45,17 +45,17 @@ data class WorkoutExercise(
             BpmMode.SLOW -> {
                 //get a slow song
                 //PLACEHOLDER: need to put correct tempo range once we know what it should be
-                songId = SpotifyConnect.getSongId(listOf(0.0, 100.0), songInfo)
+                songId = SpotifyConnect.getSongId(listOf(70.0, 100.0), songInfo)
             }
             BpmMode.AVERAGE -> {
                 //get an average song
                 //PLACEHOLDER: need to put correct tempo range once we know what it should be
-                songId = SpotifyConnect.getSongId(listOf(100.0, 150.0), songInfo)
+                songId = SpotifyConnect.getSongId(listOf(100.0, 130.0), songInfo)
             }
             BpmMode.FAST -> {
                 //get a fast song
                 //PLACEHOLDER: need to put correct tempo range once we know what it should be
-                songId = SpotifyConnect.getSongId(listOf(150.0, 200.0), songInfo)
+                songId = SpotifyConnect.getSongId(listOf(130.0, 200.0), songInfo)
 
             }
         }

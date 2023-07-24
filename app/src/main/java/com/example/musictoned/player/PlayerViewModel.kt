@@ -67,6 +67,7 @@ class PlayerViewModel(
     fun handleCountDownTimer() {
         println("Changing isPlaying to" + !isPlaying.value!!)
         if (isPlaying.value == true) {
+            SpotifyConnect.pauseSong()
             pauseTimer()
         } else {
             startTimer()
