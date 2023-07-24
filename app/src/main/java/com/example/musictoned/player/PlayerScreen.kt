@@ -239,7 +239,6 @@ fun PlayerScreenPreview() {
                         Exercise(
                             "Side-to-side reaches",
                             listOf("triceps"),
-                            500,
                             0.35F,
                             "side_to_side_reaches"
                         ),
@@ -250,7 +249,6 @@ fun PlayerScreenPreview() {
                         Exercise(
                             "Side-to-side reaches",
                             listOf("triceps"),
-                            500,
                             0.35F,
                             "side_to_side_reaches"
                         ),
@@ -261,7 +259,6 @@ fun PlayerScreenPreview() {
                         Exercise(
                             "Side-to-side reaches",
                             listOf("triceps"),
-                            500,
                             0.35F,
                             "side_to_side_reaches"
                         ),
@@ -272,7 +269,6 @@ fun PlayerScreenPreview() {
                         Exercise(
                             "Side-to-side reaches",
                             listOf("triceps"),
-                            500,
                             0.35F,
                             "side_to_side_reaches"
                         ),

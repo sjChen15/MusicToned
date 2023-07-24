@@ -330,6 +330,16 @@ private fun BarChart(
             verticalAlignment = Alignment.Bottom
         ) {
             values.forEach { item ->
+
+                Text(
+                    text = item.toString(),
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                        fontWeight = FontWeight(700),
+                        color = if(item== 0F) Color.White else Color(0xFF484848)
+                    )
+                )
                 Bar(
                     value = item,
                     color = Color(0xFF7400B8),
