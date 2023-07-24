@@ -40,3 +40,4 @@ University Email: <sdepol@uwaterloo.ca>
 | Set up environment and fixed emulator bugs     | July 21, 2023 | 3:00pm     | 5:00pm      | 2.0   | 39.75              |
 | Worked on body progress feature                | July 23, 2023 | 10:00am    | 3:00pm      | 5.0   | 44.75              |
 | Uploaded all gathered workout data and images  | July 24, 2023 | 12:00pm    | 6:15pm      | 6.25  | 51                 |
+| Fixed improper naming conventions              | July 24, 2023 | 6:15pm     | 7:15pm      | 1.0   | 52                 |
