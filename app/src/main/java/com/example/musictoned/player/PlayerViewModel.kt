@@ -64,7 +64,6 @@ class PlayerViewModel(
             handleTimerValues(isPlaying: Boolean, text: String) {
         _isPlaying.value = isPlaying
         _time.value = text
-        Log.d("HANDLETIMERVAL:", isPlaying.toString())
     }
 
     fun handleCountDownTimer() {
@@ -86,8 +85,8 @@ class PlayerViewModel(
 
     private fun pauseTimer() {
         countDownTimer?.cancel()
-        Log.d("PAUSE TIMER 1: ", playerScreenData.exerciseTimeMillis.formatTime())
-        Log.d("PAUSE TIMER 2: ", (routine.exercises[exerciseIndex - 1].getLength() * 1000).formatTime())
+//        Log.d("PAUSE TIMER 1: ", playerScreenData.exerciseTimeMillis.formatTime())
+//        Log.d("PAUSE TIMER 2: ", (routine.exercises[exerciseIndex - 1].getLength() * 1000).formatTime())
         handleTimerValues(false, playerScreenData.exerciseTimeMillis.formatTime())
     }
 
@@ -114,6 +113,7 @@ class PlayerViewModel(
     // TODO - Connect to skip button
     fun onSkipPressed() {
         SpotifyConnect.pauseSong()
+        pauseTimer()
         changeExercise(exerciseIndex + 1)
     }
 

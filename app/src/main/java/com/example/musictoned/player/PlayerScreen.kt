@@ -145,17 +145,17 @@ fun PlayerScreen(
             time = time
         )
 
-        var text by remember { mutableStateOf("START") }
+        var buttonText by remember { mutableStateOf("START") }
         Button(
             modifier = Modifier
                 .offset(y = 55.dp),
             onClick = {
                 viewModel.handleCountDownTimer()
-                text = if (viewModel.isPlaying.value == true) "STOP" else "START"
+                buttonText = if (viewModel.isPlaying.value == true) "STOP" else "START"
                       },
         ) {
             Text(
-                text = text,
+                text = buttonText,
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.lato_regular)),
                 fontWeight = FontWeight(600)
@@ -173,8 +173,8 @@ fun PlayerScreen(
                 color = Color(0xFFFFFFFF)
             )
 
-            var text by remember { mutableStateOf("Skip >>") }
-            text = if(viewModel.playerScreenData.exerciseIndex == viewModel.playerScreenData.exerciseCount){
+            var skipText by remember { mutableStateOf("Skip >>") }
+            skipText = if(viewModel.playerScreenData.exerciseIndex == viewModel.playerScreenData.exerciseCount){
                 "Finish"
             } else {
                 "Skip >>"
@@ -190,11 +190,12 @@ fun PlayerScreen(
                             } else {
                                 viewModel.onSkipPressed()
                             }
+                            buttonText = if (viewModel.isPlaying.value == true) "STOP" else "START"
 
                         }
                     )
                     .height(17.dp),
-                text = text,
+                text = skipText,
                 fontSize = 14.sp,
                 fontFamily = FontFamily(Font(R.font.lato_regular)),
                 fontWeight = FontWeight(600),
