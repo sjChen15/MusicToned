@@ -1,16 +1,40 @@
 [
   {
     "name": "Jogging",
-    "target": ["glutes","quads"],
+    "target": ["glutes","quads","hip flexors"],
     "bpm": 80,
-    "MET": 0.36,
-    "imageName": "side_to_side_reaches"
+    "MET": 7,
+    "imageName": "Cardio_Jogging"
   },
   {
     "name": "Walking",
-    "target": ["glutes","quads"],
+    "target": ["glutes","quads","calf muscles"],
     "bpm": 80,
-    "MET": 0.36,
-    "imageName": "side_to_side_reaches"
+    "MET": 3,
+    "imageName": "Cardio_Walking"
+  },{
+    "name": "Running 6 mph (10-minute mile)",
+    "target": ["glutes","quads","hip flexors"],
+    "bpm": 80,
+    "MET": 10,
+    "imageName": "Cardio_Running6"
+  },{
+    "name": "Running 8 mph (7.5-minute mile)",
+    "target": ["glutes","quads","hip flexors"],
+    "bpm": 80,
+    "MET": 13.5,
+    "imageName": "Cardio_Running8"
+  },{
+    "name": "Running 10 mph (6-minute mile)",
+    "target": ["glutes","quads","hip flexors"],
+    "bpm": 80,
+    "MET": 16,
+    "imageName": "Cardio_Running10"
+  },{
+    "name": "Cycling",
+    "target": ["quads","hamstrings"],
+    "bpm": 80,
+    "MET": 8.5,
+    "imageName": "Cardio_Cycling"
   }
 ]
