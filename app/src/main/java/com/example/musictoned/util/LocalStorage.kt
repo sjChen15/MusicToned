@@ -1,6 +1,8 @@
 package com.example.musictoned.util
 
-import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import com.example.musictoned.MainActivity
 import com.example.musictoned.profile.ProfileClass
 import com.example.musictoned.workoutcreation.AllWorkouts
@@ -10,6 +12,8 @@ import com.example.musictoned.workoutcreation.WorkoutExercise
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.*
 import java.time.Clock
 import java.time.LocalDate
@@ -22,15 +26,18 @@ object LocalStorage {
         writeWorkouts(arrayListOf())
         //deleteProfile()
 
-        //Create some fake streak data
+        //Create some fake streak and recent activity data
         val date = LocalDate.now(Clock.systemDefaultZone())
         println("LOCAL STORAGE")
         val w = Workout("Hello")
         val e = ExerciseTempos.getExercise("Deadlifts")
-        //w.addExercise(WorkoutExercise(e,length = 4600))
-        writeAllWorkoutHistory( arrayListOf(w,w,w))
-        writeAllWorkoutHistoryDates(arrayListOf(date.minusDays(3),date.minusDays(2),date.minusDays(1)))
+        val we =WorkoutExercise(e,length = 3600)
+        w.saveExercises(listOf(we,we,we,we,we))
+        writeAllWorkoutHistory( arrayListOf(w,w,w,w,w))
+        writeAllWorkoutHistoryDates(arrayListOf(date.minusDays(3),date.minusDays(2),date.minusDays(1),date,date))
 
+        println(getAllWorkoutHistory())
+        println(getAllWorkoutHistoryDates())
     }
     private val localDateGson = GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter().nullSafe()).create()
     private val gson = Gson()
@@ -38,6 +45,7 @@ object LocalStorage {
     private const val profileFilename = "profile.json"
     private const val workoutHistoryFilename = "workoutHistory.json"
     private const val workoutHistoryDatesFilename = "workoutHistoryDates.json"
+    private const val progressPicsFoldername = "progressPics"
 
     /**
      * Ref: https://www.bezkoder.com/kotlin-parse-json-gson/
@@ -76,7 +84,7 @@ object LocalStorage {
         //write to local storage
         //creates file if it does not already exists
         //overwrites file if it does exist
-        app.applicationContext.openFileOutput(workoutsFilename,Context.MODE_PRIVATE).use {
+        app.applicationContext.openFileOutput(workoutsFilename,MODE_PRIVATE).use {
             it.write(jsonWorkoutsList.toByteArray())
         }
     }
@@ -110,7 +118,7 @@ object LocalStorage {
         //write to local storage
         //creates file if it does not already exists
         //overwrites file if it does exist
-        app.applicationContext.openFileOutput(profileFilename,Context.MODE_PRIVATE).use {
+        app.applicationContext.openFileOutput(profileFilename,MODE_PRIVATE).use {
             it.write(jsonWorkoutsList.toByteArray())
         }
     }
@@ -142,7 +150,7 @@ object LocalStorage {
             //creates file if it does not already exists
             //overwrites file if it does exist
             val fileOutputStream: FileOutputStream = app.applicationContext.openFileOutput(
-                workoutHistoryFilename,Context.MODE_PRIVATE)
+                workoutHistoryFilename,MODE_PRIVATE)
             fileOutputStream.write(jsonWorkoutsList.toByteArray())
         }
         catch (e: Exception) {
@@ -172,11 +180,49 @@ object LocalStorage {
             //creates file if it does not already exists
             //overwrites file if it does exist
             val fileOutputStream: FileOutputStream = app.applicationContext.openFileOutput(
-                workoutHistoryDatesFilename,Context.MODE_PRIVATE)
+                workoutHistoryDatesFilename,MODE_PRIVATE)
             fileOutputStream.write(jsonWorkoutDatesList.toByteArray())
         }
         catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+
+    //Ref: https://youtu.be/EeLz1DPMsW8?t=575
+    suspend fun loadPhotoFromDate(date: LocalDate): InternalStoragePhoto?{
+        return withContext(Dispatchers.IO){
+            val files = app.applicationContext.filesDir.listFiles()
+            files?.filter{it.canRead() && it.isFile && it.name.equals(date.toString())}?.map{
+                val bytes = it.readBytes()
+                val bmp = BitmapFactory.decodeByteArray(bytes,0,bytes.size)
+                InternalStoragePhoto(it.name, bmp)
+            }?.single()
+        }
+    }
+    suspend fun loadAllPhotosFromInternalStorage(): List<InternalStoragePhoto>{
+       return withContext(Dispatchers.IO){
+           val files = app.applicationContext.filesDir.listFiles()
+           files?.filter{it.canRead() && it.isFile && it.name.endsWith(".jpg")}?.map{
+               val bytes = it.readBytes()
+               val bmp = BitmapFactory.decodeByteArray(bytes,0,bytes.size)
+               InternalStoragePhoto(it.name, bmp)
+           } ?: listOf()
+       }
+    }
+
+    //filename should be the date
+    fun saveProgressPic(date: LocalDate, bmp: Bitmap): Boolean{ //returns true if saved
+        return try {
+            app.applicationContext.openFileOutput("$progressPicsFoldername/$date.jpg", MODE_PRIVATE).use{stream ->
+                if(!bmp.compress(Bitmap.CompressFormat.JPEG, 95, stream)){
+                    throw IOException("Couldn't save picture")
+                }
+            }
+            true
+        }catch(e:IOException){
+            e.printStackTrace()
+            false
         }
     }
 }

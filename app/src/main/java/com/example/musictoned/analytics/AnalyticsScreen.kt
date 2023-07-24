@@ -1,6 +1,10 @@
 package com.example.musictoned.analytics
 
+import android.app.DatePickerDialog
 import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.widget.DatePicker
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,19 +27,25 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -54,6 +64,7 @@ import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
 import com.example.musictoned.util.BottomBar
 import com.example.musictoned.util.BottomNavPages
+import java.util.Calendar
 
 /**
  * Influenced by composable UI example provided by Android
@@ -127,9 +138,7 @@ private fun TopBar(){
 }
 
 @Composable
-private fun AnalyticsContent(
-
-) {
+private fun AnalyticsContent() {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(start = 5.dp, end = 5.dp, bottom = 15.dp),
@@ -145,9 +154,6 @@ private fun AnalyticsContent(
         }
 
     }
-
-
-
 
 }
 
@@ -282,7 +288,7 @@ private fun BarChart(
     val strokeWidth = with(density) { 1.dp.toPx() }
     //val days = listOf("Sun", "Mon", "Tue", "Wed","Thu","Fri","Sat")
 
-    Column(Modifier.padding(all = 20.dp)){
+    Column(Modifier.padding(all = 20.dp)) {
         Text(
             text = "Recent Activity (hr)",
             style = TextStyle(
@@ -291,7 +297,7 @@ private fun BarChart(
                 fontWeight = FontWeight(700),
                 color = Color(0xFF5E60CE),
             ),
-            modifier = Modifier.padding(all = 10.dp)
+            modifier = Modifier.padding(bottom = 10.dp)
 
         )
         Row(
@@ -315,7 +321,7 @@ private fun BarChart(
             values.forEach { item ->
                 Bar(
                     value = item,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = Color(0xFF7400B8),
                     maxHeight = maxHeight
                 )
             }
@@ -352,6 +358,8 @@ private fun BarChart(
 //                )
 //            }
 //        }
+        ProgressPictures()
+
     }
 
 }
@@ -375,6 +383,95 @@ private fun RowScope.Bar(
 
 }
 
+@Composable
+private fun ProgressPictures(){
+    Text(
+        text = "Progress Pictures",
+        style = TextStyle(
+            fontSize = 20.sp,
+            fontFamily = FontFamily(Font(R.font.roboto_regular)),
+            fontWeight = FontWeight(700),
+            color = Color(0xFF5E60CE),
+        ),
+        modifier = Modifier.padding(bottom = 10.dp)
+
+    )
+
+    //Ref: https://medium.com/@daniel.atitienei/date-and-time-pickers-in-jetpack-compose-f641b1d72dd5
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
+
+    var selectedDateBeforeText by remember { mutableStateOf("") }
+    var selectedDateAfterText by remember { mutableStateOf("") }
+
+// Fetching current year, month and day
+    val year = calendar[Calendar.YEAR]
+    val month = calendar[Calendar.MONTH]
+    val dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
+    val dateBeforePicker = DatePickerDialog(
+        context,
+        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
+            selectedDateBeforeText = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+        }, year, month, dayOfMonth
+    )
+    val dateAfterPicker = DatePickerDialog(
+        context,
+        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
+            selectedDateAfterText = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+        }, year, month, dayOfMonth
+    )
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(start = 5.dp, end = 5.dp))
+    {
+        item(1){
+            Column{
+                Text(
+                    text = if (selectedDateBeforeText.isNotEmpty()) {
+                        "Selected date is $selectedDateBeforeText"
+                    } else {
+                        "Please pick a date"
+                    }
+                )
+
+                Button(
+                    onClick = {
+                        dateBeforePicker.show()
+                    }
+                ) {
+                    Text(text = "Select a date")
+                }
+            }
+        }
+        item(1){
+            Column{
+                Text(
+                    text = if (selectedDateAfterText.isNotEmpty()) {
+                        "Selected date is $selectedDateAfterText"
+                    } else {
+                        "Please pick a date"
+                    }
+                )
+                Button(
+                    onClick = {
+                        dateAfterPicker.show()
+                    }
+                ) {
+                    Text(text = "Select a date")
+                }
+            }
+        }
+    }
+
+}
+@Composable
+fun BitmapImage(bitmap: Bitmap) {
+    Image(
+        bitmap = bitmap.asImageBitmap(),
+        contentDescription = "some useful description",
+    )
+}
 @Preview(name = "Analytics light theme", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun AnalyticsScreenPreview() {

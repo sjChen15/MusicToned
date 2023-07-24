@@ -8,10 +8,10 @@ import java.time.LocalDate
 object AllWorkoutHistory {
     var allWorkoutHistory: ArrayList<Workout> = LocalStorage.getAllWorkoutHistory()//LocalStorage.get
     var allWorkoutHistoryDates: ArrayList<LocalDate> = LocalStorage.getAllWorkoutHistoryDates()
+    private val today = LocalDate.now(Clock.systemDefaultZone())
     fun saveHistory(workout: Workout){//TODO: save at the end of a workout
-        val currentDate = LocalDate.now(Clock.systemDefaultZone())
         allWorkoutHistory.add(workout)
-        allWorkoutHistoryDates.add(currentDate)
+        allWorkoutHistoryDates.add(today)
         LocalStorage.writeAllWorkoutHistory(allWorkoutHistory)
         LocalStorage.writeAllWorkoutHistoryDates(allWorkoutHistoryDates)
     }
@@ -20,15 +20,14 @@ object AllWorkoutHistory {
     fun getTodaysWorkouts():ArrayList<Workout>{
         val todaysWorkouts = arrayListOf<Workout>()
 
-        val currentDate = LocalDate.now(Clock.systemDefaultZone())
-
-        for (i in allWorkoutHistoryDates.indices){
-            val date = allWorkoutHistoryDates[i]
-            if(date.isBefore(currentDate)){
+        val reversedDates = allWorkoutHistoryDates.reversed()
+        for (i in reversedDates.indices){
+            val date = reversedDates[i]
+            if(date.isBefore(today)){
                 break
             }
-            if(date == currentDate){
-                todaysWorkouts.add(allWorkoutHistory[i])
+            if(date == today){
+                todaysWorkouts.add(allWorkoutHistory[allWorkoutHistory.size - i -1])
             }
         }
         return todaysWorkouts

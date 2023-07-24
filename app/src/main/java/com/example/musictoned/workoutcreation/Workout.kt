@@ -10,7 +10,14 @@ data class Workout (
 
     fun saveExercises(newExercises: List<WorkoutExercise>) {
         exercises.clear()
-        exercises.addAll(newExercises)
+        totalDurationSeconds = 0
+        totalCalories = 0F
+
+        for(exercise:WorkoutExercise in newExercises){
+            exercises.add(exercise)
+            totalDurationSeconds += exercise.getLength()
+            totalCalories += exercise.getTotalCalories()
+        }
     }
 
     fun getWorkoutDurationHourFormat(): String {

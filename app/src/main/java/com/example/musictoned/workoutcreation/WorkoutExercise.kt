@@ -71,4 +71,9 @@ data class WorkoutExercise(
     fun setBpmMode(bpm: BpmMode){
         bpmMode = bpm
     }
+
+    //TODO: fix calorie calculation
+    fun getTotalCalories(): Float{
+        return exercise.calories * length
+    }
 }

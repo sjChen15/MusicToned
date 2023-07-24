@@ -1,15 +1,18 @@
 package com.example.musictoned.analytics
 
 import java.time.Clock
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalAdjusters
 
 object Analytics {
-    //TODO: depedning on mock, get the hours worked
 //    var workoutStreak: Int = getWorkoutStreakFromHistory()
 //    var caloriesBurnedToday: Float = getCaloriesBurned()
 //    var recentActivity: List<Float> = getRecentActivityHours() //list of hours worked in the current week, sun-sat
+    private val today: LocalDate = LocalDate.now(Clock.systemDefaultZone())
     fun getWorkoutStreakFromHistory(): Int{
-        var currentDate: LocalDate = LocalDate.now(Clock.systemDefaultZone()).minusDays(1) //start at yesterday looking for streaks
+        var currentDate = today.minusDays(1) //start at yesterday looking for streaks
         var streak = 0
         for(workoutHistoryDate in AllWorkoutHistory.allWorkoutHistoryDates.reversed()){
             if(workoutHistoryDate.isBefore(currentDate)){ //streak broken
@@ -34,15 +37,25 @@ object Analytics {
     }
 
     fun getRecentActivityHours(): List<Float>{
-        val recent = listOf(1F,8F,3F,2F,1F,0F,0F)
+        val recent = arrayListOf(0F,0F,0F,0F,0F,0F,0F)
 
+        //recent activity from today until last sunday
+        val lastSunday:LocalDate =  today.with(TemporalAdjusters.previousOrSame( DayOfWeek.SUNDAY )) //pos 0
+
+        //get all history until sunday
+        val reversedDates = AllWorkoutHistory.allWorkoutHistoryDates.reversed()
+        val totalLength = reversedDates.size
+        for (i in reversedDates.indices){
+            val date = reversedDates[i]
+
+            if(date.isBefore(lastSunday)){
+                break
+            }
+            val daysSinceSunday =  lastSunday.until(date, ChronoUnit.DAYS)
+            recent[daysSinceSunday.toInt()] += AllWorkoutHistory.allWorkoutHistory[totalLength - i - 1].totalDurationSeconds.div(3600F)
+        }
 
         return recent
     }
-
-//    fun updateAnalytics(){
-//        caloriesBurnedToday = getCaloriesBurned()
-//        recentActivity = getRecentActivityHours()
-//    }
 
 }
