@@ -42,3 +42,4 @@ University Email: <dbown@uwaterloo.ca>
 | Work on making UI consistent, update deps, fix warnings.     | July 22, 2023 | 7:30pm     | 1:30am      | 6     | 77                 |
 | Merge PR, work on demo script, fix duplication bug.          | July 23, 2023 | 12:00pm    | 6:30pm      | 6.5   | 83.5               |
 | Fix bug on routines screen.                                  | July 24, 2023 | 10:00pm    | 10:30pm     | 0.5   | 84                 |
+| Recorded demo.                                               | July 25, 2023 | 9:00am     | 10:45am     | 1.75  | 85.75              |
