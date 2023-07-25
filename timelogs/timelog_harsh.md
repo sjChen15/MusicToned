@@ -31,10 +31,14 @@ University Email: <hn6patel@uwaterloo.ca>
 | Weekly meeting, D4 discussion                            | July 6, 2023  | 3:30 pm    | 4:30 pm     | 1     | 39                 |
 | Reduced Asset Sizes for lesser frames skipped            | July 9, 2023  | 3:00 pm    | 4:00 pm     | 1.5   | 40.5               |
 | D4 submission work                                       | July 12, 2023 | 3:00 pm    | 4:00 pm     | 1     | 41.5               |
-| Created SpotifyConnect package                           | July 16, 2023 | 6:00 am    | 8:00 am     | 2     | 43.5               |
-| Created SpotifyAuth package                              | July 16, 2023 | 12:00 pm   | 5:00 pm     | 5     | 48.5               |
-| Research Spotify API calls, Added Player Functionality   | July 17, 2023 | 8:00 am    | 12:00 pm    | 4     | 52.5               |
-| Added Spotify Web API HTTP calls                         | July 18, 2023 | 8:00 am    | 2:30 pm     | 6.5   | 59                 |
-| Debug LocalStorage issue, SpotifyAuth issue              | July 18, 2023 | 4:00 pm    | 6:00 pm     | 2     | 61                 |
-| Added Spotify Member Functions to get track ids          | July 18, 2023 | 7:00 pm    | 1:30 am     | 6.5   | 67.5               |
-| Added Spotify Song Playback Given a BPM Range            | July 19, 2023 | 3:00 pm    | 6:00 pm     | 3     | 70.5               |
+| Team meeting, submit D4, discuss D5, D6                  | July 13, 2023 | 3:30 pm    | 5:00 pm     | 1.5   | 43                 |
+| Created SpotifyConnect package                           | July 16, 2023 | 6:00 am    | 8:00 am     | 2     | 45                 |
+| Created SpotifyAuth package                              | July 16, 2023 | 12:00 pm   | 5:00 pm     | 5     | 50                 |
+| Research Spotify API calls, Added Player Functionality   | July 17, 2023 | 8:00 am    | 12:00 pm    | 4     | 54                 |
+| Added Spotify Web API HTTP calls                         | July 18, 2023 | 8:00 am    | 2:30 pm     | 6.5   | 60.5               |
+| Debug LocalStorage issue, SpotifyAuth issue              | July 18, 2023 | 4:00 pm    | 6:00 pm     | 2     | 62.5               |
+| Added Spotify Member Functions to get track ids          | July 18, 2023 | 7:00 pm    | 1:30 am     | 6.5   | 69                 |
+| Added Spotify Song Playback Given a BPM Range            | July 19, 2023 | 3:00 pm    | 6:00 pm     | 3     | 72                 |
+| Team meeting to discuss deliverables and code            | July 20, 2023 | 3:30 pm    | 5:00 pm     | 1.5   | 73.5               |
+| Demo Spotify Code, Player Functionality                  | July 22, 2023 | 12:00 pm   | 2:00 pm     | 2     | 75.5               |
+| Randomize Song Recommendations, Player Playback Issue    | July 23, 2023 | 7:00 pm    | 8:30 pm     | 1.5   | 77                 |
