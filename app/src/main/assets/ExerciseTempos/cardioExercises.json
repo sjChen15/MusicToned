@@ -13,19 +13,19 @@
     "MET": 3,
     "imageName": "cardio_walking"
   },{
-    "name": "Running 6 mph (10-minute mile)",
+    "name": "Running 6 mph",
     "target": ["glutes","quads","hip flexors"],
     "bpm": 80,
     "MET": 10,
     "imageName": "cardio_running6"
   },{
-    "name": "Running 8 mph (7.5-minute mile)",
+    "name": "Running 8 mph",
     "target": ["glutes","quads","hip flexors"],
     "bpm": 80,
     "MET": 13.5,
     "imageName": "cardio_running8"
   },{
-    "name": "Running 10 mph (6-minute mile)",
+    "name": "Running 10 mph",
     "target": ["glutes","quads","hip flexors"],
     "bpm": 80,
     "MET": 16,
