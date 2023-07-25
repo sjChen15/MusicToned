@@ -42,3 +42,4 @@ University Email: <sdepol@uwaterloo.ca>
 | Uploaded all gathered workout data and images  | July 24, 2023 | 12:00pm    | 6:15pm      | 6.25  | 51                 |
 | Fixed improper naming conventions              | July 24, 2023 | 6:15pm     | 7:15pm      | 1.0   | 52                 |
 | Camera for body progress pics                  | July 24, 2023 | 8:00pm     | 1:00am      | 5.0   | 57                 |
+| Recorded demo                                  | July 25, 2023 | 9:00am     | 10:30am     | 1.5   | 58.5               |
