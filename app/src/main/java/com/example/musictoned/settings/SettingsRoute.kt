@@ -1,6 +1,7 @@
 package com.example.musictoned.settings
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 /**
  * Influenced by composable UI example provided by Android
@@ -13,9 +14,12 @@ fun SettingsRoute(
     onNavigateToAnalytics: (charOffset: Int) -> Unit,
     onNavigateToSettings: (charOffset: Int) -> Unit
 ) {
+    val settingsViewModel: SettingsViewModel = viewModel(factory = SettingsViewModelFactory())
+
     SettingsScreen(
         onNavigateToRoutines = onNavigateToRoutines,
         onNavigateToAnalytics = onNavigateToAnalytics,
-        onNavigateToSettings = onNavigateToSettings
+        onNavigateToSettings = onNavigateToSettings,
+        viewModel = settingsViewModel
     )
 }
