@@ -146,6 +146,8 @@ fun PlayerScreen(
         )
 
         var buttonText by remember { mutableStateOf("START") }
+        buttonText = if (viewModel.isPlaying.value == true) "STOP" else "START"
+
         Button(
             modifier = Modifier
                 .offset(y = 55.dp),
