@@ -11,12 +11,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun EditRoutineRoute(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
+    onNavigateToRoutines: () -> Unit,
     routineID: Int?
 ) {
     val editRoutineViewModel: EditRoutineViewModel = viewModel(factory = EditRoutineViewModelFactory(routineID))
 
     EditRoutineScreen(
         viewModel = editRoutineViewModel,
+        onNavigateToRoutines = onNavigateToRoutines,
         onNavigateToRoutine = onNavigateToRoutine
     )
 }

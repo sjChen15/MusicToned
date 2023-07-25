@@ -84,6 +84,7 @@ import java.util.Locale
 fun EditRoutineScreen(
     viewModel: EditRoutineViewModel,
     onNavigateToRoutine: (routineID: Int?) -> Unit,
+    onNavigateToRoutines: () -> Unit
 ) {
     var isAddExerciseOpen by remember { mutableStateOf(false) }
 
@@ -121,6 +122,7 @@ fun EditRoutineScreen(
             topBar = {
                 TopBar(
                     onNavigateToRoutine = onNavigateToRoutine,
+                    onNavigateToRoutines = onNavigateToRoutines,
                     viewModel = viewModel
                 )
             },
@@ -145,6 +147,7 @@ fun EditRoutineScreen(
 @Composable
 private fun TopBar(
     onNavigateToRoutine: (routineID: Int?) -> Unit,
+    onNavigateToRoutines: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: EditRoutineViewModel
 ) {
@@ -167,7 +170,11 @@ private fun TopBar(
                 Text(
                     modifier = modifier
                         .clickable {
-                            onNavigateToRoutine(viewModel.workout.hashCode())
+                            if (viewModel.exercises.isNotEmpty()) {
+                                onNavigateToRoutine(viewModel.workout.hashCode())
+                            } else {
+                                onNavigateToRoutines()
+                            }
                         },
                     text = "< ",
                     color = Color(0xFF5E60CE),
@@ -529,6 +536,7 @@ fun EditRoutineScreenPreview() {
             Workout("Preview workout")
             ),
             onNavigateToRoutine = {},
+            onNavigateToRoutines = {}
         )
     }
 }

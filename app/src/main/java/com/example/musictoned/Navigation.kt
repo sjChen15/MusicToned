@@ -169,6 +169,9 @@ fun MusicTonedNavHost(navController: NavHostController = rememberNavController()
                 onNavigateToRoutine = {
                     navController.navigate("$ROUTINE_ROUTE/$it")
                 },
+                onNavigateToRoutines = {
+                    navController.navigate(ROUTINES_ROUTE)
+                },
                 routineID = routineID?.toInt()
             )
         }
