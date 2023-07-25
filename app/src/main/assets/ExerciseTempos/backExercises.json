@@ -1,32 +1,32 @@
 [
   {
     "name": "Barbell Rows",
-    "target": ["lats","trapezius","rear deltoids"],
+    "target": ["lats","trapezius"],
     "bpm": 120,
     "MET": 3.5,
     "imageName": "back_barbell_rows"
   },{
     "name": "Pull-Ups",
-    "target": ["lats","biceps","rear deltoids"],
+    "target": ["lats","biceps"],
     "bpm": 100,
     "MET": 3.8,
     "imageName": "back_pull_up"
   },
   {
     "name": "Seated Machine Row",
-    "target": ["lats","trapezius","rear deltoids"],
+    "target": ["lats","trapezius"],
     "bpm": 120,
     "MET": 3.5,
     "imageName": "chest_seated_row"
   },{
     "name": "Kettlebell Swing",
-    "target": ["back","traps","glutes","hamstrings"],
+    "target": ["back","traps"],
     "bpm": 110,
     "MET": 5,
     "imageName": "back_kettlebell_swing"
   },{
     "name": "Chin-Up",
-    "target": ["lats","biceps","rear deltoids"],
+    "target": ["lats","biceps"],
     "bpm": 100,
     "MET": 3.5,
     "imageName": "chest_chin_up"
