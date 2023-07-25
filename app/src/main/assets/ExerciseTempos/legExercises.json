@@ -1,7 +1,7 @@
 [
   {
     "name": "Air Squat",
-    "target": ["glutes","quads","adductors"],
+    "target": ["glutes","quads"],
     "bpm": 135,
     "MET": 3.5,
     "imageName": "legs_airsquat"
@@ -15,42 +15,42 @@
   },
   {
     "name": "Barbell Lunge",
-    "target": ["glutes","quads","adductors"],
+    "target": ["glutes","quads"],
     "bpm": 120,
     "MET": 3.5,
     "imageName": "legs_barbell_lunge"
   },
   {
     "name": "Body Weight Lunge",
-    "target": ["glutes","quads","adductors"],
+    "target": ["glutes","quads"],
     "bpm": 135,
     "MET": 3.5,
     "imageName": "legs_body_weight_lunge"
   },
   {
     "name": "Box Squat",
-    "target": ["glutes","quads","lower back"],
+    "target": ["glutes","quads"],
     "bpm": 120,
     "MET": 3.5,
     "imageName": "legs_boxsquat"
   },
   {
     "name": "Bulgarian Split Squat",
-    "target": ["glutes","quads","adductors"],
+    "target": ["glutes","quads"],
     "bpm": 130,
     "MET": 3.5,
     "imageName": "legs_bulgarian_split_squat"
   },
   {
     "name": "Goblet Squat",
-    "target": ["glutes","quads","adductors"],
+    "target": ["glutes","quads"],
     "bpm": 130,
     "MET": 3.5,
     "imageName": "legs_goblet_squat_legs"
   },
   {
     "name": "Squat",
-    "target": ["glutes","quads","lower back"],
+    "target": ["glutes","quads"],
     "bpm": 120,
     "MET": 3.5,
     "imageName": "legs_squat"
@@ -71,14 +71,14 @@
   },
   {
     "name": "Leg Press",
-    "target": ["glutes","quads","hamstrings"],
+    "target": ["glutes","quads"],
     "bpm": 120,
     "MET": 3.5,
     "imageName": "legs_leg_press"
   },
   {
     "name": "Romanian Deadlifts",
-    "target": ["glutes","hamstrings","lower back"],
+    "target": ["glutes","hamstrings"],
     "bpm": 130,
     "MET": 3.5,
     "imageName": "legs_romanian_deadlift"
