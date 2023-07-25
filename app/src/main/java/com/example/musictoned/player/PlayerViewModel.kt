@@ -110,7 +110,6 @@ class PlayerViewModel(
         }.start()
     }
 
-    // TODO - Connect to skip button
     fun onSkipPressed() {
         SpotifyConnect.pauseSong()
         pauseTimer()

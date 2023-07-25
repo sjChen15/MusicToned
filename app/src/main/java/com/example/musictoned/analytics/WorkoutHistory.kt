@@ -9,7 +9,7 @@ object AllWorkoutHistory {
     var allWorkoutHistory: ArrayList<Workout> = LocalStorage.getAllWorkoutHistory()//LocalStorage.get
     var allWorkoutHistoryDates: ArrayList<LocalDate> = LocalStorage.getAllWorkoutHistoryDates()
     private val today = LocalDate.now(Clock.systemDefaultZone())
-    fun saveHistory(workout: Workout){//TODO: save at the end of a workout
+    fun saveHistory(workout: Workout){
         allWorkoutHistory.add(workout)
         allWorkoutHistoryDates.add(today)
         LocalStorage.writeAllWorkoutHistory(allWorkoutHistory)

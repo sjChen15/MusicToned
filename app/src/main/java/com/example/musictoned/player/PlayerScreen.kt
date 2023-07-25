@@ -36,7 +36,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.example.musictoned.analytics.AllWorkoutHistory
 import com.example.musictoned.spotify.SpotifyConnect
+import com.example.musictoned.workoutcreation.AllWorkouts
 import com.example.musictoned.workoutcreation.Exercise
 import com.example.musictoned.workoutcreation.Workout
 import com.example.musictoned.workoutcreation.WorkoutExercise
@@ -188,6 +190,7 @@ fun PlayerScreen(
                         onClick = {
                             if(viewModel.playerScreenData.exerciseIndex == viewModel.playerScreenData.exerciseCount){
                                 SpotifyConnect.pauseSong()
+                                AllWorkoutHistory.saveHistory(AllWorkouts.getWorkout(viewModel.playerScreenData.routineID))
                                 onNavigateToFinishedWorkoutRoutine(viewModel.playerScreenData.routineID)
                             } else {
                                 viewModel.onSkipPressed()

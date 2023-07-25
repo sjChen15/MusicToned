@@ -74,9 +74,9 @@ class EditRoutineViewModel(
         //Should we just make it so that exercises have a default song?
         for(ex in _exercises){
             if (ex.getSong() == ""){
-                ex.setSongByBPM(ex.getBpmMode())
+                //ex.setSongByBPM(ex.getBpmMode())
                 //TODO - (DisableSpotifySongs) if you do not need to work with spotify, replace the above line with the below line:
-                // ex.setSong("Despacito", "")
+                ex.setSong("Despacito", "")
             }
         }
 
