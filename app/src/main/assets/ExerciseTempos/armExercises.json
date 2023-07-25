@@ -1,32 +1,32 @@
 [
   {
     "name": "Barbell Curl",
-    "target": ["biceps","forearm flexors"],
+    "target": ["biceps"],
     "bpm": 80,
     "MET": 3.5,
     "imageName": "arms_barbell_curl"
   },{
     "name": "Cable Curl With Bar",
-    "target": ["biceps","forearm flexors"],
+    "target": ["biceps"],
     "bpm": 80,
     "MET": 3.5,
     "imageName": "arms_cable_curl_bar"
   },{
     "name": "Cable Curl With Rope",
-    "target": ["biceps","forearm flexors"],
+    "target": ["biceps"],
     "bpm": 80,
     "MET": 3.5,
     "imageName": "arms_cable_curl_rope"
   },{
     "name": "Dumbbell Curl",
-    "target": ["biceps","forearm flexors"],
+    "target": ["biceps"],
     "bpm": 80,
     "MET": 3.5,
     "imageName": "arms_dumbbell_curl"
   },
   {
     "name": "Hammer Curl",
-    "target": ["biceps","forearm flexors"],
+    "target": ["biceps"],
     "bpm": 80,
     "MET": 3.5,
     "imageName": "arms_hammerhead_curl"
@@ -38,14 +38,14 @@
     "imageName": "arms_overhead_cable_tricep_extension"
   },
   {
-    "name": "Dumbbell Lying Triceps Extension",
+    "name": "Lying Triceps Extension",
     "target": ["triceps"],
     "bpm": 80,
     "MET": 3.5,
     "imageName": "arms_dumbbell_lying_triceps_extension"
   },
   {
-    "name": "Dumbbell Standing Triceps Extension",
+    "name": "Standing Triceps Extension",
     "target": ["triceps"],
     "bpm": 80,
     "MET": 3.5,
@@ -57,7 +57,7 @@
     "MET": 3.5,
     "imageName": "arms_face_pull"
   },{
-    "name": "Reverse Machine Fly",
+    "name": "Reverse Fly",
     "target": ["rear deltoid","rotator cuff"],
     "bpm": 80,
     "MET": 3.5,
