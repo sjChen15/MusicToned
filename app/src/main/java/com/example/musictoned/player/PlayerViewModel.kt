@@ -1,6 +1,7 @@
 package com.example.musictoned.player
 
 import android.os.CountDownTimer
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
@@ -59,7 +60,8 @@ class PlayerViewModel(
     private val _isPlaying = MutableLiveData(false)
     val isPlaying: LiveData<Boolean> = _isPlaying
 
-    private fun handleTimerValues(isPlaying: Boolean, text: String) {
+    private fun
+            handleTimerValues(isPlaying: Boolean, text: String) {
         _isPlaying.value = isPlaying
         _time.value = text
     }
@@ -70,34 +72,40 @@ class PlayerViewModel(
             SpotifyConnect.pauseSong()
             pauseTimer()
         } else {
-            startTimer()
+            //if the song has been started and then paused, we should resume it
+            if(routine.exercises[exerciseIndex - 1].getLength() * 1000 > playerScreenData.exerciseTimeMillis){
+                SpotifyConnect.resumeSong()
+                startTimer()
+            } else {
+                playSong()
+                startTimer()
+            }
         }
     }
 
     private fun pauseTimer() {
         countDownTimer?.cancel()
+//        Log.d("PAUSE TIMER 1: ", playerScreenData.exerciseTimeMillis.formatTime())
+//        Log.d("PAUSE TIMER 2: ", (routine.exercises[exerciseIndex - 1].getLength() * 1000).formatTime())
         handleTimerValues(false, playerScreenData.exerciseTimeMillis.formatTime())
     }
 
     private fun startTimer() {
+        //the follow line is needed as the button text won't update. isPlaying needs to change on clicking the button for the text to update
+        handleTimerValues(true, playerScreenData.exerciseTimeMillis.formatTime())
         countDownTimer = object : CountDownTimer(playerScreenData.exerciseTimeMillis, 1000) {
 
             override fun onTick(millisRemaining: Long) {
+                playerScreenData.exerciseTimeMillis = millisRemaining
                 handleTimerValues(true, millisRemaining.formatTime())
             }
 
             // TODO - Need to transition between workouts here
             override fun onFinish() {
                 SpotifyConnect.pauseSong()
-                if(exerciseIndex == routine.exercises.size){
-                    //TODO - need to go to finishRoutine screen
-                    //onNavigateToFinishWorkoutRoutine(workout.hashcode())
-                    //SpotifyConnect.disconnect()
-                } else {
+                if(exerciseIndex < routine.exercises.size){
                     changeExercise(exerciseIndex + 1)
-                    pauseTimer()
                 }
-
             }
         }.start()
     }
@@ -105,9 +113,7 @@ class PlayerViewModel(
     // TODO - Connect to skip button
     fun onSkipPressed() {
         SpotifyConnect.pauseSong()
-        if(exerciseIndex == routine.exercises.size){
-
-        }
+        pauseTimer()
         changeExercise(exerciseIndex + 1)
     }
 
@@ -148,5 +154,5 @@ data class PlayerScreenData(
     @DrawableRes val exerciseImageId: Int,
     val exerciseName: String,
     val songName: String,
-    val exerciseTimeMillis: Long
+    var exerciseTimeMillis: Long
 )

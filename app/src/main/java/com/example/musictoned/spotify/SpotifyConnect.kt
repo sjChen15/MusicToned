@@ -18,7 +18,7 @@ import java.net.URL
 class SpotifyConnect {
 
     companion object {
-        private val accessToken = "BQCeC9mGFTnjK7j8dgikkPO7CuzBzVmyPCzSmyyXG6CKsUaojTSPEnZcf7wLtCNYhpSC_c591Y2VG9irUqhl-J2BsTkcLBC6hcxiM6v3qCUA8oJWn-IaTR389B9zJDUnhYe2skg4O76ndiKyBiUCJL-pB--3l5O7QywFJ3HpruCoWxqWmGoLY3JMq5kgVHyG6kvQeP5yn9pJM3MTUhJJFcjO44d8IM42J_zzIiGYD-qzYKdT_da3uSvgMPoDhrtc4WN8cm2M8xDEX4UIxEolkJ7V"
+        private val accessToken = "BQC-EniDqfD05bbZFmgMmiaslfHVohpQph0GQx8RE_2cbb5hbIIUe6GPkvl3CS_6ecqPrxl_dIM9EuixMqyiEv67n0RQaHqXPuLgBdSsrvPTNW0nZWp_5jCdlSuTM2jNeLRHG908C5TI8pkXcdRrFMHPADsYskhQCYWZRhBmtFmX9xQCKZP-0NM5onv7FXzaBw8PeKrKleGtBiOtfuFUnTMOeUuERZzXar2cUUjuf_BEI7rVPXt0SeKB1jkLtNRkuJcxlg4tL-zj4kspYU63dtk4"
         private val clientId = "8b97731837b64c60b30ba2ecac7a8b74"
         private val redirectUri = "com.example.musictoned://callback"
         private var spotifyAppRemote: SpotifyAppRemote? = null
@@ -228,6 +228,10 @@ class SpotifyConnect {
                         it.playerApi.pause()
                     }
                 }
+
+        fun resumeSong(){
+            spotifyAppRemote?.let { it.playerApi.resume() }
+        }
 
         fun disconnect() {
             spotifyAppRemote?.let {
