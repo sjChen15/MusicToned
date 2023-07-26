@@ -62,6 +62,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
 import com.example.musictoned.profile.Profile
+import com.example.musictoned.ui.theme.BottomWaves
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
@@ -113,6 +114,7 @@ fun AnalyticsScreen(
             content = { innerPadding ->
                     Box( modifier = Modifier.padding(innerPadding)){
                         AnalyticsContent()
+                        BottomWaves()
                     }
                 }
         )

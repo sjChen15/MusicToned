@@ -474,9 +474,9 @@ fun DropdownMenu(
                             expanded = false
                             //if the user changes the speed of their exercise
                             if(item != exercise.getBpmMode()){
-                                exercise.setSongByBPM(item)
+                                //exercise.setSongByBPM(item)
                                 //TODO - (DisableSpotifySongs) if you do not need to work with spotify, replace the above line with the below line:
-                                //exercise.setSong("Despacito", "")
+                                exercise.setSong("Despacito", "")
                             }
                             exercise.setBpmMode(item)
                         },

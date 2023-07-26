@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import com.example.musictoned.R
 import com.example.musictoned.profile.Profile
 import com.example.musictoned.profile.Profile.profile
+import com.example.musictoned.ui.theme.BottomWaves
 import com.example.musictoned.ui.theme.FontName
 import com.example.musictoned.ui.theme.MusicTonedTheme
 import com.example.musictoned.util.supportWideScreen
@@ -86,338 +87,341 @@ fun SettingsScreen(
                 )
             },
             content = { innerPadding ->
-                LazyColumn ( modifier = Modifier
-                    .padding(innerPadding)
-                    .height(800.dp))
-                {
-                    item{
-                        OutlinedTextField(
-                            value = viewModel.name,
-                            onValueChange = { name ->
-                                if (name.isEmpty() || name.matches(TextFieldRegex.textOnlyRegex)) {
-                                    viewModel.updateName(name)
-                                    profile.name = name
-                                }
-                            },
-                            label = { Text("Name") },
-                            maxLines = 1,
-                            textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
-                            modifier = Modifier
-                                .offset(x = 31.dp, y = 20.dp)
-                                .width(320.dp)
-                        )
-                    }
-                    item{
-                        OutlinedTextField(
-                            value = viewModel.age,
-                            onValueChange = { age ->
-                                if (age.isEmpty() || age.matches(TextFieldRegex.wholeNumberRegex)) {
-                                    viewModel.updateAge(age)
-                                    profile.age = if (age.isEmpty()) 0 else age.toInt()
-                                }
-                            },
-                            label = { Text("Age") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
-                            modifier = Modifier
-                                .offset(x = 31.dp, y = 20.dp)
-                                .width(320.dp)
-                        )
-                    }
-                    item{
-                        Row {
+                Box(modifier = Modifier.padding(innerPadding)){
+                    LazyColumn ( modifier = Modifier
+                        .height(800.dp))
+                    {
+                        item{
                             OutlinedTextField(
-                                value = viewModel.weight,
-                                onValueChange = { weight ->
-                                    if (weight.isEmpty() || weight.matches(TextFieldRegex.decimalNumberRegex)) {
-                                        viewModel.updateWeight(weight)
-                                        profile.weight =
-                                            if (weight.isEmpty()) 0F else weight.toFloat()
+                                value = viewModel.name,
+                                onValueChange = { name ->
+                                    if (name.isEmpty() || name.matches(TextFieldRegex.textOnlyRegex)) {
+                                        viewModel.updateName(name)
+                                        profile.name = name
                                     }
                                 },
-                                label = { Text("Weight") },
+                                label = { Text("Name") },
+                                maxLines = 1,
+                                textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
+                                modifier = Modifier
+                                    .offset(x = 31.dp, y = 20.dp)
+                                    .width(320.dp)
+                            )
+                        }
+                        item{
+                            OutlinedTextField(
+                                value = viewModel.age,
+                                onValueChange = { age ->
+                                    if (age.isEmpty() || age.matches(TextFieldRegex.wholeNumberRegex)) {
+                                        viewModel.updateAge(age)
+                                        profile.age = if (age.isEmpty()) 0 else age.toInt()
+                                    }
+                                },
+                                label = { Text("Age") },
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
                                 modifier = Modifier
                                     .offset(x = 31.dp, y = 20.dp)
-                                    .width(200.dp)
+                                    .width(320.dp)
                             )
-                            ExposedDropdownMenuBox(
-                                expanded = viewModel.isWeightUnitMenuExpanded,
-                                onExpandedChange = { viewModel.updateWeightUnitMenuExpanded(!viewModel.isWeightUnitMenuExpanded) },
-                                modifier = Modifier
-                                    .offset(x = 45.dp, y = 27.dp)
-                                    .width(105.dp)
-                            ) {
-                                TextField(
-                                    readOnly = true,
-                                    value = viewModel.weightUnit.toString(),
-                                    onValueChange = { },
-                                    label = { Text("Unit") },
-                                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
-                                    trailingIcon = {
-                                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = viewModel.isWeightUnitMenuExpanded)
+                        }
+                        item{
+                            Row {
+                                OutlinedTextField(
+                                    value = viewModel.weight,
+                                    onValueChange = { weight ->
+                                        if (weight.isEmpty() || weight.matches(TextFieldRegex.decimalNumberRegex)) {
+                                            viewModel.updateWeight(weight)
+                                            profile.weight =
+                                                if (weight.isEmpty()) 0F else weight.toFloat()
+                                        }
                                     },
-                                    colors = ExposedDropdownMenuDefaults.textFieldColors(
-                                        unfocusedContainerColor = Color.Transparent,
-                                        focusedContainerColor = Color.Transparent
-                                    ),
-                                    modifier = Modifier.menuAnchor()
+                                    label = { Text("Weight") },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
+                                    modifier = Modifier
+                                        .offset(x = 31.dp, y = 20.dp)
+                                        .width(200.dp)
                                 )
-                                ExposedDropdownMenu(
+                                ExposedDropdownMenuBox(
                                     expanded = viewModel.isWeightUnitMenuExpanded,
-                                    onDismissRequest = {
-                                        viewModel.updateWeightUnitMenuExpanded(false)
-                                    }
+                                    onExpandedChange = { viewModel.updateWeightUnitMenuExpanded(!viewModel.isWeightUnitMenuExpanded) },
+                                    modifier = Modifier
+                                        .offset(x = 45.dp, y = 27.dp)
+                                        .width(105.dp)
                                 ) {
-                                    viewModel.weightUnits.forEach { weightUnitOption ->
-                                        DropdownMenuItem(
-                                            onClick = {
-                                                viewModel.updateWeightUnit(weightUnitOption)
-                                                viewModel.updateWeightUnitMenuExpanded(false)
-                                                profile.weightUnit = weightUnitOption
-                                            },
-                                            text = {
-                                                Text(text = weightUnitOption.toString())
-                                            }
-                                        )
-                                    }
+                                    TextField(
+                                        readOnly = true,
+                                        value = viewModel.weightUnit.toString(),
+                                        onValueChange = { },
+                                        label = { Text("Unit") },
+                                        textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
+                                        trailingIcon = {
+                                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = viewModel.isWeightUnitMenuExpanded)
+                                        },
+                                        colors = ExposedDropdownMenuDefaults.textFieldColors(
+                                            unfocusedContainerColor = Color.Transparent,
+                                            focusedContainerColor = Color.Transparent
+                                        ),
+                                        modifier = Modifier.menuAnchor()
+                                    )
+                                    ExposedDropdownMenu(
+                                        expanded = viewModel.isWeightUnitMenuExpanded,
+                                        onDismissRequest = {
+                                            viewModel.updateWeightUnitMenuExpanded(false)
+                                        }
+                                    ) {
+                                        viewModel.weightUnits.forEach { weightUnitOption ->
+                                            DropdownMenuItem(
+                                                onClick = {
+                                                    viewModel.updateWeightUnit(weightUnitOption)
+                                                    viewModel.updateWeightUnitMenuExpanded(false)
+                                                    profile.weightUnit = weightUnitOption
+                                                },
+                                                text = {
+                                                    Text(text = weightUnitOption.toString())
+                                                }
+                                            )
+                                        }
 
+                                    }
                                 }
                             }
                         }
-                    }
-                    item{
-                        Row {
-                            OutlinedTextField(
-                                value = viewModel.height,
-                                onValueChange = { height ->
-                                    if (height.isEmpty() || height.matches(TextFieldRegex.decimalNumberRegex)) {
-                                        viewModel.updateHeight(height)
-                                        profile.height =
-                                            if (height.isEmpty()) 0F else height.toFloat()
-                                    }
-                                },
-                                label = { Text("Height") },
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
-                                modifier = Modifier
-                                    .offset(x = 31.dp, y = 20.dp)
-                                    .width(200.dp)
-                            )
-                            ExposedDropdownMenuBox(
-                                expanded = viewModel.isHeightUnitMenuExpanded,
-                                onExpandedChange = { viewModel.updateHeightUnitMenuExpanded(!viewModel.isHeightUnitMenuExpanded) },
-                                modifier = Modifier
-                                    .offset(x = 45.dp, y = 27.dp)
-                                    .width(105.dp)
-                            ) {
-                                TextField(
-                                    readOnly = true,
-                                    value = viewModel.heightUnit.toString(),
-                                    onValueChange = { },
-                                    label = { Text("Unit") },
-                                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
-                                    trailingIcon = {
-                                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = viewModel.isHeightUnitMenuExpanded)
+                        item{
+                            Row {
+                                OutlinedTextField(
+                                    value = viewModel.height,
+                                    onValueChange = { height ->
+                                        if (height.isEmpty() || height.matches(TextFieldRegex.decimalNumberRegex)) {
+                                            viewModel.updateHeight(height)
+                                            profile.height =
+                                                if (height.isEmpty()) 0F else height.toFloat()
+                                        }
                                     },
-                                    colors = ExposedDropdownMenuDefaults.textFieldColors(
-                                        unfocusedContainerColor = Color.Transparent,
-                                        focusedContainerColor = Color.Transparent
-                                    ),
-                                    modifier = Modifier.menuAnchor()
+                                    label = { Text("Height") },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
+                                    modifier = Modifier
+                                        .offset(x = 31.dp, y = 20.dp)
+                                        .width(200.dp)
                                 )
-                                ExposedDropdownMenu(
+                                ExposedDropdownMenuBox(
                                     expanded = viewModel.isHeightUnitMenuExpanded,
-                                    onDismissRequest = {
-                                        viewModel.updateHeightUnitMenuExpanded(false)
-                                    }
+                                    onExpandedChange = { viewModel.updateHeightUnitMenuExpanded(!viewModel.isHeightUnitMenuExpanded) },
+                                    modifier = Modifier
+                                        .offset(x = 45.dp, y = 27.dp)
+                                        .width(105.dp)
                                 ) {
-                                    viewModel.heightUnits.forEach { heightUnitOption ->
-                                        DropdownMenuItem(
-                                            onClick = {
-                                                viewModel.updateHeightUnit(heightUnitOption)
-                                                viewModel.updateHeightUnitMenuExpanded(false)
-                                                profile.heightUnit = heightUnitOption
-                                            },
-                                            text = {
-                                                Text(text = heightUnitOption.toString())
-                                            }
-                                        )
-                                    }
+                                    TextField(
+                                        readOnly = true,
+                                        value = viewModel.heightUnit.toString(),
+                                        onValueChange = { },
+                                        label = { Text("Unit") },
+                                        textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
+                                        trailingIcon = {
+                                            ExposedDropdownMenuDefaults.TrailingIcon(expanded = viewModel.isHeightUnitMenuExpanded)
+                                        },
+                                        colors = ExposedDropdownMenuDefaults.textFieldColors(
+                                            unfocusedContainerColor = Color.Transparent,
+                                            focusedContainerColor = Color.Transparent
+                                        ),
+                                        modifier = Modifier.menuAnchor()
+                                    )
+                                    ExposedDropdownMenu(
+                                        expanded = viewModel.isHeightUnitMenuExpanded,
+                                        onDismissRequest = {
+                                            viewModel.updateHeightUnitMenuExpanded(false)
+                                        }
+                                    ) {
+                                        viewModel.heightUnits.forEach { heightUnitOption ->
+                                            DropdownMenuItem(
+                                                onClick = {
+                                                    viewModel.updateHeightUnit(heightUnitOption)
+                                                    viewModel.updateHeightUnitMenuExpanded(false)
+                                                    profile.heightUnit = heightUnitOption
+                                                },
+                                                text = {
+                                                    Text(text = heightUnitOption.toString())
+                                                }
+                                            )
+                                        }
 
+                                    }
                                 }
                             }
                         }
-                    }
-                    item{
-                        Row(
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            OutlinedTextField(
-                                value = viewModel.calorieGoal,
-                                onValueChange = { goal ->
-                                    if (goal.isEmpty() || goal.matches(TextFieldRegex.wholeNumberRegex)) {
-                                        viewModel.updateCalorieGoal(goal)
-                                        profile.calorieGoal =
-                                            if (goal.isEmpty()) 0 else goal.toInt()
-                                    }
-                                },
-                                label = { Text("Calorie Goal Per Day") },
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                                textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
-                                modifier = Modifier
-                                    .offset(x = 31.dp, y = 20.dp)
-                                    .width(280.dp)
-                            )
-                            Text(
-                                text = "kCal",
-                                style = TextStyle(
-                                    fontSize = 18.sp,
-                                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                                    fontWeight = FontWeight(500),
-                                    fontStyle = FontStyle.Normal,
-                                    color = Color(0xFF484848),
-                                    textAlign = TextAlign.Center,
-                                ),
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 33.dp)
-                                    .padding(all = 3.dp)
-                            )
+                        item{
+                            Row(
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                OutlinedTextField(
+                                    value = viewModel.calorieGoal,
+                                    onValueChange = { goal ->
+                                        if (goal.isEmpty() || goal.matches(TextFieldRegex.wholeNumberRegex)) {
+                                            viewModel.updateCalorieGoal(goal)
+                                            profile.calorieGoal =
+                                                if (goal.isEmpty()) 0 else goal.toInt()
+                                        }
+                                    },
+                                    label = { Text("Calorie Goal Per Day") },
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.lato_light))),
+                                    modifier = Modifier
+                                        .offset(x = 31.dp, y = 20.dp)
+                                        .width(280.dp)
+                                )
+                                Text(
+                                    text = "kCal",
+                                    style = TextStyle(
+                                        fontSize = 18.sp,
+                                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                                        fontWeight = FontWeight(500),
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color(0xFF484848),
+                                        textAlign = TextAlign.Center,
+                                    ),
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 33.dp)
+                                        .padding(all = 3.dp)
+                                )
+                            }
+                        }
+                        item{
+                            Row {
+                                Checkbox(
+                                    checked = viewModel.isGainMuscleChecked,
+                                    onCheckedChange = {
+                                        viewModel.updateGainMuscleChecked(it)
+                                        profile.gainMuscle = it
+                                    },
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 20.dp)
+                                )
+                                Text(
+                                    text = "Gain muscle",
+                                    style = TextStyle(
+                                        fontSize = 18.sp,
+                                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                                        fontWeight = FontWeight(500),
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color(0xFF484848),
+                                        textAlign = TextAlign.Center,
+                                    ),
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 33.dp)
+                                )
+                            }
+                        }
+                        item{
+                            Row {
+                                Checkbox(
+                                    checked = viewModel.isImproveEnduranceChecked,
+                                    onCheckedChange = {
+                                        viewModel.updateImproveEnduranceChecked(it)
+                                        profile.improveEndurance = it
+                                    },
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 20.dp)
+                                )
+                                Text(
+                                    text = "Improve endurance",
+                                    style = TextStyle(
+                                        fontSize = 18.sp,
+                                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                                        fontWeight = FontWeight(500),
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color(0xFF484848),
+                                        textAlign = TextAlign.Center,
+                                    ),
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 33.dp)
+                                )
+                            }
+                        }
+                        item{
+                            Row {
+                                Checkbox(
+                                    checked = viewModel.isLoseWeightChecked,
+                                    onCheckedChange = {
+                                        viewModel.updateLoseWeightChecked(it)
+                                        profile.loseWeight = it
+                                    },
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 20.dp)
+                                )
+                                Text(
+                                    text = "Lose weight",
+                                    style = TextStyle(
+                                        fontSize = 18.sp,
+                                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                                        fontWeight = FontWeight(500),
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color(0xFF484848),
+                                        textAlign = TextAlign.Center,
+                                    ),
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 33.dp)
+                                )
+                            }
+                        }
+                        item{
+                            Row {
+                                Checkbox(
+                                    checked = viewModel.isIncreaseFlexibilityChecked,
+                                    onCheckedChange = {
+                                        viewModel.updateIncreaseFlexibilityChecked(it)
+                                        profile.increaseFlexibility = it
+                                    },
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 20.dp)
+                                )
+                                Text(
+                                    text = "Increase flexibility",
+                                    style = TextStyle(
+                                        fontSize = 18.sp,
+                                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                                        fontWeight = FontWeight(500),
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color(0xFF484848),
+                                        textAlign = TextAlign.Center,
+                                    ),
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 33.dp)
+                                )
+                            }
+                        }
+                        item{
+                            Row {
+                                Checkbox(
+                                    checked = viewModel.isExerciseRegularlyChecked,
+                                    onCheckedChange = {
+                                        viewModel.updateExerciseRegularlyChecked(it)
+                                        profile.exerciseRegularly = it
+                                    },
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 20.dp)
+                                )
+                                Text(
+                                    text = "Exercise regularly",
+                                    style = TextStyle(
+                                        fontSize = 18.sp,
+                                        fontFamily = FontFamily(Font(R.font.roboto_regular)),
+                                        fontWeight = FontWeight(500),
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color(0xFF484848),
+                                        textAlign = TextAlign.Center,
+                                    ),
+                                    modifier = Modifier
+                                        .offset(x = 35.dp, y = 33.dp)
+                                )
+                            }
                         }
                     }
-                    item{
-                        Row {
-                            Checkbox(
-                                checked = viewModel.isGainMuscleChecked,
-                                onCheckedChange = {
-                                    viewModel.updateGainMuscleChecked(it)
-                                    profile.gainMuscle = it
-                                },
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 20.dp)
-                            )
-                            Text(
-                                text = "Gain muscle",
-                                style = TextStyle(
-                                    fontSize = 18.sp,
-                                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                                    fontWeight = FontWeight(500),
-                                    fontStyle = FontStyle.Normal,
-                                    color = Color(0xFF484848),
-                                    textAlign = TextAlign.Center,
-                                ),
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 33.dp)
-                            )
-                        }
-                    }
-                    item{
-                        Row {
-                            Checkbox(
-                                checked = viewModel.isImproveEnduranceChecked,
-                                onCheckedChange = {
-                                    viewModel.updateImproveEnduranceChecked(it)
-                                    profile.improveEndurance = it
-                                },
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 20.dp)
-                            )
-                            Text(
-                                text = "Improve endurance",
-                                style = TextStyle(
-                                    fontSize = 18.sp,
-                                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                                    fontWeight = FontWeight(500),
-                                    fontStyle = FontStyle.Normal,
-                                    color = Color(0xFF484848),
-                                    textAlign = TextAlign.Center,
-                                ),
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 33.dp)
-                            )
-                        }
-                    }
-                    item{
-                        Row {
-                            Checkbox(
-                                checked = viewModel.isLoseWeightChecked,
-                                onCheckedChange = {
-                                    viewModel.updateLoseWeightChecked(it)
-                                    profile.loseWeight = it
-                                },
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 20.dp)
-                            )
-                            Text(
-                                text = "Lose weight",
-                                style = TextStyle(
-                                    fontSize = 18.sp,
-                                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                                    fontWeight = FontWeight(500),
-                                    fontStyle = FontStyle.Normal,
-                                    color = Color(0xFF484848),
-                                    textAlign = TextAlign.Center,
-                                ),
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 33.dp)
-                            )
-                        }
-                    }
-                    item{
-                        Row {
-                            Checkbox(
-                                checked = viewModel.isIncreaseFlexibilityChecked,
-                                onCheckedChange = {
-                                    viewModel.updateIncreaseFlexibilityChecked(it)
-                                    profile.increaseFlexibility = it
-                                },
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 20.dp)
-                            )
-                            Text(
-                                text = "Increase flexibility",
-                                style = TextStyle(
-                                    fontSize = 18.sp,
-                                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                                    fontWeight = FontWeight(500),
-                                    fontStyle = FontStyle.Normal,
-                                    color = Color(0xFF484848),
-                                    textAlign = TextAlign.Center,
-                                ),
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 33.dp)
-                            )
-                        }
-                    }
-                    item{
-                        Row {
-                            Checkbox(
-                                checked = viewModel.isExerciseRegularlyChecked,
-                                onCheckedChange = {
-                                    viewModel.updateExerciseRegularlyChecked(it)
-                                    profile.exerciseRegularly = it
-                                },
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 20.dp)
-                            )
-                            Text(
-                                text = "Exercise regularly",
-                                style = TextStyle(
-                                    fontSize = 18.sp,
-                                    fontFamily = FontFamily(Font(R.font.roboto_regular)),
-                                    fontWeight = FontWeight(500),
-                                    fontStyle = FontStyle.Normal,
-                                    color = Color(0xFF484848),
-                                    textAlign = TextAlign.Center,
-                                ),
-                                modifier = Modifier
-                                    .offset(x = 35.dp, y = 33.dp)
-                            )
-                        }
-                    }
+                    BottomWaves()
                 }
+
             }
         )
     }
