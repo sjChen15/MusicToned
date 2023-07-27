@@ -44,4 +44,6 @@ University Email: <w5so@uwaterloo.ca>
 | Finished Drag and Drop and fixed merge conflicts              | July 14, 2023 | 7:00pm     | 10:30pm    | 3.5 | 64                 |
 | Weekly Meeting                                                | July 20, 2023 | 3:30pm     | 5:30pm     | 1.5 | 65.5               |
 | Worked on D5                                                  | July 20, 2023 | 8:00pm     | 9:30pm     | 1.5 | 67                 |
+| Recorded Demo                                                 | July 25, 2023 | 9:00am     | 10:30am    | 1.5 | 68.5               |
+| Worked on D6                                                  | July 26, 2023 | 8:00pm     | 10:00pm    | 2   | 70.5               |
 
