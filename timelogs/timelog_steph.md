@@ -44,3 +44,4 @@ University Email: <sdepol@uwaterloo.ca>
 | Camera for body progress pics                  | July 24, 2023 | 8:00pm     | 1:00am      | 5.0   | 57                 |
 | Recorded demo                                  | July 25, 2023 | 9:00am     | 10:30am     | 1.5   | 58.5               |
 | Edited and uploaded demo video                 | July 25, 2023 | 11:00pm    | 12:00am     | 1.0   | 59.5               |
+| Edited deliverable 4                           | July 28, 2023 | 1:30pm     | 3:15pm      | 1.75  | 61.25              |
