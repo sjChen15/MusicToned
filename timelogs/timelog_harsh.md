@@ -42,3 +42,5 @@ University Email: <hn6patel@uwaterloo.ca>
 | Team meeting to discuss deliverables and code            | July 20, 2023 | 3:30 pm    | 5:00 pm     | 1.5   | 73.5               |
 | Demo Spotify Code, Player Functionality                  | July 22, 2023 | 12:00 pm   | 2:00 pm     | 2     | 75.5               |
 | Randomize Song Recommendations, Player Playback Issue    | July 23, 2023 | 7:00 pm    | 8:30 pm     | 1.5   | 77                 |
+| Demo Recording                                           | July 25, 2023 | 9:00 am    | 10:45 am    | 1.75  | 78.75              |
+| D6, D7 work                                              | July 28, 2023 | 11:30 am    | 3:00 pm    | 3.5   | 82.25              |
